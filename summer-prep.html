@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Physics 1 Summer Prep</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1A1A18;--bg2:#232320;--text:#E8E6DD;--text2:#B4B2A9;--border:#3A3A36;
+  --blue-l:#0C2A45;--teal-l:#08332A;--coral-l:#3D1E12;--purple-l:#211D45;--amber-l:#3D2C0E;--gray-l:#2C2C2A;}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:720px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:720px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+h1{font-size:26px;font-weight:600;margin-bottom:.3rem;text-align:center}
+.subtitle{text-align:center;color:var(--text2);font-style:italic;margin-bottom:1.5rem;font-size:14px}
+h2{font-size:16px;font-weight:600;margin-bottom:.4rem}
+.tab-bar{display:flex;gap:4px;margin-bottom:1.25rem;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.tab{padding:.5rem .85rem;font-size:13px;font-weight:600;border-radius:8px 8px 0 0;cursor:pointer;color:var(--text2);border:0.5px solid transparent;border-bottom:none;background:transparent;position:relative;top:1px}
+.tab.active{background:var(--bg);color:var(--text);border-color:var(--border)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:.65rem}
+.row label{font-size:13px;color:var(--text2);min-width:76px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:13px;font-weight:600;min-width:54px;text-align:right;color:var(--text)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.65rem}
+@media (max-width:600px){.row2{grid-template-columns:1fr}.prop-grid{grid-template-columns:1fr !important}}
+.readouts{display:flex;gap:8px;flex-wrap:wrap;margin:.75rem 0}
+.ro{flex:1;min-width:90px;border-radius:8px;padding:.45rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:14px;font-weight:600}
+.r-b{background:var(--blue-l)}.r-b .rl{color:var(--blue)}.r-b .rv{color:var(--blue)}
+.r-t{background:var(--teal-l)}.r-t .rl{color:var(--teal)}.r-t .rv{color:var(--teal)}
+.r-c{background:var(--coral-l)}.r-c .rl{color:var(--coral)}.r-c .rv{color:var(--coral)}
+.r-p{background:var(--purple-l)}.r-p .rl{color:var(--purple)}.r-p .rv{color:var(--purple)}
+.r-a{background:var(--amber-l)}.r-a .rl{color:var(--amber)}.r-a .rv{color:var(--amber)}
+.formula{background:var(--bg2);border-left:3px solid #378ADD;border-radius:0 8px 8px 0;padding:.55rem 1rem;margin:.65rem 0;font-family:monospace;font-size:13px;line-height:1.9}
+.tip{background:var(--amber-l);border:0.5px solid #EF9F27;border-radius:8px;padding:.65rem .9rem;margin:.65rem 0;font-size:13px;line-height:1.65}
+.tip .tl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--amber);margin-bottom:2px}
+.insight{background:var(--purple-l);border:0.5px solid #AFA9EC;border-radius:8px;padding:.65rem .9rem;margin:.65rem 0;font-size:13px;line-height:1.65}
+.insight .tl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--purple);margin-bottom:2px}
+canvas{display:block;width:100%}
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:.75rem 0;background:var(--bg)}
+.panel-hd{padding:.45rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.energy-bars{display:flex;gap:12px;align-items:flex-end;height:160px;margin:.75rem 0;padding:0 1rem}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-track{width:100%;flex:1;background:var(--bg2);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;border:0.5px solid var(--border)}
+.bar-fill{width:100%;border-radius:4px;transition:height .25s}
+.bar-lbl{font-size:12px;font-weight:600;text-align:center}
+.bar-val{font-size:11px;font-family:monospace;color:var(--text2)}
+.unit-check-grid{display:grid;grid-template-columns:1fr;gap:8px;margin:.75rem 0}
+.uc-row{display:flex;align-items:center;gap:8px;padding:.5rem .75rem;border-radius:8px;border:0.5px solid var(--border);background:var(--bg);font-size:13px;cursor:pointer}
+.uc-row:hover{background:var(--bg2)}
+.uc-eq{flex:1;font-family:monospace;font-size:13px}
+.uc-badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap}
+.badge-ok{background:var(--teal-l);color:var(--teal)}
+.badge-err{background:var(--coral-l);color:var(--coral)}
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.75rem 0}
+.prop-card{border:0.5px solid var(--border);border-radius:8px;padding:.65rem .85rem;font-size:13px;background:var(--bg)}
+.prop-q{font-weight:600;margin-bottom:.3rem}
+.prop-a{font-family:monospace;font-size:12px;color:var(--blue);margin-top:.2rem}
+.prop-show{cursor:pointer;font-size:11px;color:var(--text2);text-decoration:underline}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer;border:none}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+<h1>AP Physics 1 Summer Prep</h1>
+<p class="subtitle">Five core skills to master before the course begins</p>
+
+<div class="tab-bar">
+  <div class="tab active" data-tab="kine">Kinematics graphs</div>
+  <div class="tab" data-tab="newt">Newton's laws</div>
+  <div class="tab" data-tab="energy">Energy bar charts</div>
+  <div class="tab" data-tab="units">Dimensional analysis</div>
+  <div class="tab" data-tab="prop">Proportional reasoning</div>
+</div>
+
+<div class="tab-panel active" id="tab-kine">
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">Set initial conditions for a vertically thrown ball. The three graphs update together &mdash; reading the relationship between them is the core skill.</p>
+  <div class="row2">
+    <div>
+      <div class="row"><label>v&#8320; (m/s)</label><input type="range" id="v0" min="-20" max="20" value="15" step="1"><span class="val" id="v0-v">15</span></div>
+      <div class="row"><label>y&#8320; (m)</label><input type="range" id="y0" min="0" max="20" value="0" step="1"><span class="val" id="y0-v">0</span></div>
+    </div>
+    <div class="readouts" style="margin:0;flex-direction:column;gap:6px">
+      <div class="ro r-b" style="flex:none"><div class="rl">Time aloft</div><div class="rv" id="k-time">3.06 s</div></div>
+      <div class="ro r-t" style="flex:none"><div class="rl">Max height</div><div class="rv" id="k-max">11.5 m</div></div>
+      <div class="ro r-c" style="flex:none"><div class="rl">Impact speed</div><div class="rv" id="k-imp">15.0 m/s</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Position &middot; velocity &middot; acceleration vs. time</div>
+    <div class="panel-bd" style="padding:.75rem"><canvas id="kine-canvas" height="310"></canvas></div>
+  </div>
+  <div class="tip"><div class="tl">Key insight</div>The slope of the position graph = the value of the velocity graph. The slope of the velocity graph = the value of the acceleration graph (always &minus;9.8 m/s&sup2; here). These relationships are more fundamental than the kinematic equations.</div>
+</div>
+
+<div class="tab-panel" id="tab-newt">
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">Explore F = ma by adjusting the applied force and mass of the block. The free body diagram and acceleration update instantly.</p>
+  <div class="row"><label>Mass (kg)</label><input type="range" id="mass" min="1" max="20" value="5" step="0.5"><span class="val" id="mass-v">5.0 kg</span></div>
+  <div class="row"><label>F applied (N)</label><input type="range" id="fapp" min="-40" max="40" value="20" step="1"><span class="val" id="fapp-v">20 N</span></div>
+  <div class="row"><label>Friction &mu;</label><input type="range" id="mu" min="0" max="0.8" value="0.2" step="0.01"><span class="val" id="mu-v">0.20</span></div>
+  <canvas id="newt-canvas" height="260"></canvas>
+  <div class="readouts">
+    <div class="ro r-b"><div class="rl">Weight</div><div class="rv" id="n-w">49.0 N</div></div>
+    <div class="ro r-t"><div class="rl">Normal</div><div class="rv" id="n-n">49.0 N</div></div>
+    <div class="ro r-c"><div class="rl">Friction</div><div class="rv" id="n-f">9.8 N</div></div>
+    <div class="ro r-p"><div class="rl">Net force</div><div class="rv" id="n-net">10.2 N</div></div>
+    <div class="ro r-a"><div class="rl">Acceleration</div><div class="rv" id="n-a">2.04 m/s&sup2;</div></div>
+  </div>
+  <div class="insight"><div class="tl">Newton's 3rd law reminder</div>The block pushes down on the surface with force equal to its weight. The surface pushes back up with the normal force. These are an action-reaction pair &mdash; equal in magnitude, opposite in direction, acting on different objects.</div>
+</div>
+
+<div class="tab-panel" id="tab-energy">
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">Track a ball's energy as it falls from height h. The total bar must always stay constant &mdash; that's conservation of energy visualized.</p>
+  <div class="row"><label>Mass (kg)</label><input type="range" id="e-mass" min="0.5" max="5" value="2" step="0.1"><span class="val" id="e-mass-v">2.0 kg</span></div>
+  <div class="row"><label>Drop height (m)</label><input type="range" id="e-h" min="1" max="20" value="10" step="0.5"><span class="val" id="e-h-v">10.0 m</span></div>
+  <div class="row"><label>Current height (m)</label><input type="range" id="e-cur" min="0" max="20" value="7" step="0.1"><span class="val" id="e-cur-v">7.0 m</span></div>
+  <div class="energy-bars" id="ebars">
+    <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="b-pe" style="background:#185FA5"></div></div><div class="bar-lbl" style="color:#185FA5">PE</div><div class="bar-val" id="b-pe-v">&mdash;</div></div>
+    <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="b-ke" style="background:#1D9E75"></div></div><div class="bar-lbl" style="color:#0F6E56">KE</div><div class="bar-val" id="b-ke-v">&mdash;</div></div>
+    <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="b-tot" style="background:#534AB7"></div></div><div class="bar-lbl" style="color:#534AB7">Total E</div><div class="bar-val" id="b-tot-v">&mdash;</div></div>
+  </div>
+  <div class="readouts">
+    <div class="ro r-b"><div class="rl">PE = mgh</div><div class="rv" id="e-pe">137.2 J</div></div>
+    <div class="ro r-t"><div class="rl">KE = &half;mv&sup2;</div><div class="rv" id="e-ke">58.8 J</div></div>
+    <div class="ro r-p"><div class="rl">v at current h</div><div class="rv" id="e-v">7.67 m/s</div></div>
+    <div class="ro r-c"><div class="rl">Total E</div><div class="rv" id="e-tot">196.0 J</div></div>
+  </div>
+  <canvas id="energy-canvas" height="160"></canvas>
+  <div class="tip"><div class="tl">Why this matters</div>Energy methods often solve problems kinematics cannot &mdash; like finding the speed at the bottom of a curved ramp. You don't need to know the shape of the path. Just set PE_top = KE_bottom.</div>
+</div>
+
+<div class="tab-panel" id="tab-units">
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">Dimensional analysis is a powerful error-checking tool. If the units on both sides of an equation don't match, the equation is wrong &mdash; guaranteed. Click any equation to see the unit check.</p>
+  <div class="unit-check-grid" id="ucgrid"></div>
+  <div id="uc-detail" style="background:var(--bg2);border-radius:10px;padding:.85rem 1rem;margin-top:.75rem;font-size:13px;line-height:1.85;display:none"></div>
+  <div class="formula" style="margin-top:.75rem">
+    SI base units used in AP Physics 1:<br>
+    <span style="color:var(--blue)">m</span> = meters (length) | <span style="color:var(--teal)">kg</span> = kilograms (mass) | <span style="color:var(--coral)">s</span> = seconds (time)<br>
+    <span style="color:var(--purple)">N</span> = kg&middot;m/s&sup2; | <span style="color:var(--amber)">J</span> = kg&middot;m&sup2;/s&sup2; | <span style="color:var(--gray)">W</span> = kg&middot;m&sup2;/s&sup3;
+  </div>
+  <div class="insight"><div class="tl">Exam strategy</div>If you forget a formula, dimensional analysis can often reconstruct it. Need an equation for distance from speed and time? Only v&middot;t gives meters &mdash; so d = v&middot;t must be right.</div>
+</div>
+
+<div class="tab-panel" id="tab-prop">
+  <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">AP Physics 1 frequently asks what happens to one quantity when another changes. These questions require no calculation &mdash; just understanding the mathematical relationship. Tap "show answer" to check your reasoning.</p>
+  <div class="prop-grid" id="prop-grid"></div>
+  <div class="panel" style="margin-top:.75rem">
+    <div class="panel-hd">Ratio explorer &mdash; F = ma</div>
+    <div class="panel-bd">
+      <div class="row"><label>Mass factor</label><input type="range" id="p-mass" min="0.25" max="4" value="1" step="0.25"><span class="val" id="p-mass-v">&times;1</span></div>
+      <div class="row"><label>Force factor</label><input type="range" id="p-force" min="0.25" max="4" value="1" step="0.25"><span class="val" id="p-force-v">&times;1</span></div>
+      <canvas id="prop-canvas" height="160"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Acceleration changes by</div><div class="rv" id="p-acc">&times;1.00</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const isDark=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+const T=()=>({grid:isDark()?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.07)',axis:isDark()?'rgba(255,255,255,0.3)':'rgba(0,0,0,0.3)',text:isDark()?'#c2c0b6':'#3d3d3a',text2:isDark()?'rgba(194,192,182,0.6)':'rgba(61,61,58,0.55)'});
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',AMBER='#BA7517',GRAY='#5F5E5A';
+const g=9.8;
+
+function setupC(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||640;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+
+function drawKine(){
+  const v0=parseFloat(document.getElementById('v0').value);
+  const y0=parseFloat(document.getElementById('y0').value);
+  document.getElementById('v0-v').textContent=v0;
+  document.getElementById('y0-v').textContent=y0;
+  const disc=v0*v0+2*g*y0;
+  const tImpact=disc>=0?(v0+Math.sqrt(disc))/g:0;
+  const yMax=y0+v0*v0/(2*g);
+  const vImpact=Math.sqrt(Math.max(0,disc));
+  document.getElementById('k-time').textContent=tImpact.toFixed(2)+' s';
+  document.getElementById('k-max').textContent=yMax.toFixed(1)+' m';
+  document.getElementById('k-imp').textContent=vImpact.toFixed(1)+' m/s';
+  const r=setupC('kine-canvas',310);if(!r)return;
+  const{ctx,W,H}=r;const t=T();
+  ctx.clearRect(0,0,W,H);
+  const rows=[{label:'y (m)',color:BLUE,fn:t2=>y0+v0*t2-0.5*g*t2*t2,minV:Math.min(0,y0-1),maxV:Math.max(yMax*1.15,y0+1)},
+              {label:'v (m/s)',color:TEAL,fn:t2=>v0-g*t2,minV:Math.min(-vImpact*1.1,-1),maxV:Math.max(v0*1.1,1)},
+              {label:'a (m/s\u00b2)',color:CORAL,fn:()=>-g,minV:-12,maxV:2}];
+  const rowH=H/3,pad=36,tEnd=Math.max(tImpact,0.1);
+  rows.forEach((row,ri)=>{
+    const ry=ri*rowH,rh=rowH-4;
+    const vRange=row.maxV-row.minV;
+    const toY=v=>ry+rh-(v-row.minV)/vRange*rh;
+    ctx.strokeStyle=t.grid;ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(pad,ry+rh);ctx.lineTo(W-8,ry+rh);ctx.stroke();
+    const zeroY=toY(0);
+    ctx.strokeStyle=t.axis;ctx.lineWidth=0.8;
+    ctx.beginPath();ctx.moveTo(pad,zeroY);ctx.lineTo(W-8,zeroY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(pad,ry+2);ctx.lineTo(pad,ry+rh);ctx.stroke();
+    txt(ctx,row.label,pad-4,ry+rh/2+4,row.color,11,'right');
+    ctx.strokeStyle=row.color;ctx.lineWidth=2;
+    ctx.beginPath();let first=true;
+    for(let i=0;i<=200;i++){
+      const t2=(i/200)*tEnd,v=row.fn(t2),py=toY(v);
+      if(py<ry||py>ry+rh+2){first=true;continue;}
+      first?ctx.moveTo(pad+(t2/tEnd)*(W-pad-8),py):ctx.lineTo(pad+(t2/tEnd)*(W-pad-8),py);
+      first=false;
+    }
+    ctx.stroke();
+    const vStart=row.fn(0),vEnd=row.fn(tEnd);
+    txt(ctx,vStart.toFixed(1),pad+4,toY(vStart)-4,t.text2,10,'left');
+    if(ri<2)txt(ctx,vEnd.toFixed(1),W-10,toY(vEnd)-4,t.text2,10,'right');
+  });
+  txt(ctx,'t (s)',W/2,H-2,t.text2,10);
+}
+
+function drawNewton(){
+  const m=parseFloat(document.getElementById('mass').value);
+  const fa=parseFloat(document.getElementById('fapp').value);
+  const mu=parseFloat(document.getElementById('mu').value);
+  document.getElementById('mass-v').textContent=m.toFixed(1)+' kg';
+  document.getElementById('fapp-v').textContent=fa+' N';
+  document.getElementById('mu-v').textContent=mu.toFixed(2);
+  const W=m*g,N=W,fric=mu*N*(fa>=0?-1:1),fnet=fa+fric,acc=fnet/m;
+  document.getElementById('n-w').textContent=W.toFixed(1)+' N';
+  document.getElementById('n-n').textContent=N.toFixed(1)+' N';
+  document.getElementById('n-f').textContent=Math.abs(fric).toFixed(1)+' N';
+  document.getElementById('n-net').textContent=fnet.toFixed(1)+' N';
+  document.getElementById('n-a').textContent=acc.toFixed(2)+' m/s\u00b2';
+  const r=setupC('newt-canvas',260);if(!r)return;
+  const{ctx,W:CW,H}=r;const t=T();
+  ctx.clearRect(0,0,CW,H);
+  const bx=CW*0.38,by=H*0.42,bw=90,bh=55;
+  ctx.fillStyle=isDark()?'#2a2a28':'#E6F1FB';ctx.strokeStyle='#185FA5';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(bx,by,bw,bh,6);ctx.fill();ctx.stroke();
+  txt(ctx,'m='+m.toFixed(1)+'kg',bx+bw/2,by+bh/2+4,BLUE,11);
+  ctx.fillStyle=t.grid;ctx.fillRect(bx-30,by+bh,bw+60,8);
+  ctx.strokeStyle=t.axis;ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(bx-50,by+bh+8);ctx.lineTo(bx+bw+50,by+bh+8);ctx.stroke();
+  const arrowF=(x1,y1,x2,y2,col,lw=2)=>{
+    const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+    const nx=dx/l,ny=dy/l,hs=9,hw=5;
+    ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);ctx.closePath();ctx.fill();
+  };
+  const sc=1.8,cx=bx+bw/2,cy=by+bh/2;
+  arrowF(cx,by+bh,cx,by+bh+Math.min(N*sc*0.4,55),GRAY,1.5);
+  txt(ctx,'N',cx+8,by+bh+22,GRAY,11,'left');
+  arrowF(cx,by,cx,by-Math.min(W*sc*0.4,55),CORAL,1.5);
+  txt(ctx,'W',cx+8,by-12,CORAL,11,'left');
+  const faLen=Math.abs(fa)*sc*0.6;
+  if(Math.abs(fa)>0.5){arrowF(fa>0?bx:bx+bw,cy,fa>0?bx-faLen:bx+bw+faLen,cy,BLUE,2);}
+  txt(ctx,fa>0?'F\u2192':'\u2190F',fa>0?bx-faLen-6:bx+bw+faLen+6,cy+4,BLUE,11,fa>0?'right':'left');
+  const fricLen=Math.abs(fric)*sc*0.6;
+  if(fricLen>2){arrowF(fric>0?bx:bx+bw,cy+18,fric>0?bx-fricLen:bx+bw+fricLen,cy+18,TEAL,1.5);}
+  txt(ctx,'f_r',fric<0?bx+bw+fricLen+6:bx-fricLen-6,cy+22,TEAL,11,fric<0?'left':'right');
+  if(Math.abs(acc)>0.05){
+    const aLen=Math.min(Math.abs(acc)*8,70);
+    arrowF(cx,by-70,cx+(acc>0?aLen:-aLen),by-70,PURPLE,2.5);
+    txt(ctx,'a='+acc.toFixed(2)+'m/s\u00b2',cx+(acc>0?aLen+6:-aLen-6),by-66,PURPLE,11,acc>0?'left':'right');
+  } else {
+    txt(ctx,'a = 0 (equilibrium)',cx,by-66,PURPLE,11);
+  }
+}
+
+function drawEnergy(){
+  const m=parseFloat(document.getElementById('e-mass').value);
+  const hMax=parseFloat(document.getElementById('e-h').value);
+  let hCur=parseFloat(document.getElementById('e-cur').value);
+  if(hCur>hMax){hCur=hMax;document.getElementById('e-cur').value=hMax;}
+  document.getElementById('e-mass-v').textContent=m.toFixed(1)+' kg';
+  document.getElementById('e-h-v').textContent=hMax.toFixed(1)+' m';
+  document.getElementById('e-cur-v').textContent=hCur.toFixed(1)+' m';
+  const peTotal=m*g*hMax,peCur=m*g*hCur,keCur=peTotal-peCur;
+  const vCur=Math.sqrt(Math.max(0,2*keCur/m));
+  document.getElementById('e-pe').textContent=peCur.toFixed(1)+' J';
+  document.getElementById('e-ke').textContent=keCur.toFixed(1)+' J';
+  document.getElementById('e-v').textContent=vCur.toFixed(2)+' m/s';
+  document.getElementById('e-tot').textContent=peTotal.toFixed(1)+' J';
+  const maxH=160;
+  const peH=peTotal>0?Math.round((peCur/peTotal)*maxH):0;
+  const keH=peTotal>0?Math.round((keCur/peTotal)*maxH):0;
+  document.getElementById('b-pe').style.height=peH+'px';
+  document.getElementById('b-ke').style.height=keH+'px';
+  document.getElementById('b-tot').style.height=maxH+'px';
+  document.getElementById('b-pe-v').textContent=peCur.toFixed(1)+' J';
+  document.getElementById('b-ke-v').textContent=keCur.toFixed(1)+' J';
+  document.getElementById('b-tot-v').textContent=peTotal.toFixed(1)+' J';
+  const r=setupC('energy-canvas',160);if(!r)return;
+  const{ctx,W,H}=r;const t=T();
+  ctx.clearRect(0,0,W,H);
+  const pad=30,cw=W-pad*2;
+  ctx.strokeStyle=t.axis;ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(pad,H*0.1);ctx.lineTo(pad,H*0.85);ctx.lineTo(W-pad,H*0.85);ctx.stroke();
+  txt(ctx,'Height (m)',pad-4,H*0.5,t.text2,10,'right');
+  for(let i=0;i<=hMax;i+=Math.ceil(hMax/5)){
+    const x=pad+((i/hMax)*cw);
+    ctx.strokeStyle=t.grid;ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(x,H*0.1);ctx.lineTo(x,H*0.85);ctx.stroke();
+    txt(ctx,i,x,H*0.85+12,t.text2,9);
+  }
+  const toX=h=>pad+(h/hMax)*cw;
+  ctx.strokeStyle=BLUE;ctx.lineWidth=2;
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){const h=(i/100)*hMax,pe=m*g*h;const x=toX(h),y=H*0.85-(pe/peTotal)*(H*0.68);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+  ctx.stroke();
+  ctx.strokeStyle=TEAL;ctx.lineWidth=2;
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){const h=(i/100)*hMax,ke=peTotal-m*g*h;const x=toX(h),y=H*0.85-(ke/peTotal)*(H*0.68);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+  ctx.stroke();
+  const cx=toX(hCur);
+  ctx.strokeStyle=isDark()?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.3)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(cx,H*0.1);ctx.lineTo(cx,H*0.85);ctx.stroke();ctx.setLineDash([]);
+  txt(ctx,'PE',toX(hMax*0.8),H*0.85-(peTotal/peTotal)*(H*0.6),BLUE,10);
+  txt(ctx,'KE',toX(hMax*0.15),H*0.85-(peTotal/peTotal)*(H*0.6)+10,TEAL,10);
+}
+
+const ucItems=[
+  {eq:'d = v &middot; t',check:'[m] = [m/s]&middot;[s] = [m]',ok:true,detail:'Distance = speed &times; time. Units: meters = (meters/second) &times; seconds. The seconds cancel, leaving meters.'},
+  {eq:'KE = &half;mv&sup2;',check:'[J] = [kg]&middot;[m/s]&sup2; = [kg&middot;m&sup2;/s&sup2;]',ok:true,detail:'Kinetic energy. 1 Joule \u2261 1 kg&middot;m&sup2;/s&sup2;. The &half; is dimensionless. Units balance perfectly.'},
+  {eq:'F = ma',check:'[N] = [kg]&middot;[m/s&sup2;]',ok:true,detail:'Newton\u2019s second law. 1 Newton \u2261 1 kg&middot;m/s&sup2;. This is actually the definition of the Newton.'},
+  {eq:'W = F&middot;d',check:'[J] = [N]&middot;[m] = [kg&middot;m&sup2;/s&sup2;]',ok:true,detail:'Work = force &times; distance. 1 N&middot;m = 1 J. Both are equivalent expressions for the Joule.'},
+  {eq:'v = at&sup2;',check:'[m/s] \u2260 [m/s&sup2;]&middot;[s&sup2;] = [m]',ok:false,detail:'This equation is WRONG. The correct equation is v = at (not v = at&sup2;). Units: [m/s] \u2260 [m]. The dimensional check caught the error. The right form is d = &half;at&sup2;.'},
+  {eq:'p = mv&sup2;',check:'[kg&middot;m/s] \u2260 [kg]&middot;[m&sup2;/s&sup2;]',ok:false,detail:'This equation is WRONG. Momentum p = mv (not mv&sup2;). p has units kg&middot;m/s, but mv&sup2; has units kg&middot;m&sup2;/s&sup2; \u2014 which is energy, not momentum.'},
+  {eq:'T = 2\u03c0\u221a(L/g)',check:'[s] = \u221a([m]/[m/s&sup2;]) = \u221a[s&sup2;] = [s]',ok:true,detail:'Period of a pendulum. L/g has units m/(m/s&sup2;) = s&sup2;. Taking the square root gives seconds. The 2\u03c0 is dimensionless.'},
+  {eq:'P = Fv',check:'[W] = [N]&middot;[m/s] = [kg&middot;m&sup2;/s&sup3;]',ok:true,detail:'Power = force &times; velocity. 1 Watt = 1 J/s = 1 kg&middot;m&sup2;/s&sup3;. And N&middot;m/s = kg&middot;m/s&sup2;&middot;m/s = kg&middot;m&sup2;/s&sup3;.'},
+];
+function buildUC(){
+  const grid=document.getElementById('ucgrid');
+  ucItems.forEach((item)=>{
+    const d=document.createElement('div');
+    d.className='uc-row';
+    d.innerHTML=`<span class="uc-eq">${item.eq}</span><span class="uc-eq" style="color:var(--text2);font-size:12px">${item.check}</span><span class="uc-badge ${item.ok?'badge-ok':'badge-err'}">${item.ok?'valid':'invalid'}</span>`;
+    d.onclick=()=>{
+      const det=document.getElementById('uc-detail');
+      det.style.display='block';
+      det.innerHTML=`<strong>${item.eq}</strong><br>${item.detail}`;
+    };
+    grid.appendChild(d);
+  });
+}
+
+const propItems=[
+  {q:'If mass doubles (F constant), acceleration\u2026',a:'halves (a = F/m, so a \u221d 1/m)',law:'F = ma'},
+  {q:'If both F and m double, acceleration\u2026',a:'stays the same (a = F/m, ratio unchanged)',law:'F = ma'},
+  {q:'If height doubles, PE\u2026',a:'doubles (PE = mgh, linear in h)',law:'PE = mgh'},
+  {q:'If speed doubles, KE\u2026',a:'quadruples (KE = &half;mv&sup2;, squared!)',law:'KE = &half;mv&sup2;'},
+  {q:'If radius doubles (circular motion), centripetal a\u2026',a:'halves (a = v&sup2;/r, a \u221d 1/r)',law:'a = v&sup2;/r'},
+  {q:'If speed doubles in circular motion, centripetal a\u2026',a:'quadruples (a = v&sup2;/r, squared)',law:'a = v&sup2;/r'},
+];
+function buildProp(){
+  const grid=document.getElementById('prop-grid');
+  propItems.forEach((item)=>{
+    const d=document.createElement('div');
+    d.className='prop-card';
+    d.innerHTML=`<div class="prop-q">${item.q}</div><div style="font-size:11px;color:var(--text2);margin-bottom:.3rem">${item.law}</div><div class="prop-show" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">show answer</div><div class="prop-a" style="display:none">${item.a}</div>`;
+    grid.appendChild(d);
+  });
+}
+
+function drawProp(){
+  const mf=parseFloat(document.getElementById('p-mass').value);
+  const ff=parseFloat(document.getElementById('p-force').value);
+  document.getElementById('p-mass-v').textContent='\u00d7'+mf.toFixed(2);
+  document.getElementById('p-force-v').textContent='\u00d7'+ff.toFixed(2);
+  const af=ff/mf;
+  document.getElementById('p-acc').textContent='\u00d7'+af.toFixed(2);
+  const r=setupC('prop-canvas',160);if(!r)return;
+  const{ctx,W,H}=r;const t=T();
+  ctx.clearRect(0,0,W,H);
+  const cols=[BLUE,TEAL,CORAL];
+  const labels=['Mass factor','Force factor','Accel factor'];
+  const vals=[mf,ff,af];
+  const barW=80,gap=40,startX=(W-(3*barW+2*gap))/2,maxH=H*0.65,baseY=H*0.78;
+  vals.forEach((v,i)=>{
+    const bh=Math.min(Math.abs(v)*maxH*0.35,maxH);
+    const x=startX+i*(barW+gap);
+    ctx.fillStyle=isDark()?cols[i]+'33':cols[i]+'22';
+    ctx.strokeStyle=cols[i];ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(x,baseY-bh,barW,bh,4);ctx.fill();ctx.stroke();
+    txt(ctx,'\u00d7'+v.toFixed(2),x+barW/2,baseY-bh-6,cols[i],12);
+    txt(ctx,labels[i],x+barW/2,baseY+14,t.text2,10);
+  });
+  ctx.strokeStyle=t.grid;ctx.lineWidth=0.5;
+  ctx.beginPath();ctx.moveTo(startX-10,baseY);ctx.lineTo(startX+3*barW+2*gap+10,baseY);ctx.stroke();
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+    setTimeout(redrawAll,30);
+  });
+});
+
+['v0','y0'].forEach(id=>document.getElementById(id).addEventListener('input',drawKine));
+['mass','fapp','mu'].forEach(id=>document.getElementById(id).addEventListener('input',drawNewton));
+['e-mass','e-h','e-cur'].forEach(id=>document.getElementById(id).addEventListener('input',drawEnergy));
+['p-mass','p-force'].forEach(id=>document.getElementById(id).addEventListener('input',drawProp));
+
+function redrawAll(){drawKine();drawNewton();drawEnergy();drawProp();}
+
+buildUC();buildProp();
+window.addEventListener('load',redrawAll);
+setTimeout(redrawAll,100);
+window.addEventListener('resize',redrawAll);
+</script>
+</body>
+</html>
