@@ -1,2 +1,2 @@
 # bretlogue.github.io
-Website location
+This will be a site for hosting certain web projects.
