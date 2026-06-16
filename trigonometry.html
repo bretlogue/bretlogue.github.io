@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trigonometry for AP Physics 1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --blue: #185FA5; --blue-l: #E6F1FB; --blue-m: #378ADD;
+    --teal: #0F6E56; --teal-l: #E1F5EE; --teal-m: #1D9E75;
+    --coral: #993C1D; --coral-l: #FAECE7; --coral-m: #D85A30;
+    --amber: #BA7517; --amber-l: #FAEEDA;
+    --purple: #534AB7; --purple-l: #EEEDFE;
+    --gray: #5F5E5A; --gray-l: #F1EFE8;
+    --bg: #FFFFFF; --bg2: #FAF9F6; --text: #2C2C2A; --text2: #5F5E5A; --border: #E5E3DC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1A18; --bg2: #232320; --text: #E8E6DD; --text2: #B4B2A9; --border: #3A3A36;
+      --blue-l: #0C2A45; --teal-l: #08332A; --coral-l: #3D1E12; --amber-l: #3D2C0E; --purple-l: #211D45;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lora', Georgia, serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg2); padding: 2rem 1rem 4rem; }
+  .tutorial { max-width: 720px; margin: 0 auto; background: var(--bg); border-radius: 16px; padding: 1rem 2rem 2.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .topnav { max-width: 720px; margin: 0 auto 1rem; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .topnav a { color: var(--blue); text-decoration: none; }
+  .topnav a:hover { text-decoration: underline; }
+  .hero { text-align: center; padding: 2rem 0 1.5rem; border-bottom: 0.5px solid var(--border); margin-bottom: 2rem; }
+  .hero h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 0.4rem; }
+  .hero p { font-size: 15px; color: var(--text2); font-style: italic; }
+  .section { margin-bottom: 2.5rem; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .section-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .section-num.blue { background: var(--blue-l); color: var(--blue); }
+  .section-num.teal { background: var(--teal-l); color: var(--teal); }
+  .section-num.coral { background: var(--coral-l); color: var(--coral); }
+  .section-num.purple { background: var(--purple-l); color: var(--purple); }
+  .section h2 { font-size: 19px; font-weight: 600; }
+  .prose { font-size: 16px; line-height: 1.75; margin-bottom: 1rem; }
+  .prose em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1rem 0; }
+  @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
+  .trig-card { border: 0.5px solid var(--border); border-radius: 10px; padding: 0.9rem; text-align: center; background: var(--bg); }
+  .trig-card .label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .trig-card .main { font-size: 20px; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.3rem; }
+  .trig-card .desc { font-size: 12px; color: var(--text2); line-height: 1.4; }
+  .c-blue-card .label { color: var(--blue); } .c-blue-card { border-top: 2px solid var(--blue-m); }
+  .c-teal-card .label { color: var(--teal); } .c-teal-card { border-top: 2px solid var(--teal-m); }
+  .c-coral-card .label { color: var(--coral); } .c-coral-card { border-top: 2px solid var(--coral-m); }
+  .interactive-panel { border: 0.5px solid var(--border); border-radius: 12px; background: var(--bg); overflow: hidden; margin: 1rem 0; }
+  .panel-title { padding: 0.6rem 1rem; background: var(--bg2); border-bottom: 0.5px solid var(--border); font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text2); font-family: sans-serif; }
+  .panel-body { padding: 1rem; }
+  .angle-slider-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+  .angle-slider-row label { font-size: 13px; color: var(--text2); white-space: nowrap; }
+  .angle-slider-row input[type=range] { flex: 1; }
+  .angle-display { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; min-width: 60px; text-align: right; }
+  .readout-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 0.75rem; }
+  .readout { border-radius: 8px; padding: 0.5rem 0.75rem; text-align: center; }
+  .readout .rlabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .readout .rval { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500; }
+  .r-sin { background: var(--blue-l); } .r-sin .rlabel { color: var(--blue); } .r-sin .rval { color: var(--blue); }
+  .r-cos { background: var(--teal-l); } .r-cos .rlabel { color: var(--teal); } .r-cos .rval { color: var(--teal); }
+  .r-tan { background: var(--coral-l); } .r-tan .rlabel { color: var(--coral); } .r-tan .rval { color: var(--coral); }
+  .wave-labels { display: flex; gap: 16px; justify-content: center; margin-top: 0.5rem; flex-wrap: wrap; }
+  .wave-label { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .wave-dot { width: 14px; height: 3px; border-radius: 2px; }
+  .identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1rem 0; }
+  @media (max-width: 600px) { .identity-grid { grid-template-columns: 1fr; } }
+  .identity-item { background: var(--gray-l); border-radius: 8px; padding: 0.75rem 1rem; }
+  .identity-item .i-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text2); margin-bottom: 0.3rem; }
+  .identity-item .i-formula { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .physics-example { background: var(--amber-l); border: 0.5px solid #EF9F27; border-radius: 10px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .physics-example .pe-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--amber); margin-bottom: 0.5rem; font-family: sans-serif; }
+  .physics-example .pe-body { font-size: 14px; line-height: 1.6; }
+  .soh-cah-toa { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 1rem 0; text-align: center; }
+  .sct-block { border-radius: 8px; padding: 0.6rem 0.5rem; }
+  .sct-block .mnemonic { font-size: 22px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+  .sct-block .meaning { font-size: 12px; margin-top: 4px; line-height: 1.4; font-family: 'JetBrains Mono', monospace; }
+  .sct-s { background: var(--blue-l); color: var(--blue); }
+  .sct-c { background: var(--teal-l); color: var(--teal); }
+  .sct-t { background: var(--coral-l); color: var(--coral); }
+  svg text { fill: var(--text); }
+  canvas { display: block; width: 100%; }
+  input[type=range] { -webkit-appearance: none; height: 4px; background: var(--border); border-radius: 2px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--blue); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--blue); cursor: pointer; border: none; }
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="tutorial">
+  <div class="hero">
+    <h1>Trigonometry for AP Physics 1</h1>
+    <p>From the unit circle to real-world physics applications</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num blue">1</div>
+      <h2>The Right Triangle Foundation</h2>
+    </div>
+    <p class="prose">Every trig function starts with a right triangle. Label the angle you care about <em>&theta;</em> (theta). The three sides have names based on their relationship to &theta;.</p>
+
+    <svg width="100%" viewBox="0 0 680 220" role="img"><title>Labeled right triangle showing opposite, adjacent, and hypotenuse</title><desc>A right triangle with angle theta at bottom left. The hypotenuse goes up to the right, the opposite side is vertical on the right, and the adjacent side is horizontal at the bottom.</desc>
+      <defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <polygon points="160,185 440,185 440,45" fill="var(--blue-l)" stroke="#185FA5" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="420" y="165" width="20" height="20" fill="none" stroke="#185FA5" stroke-width="1.2"/>
+      <path d="M200,185 A40,40 0 0,1 174,154" fill="none" stroke="#D85A30" stroke-width="2"/>
+      <text x="205" y="170" font-family="Lora,Georgia,serif" font-size="18" fill="#993C1D" font-style="italic">&theta;</text>
+      <text x="275" y="100" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#185FA5" font-weight="600">Hypotenuse</text>
+      <text x="275" y="118" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="12" fill="#378ADD">(always opposite the 90&deg; angle)</text>
+      <text x="520" y="122" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#0F6E56" font-weight="600">Opposite</text>
+      <text x="520" y="140" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="12" fill="#1D9E75">(across from &theta;)</text>
+      <line x1="476" y1="122" x2="445" y2="122" stroke="#1D9E75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+      <text x="300" y="210" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#BA7517" font-weight="600">Adjacent</text>
+    </svg>
+
+    <div class="soh-cah-toa">
+      <div class="sct-block sct-s"><div class="mnemonic">SOH</div><div class="meaning">Sin = Opp/Hyp</div></div>
+      <div class="sct-block sct-c"><div class="mnemonic">CAH</div><div class="meaning">Cos = Adj/Hyp</div></div>
+      <div class="sct-block sct-t"><div class="mnemonic">TOA</div><div class="meaning">Tan = Opp/Adj</div></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="trig-card c-blue-card"><div class="label">Sine</div><div class="main">sin(&theta;)</div><div class="desc">Opposite &divide; Hypotenuse<br><em style="font-style:normal;font-size:11px;color:var(--blue)">&rarr; vertical component</em></div></div>
+      <div class="trig-card c-teal-card"><div class="label">Cosine</div><div class="main">cos(&theta;)</div><div class="desc">Adjacent &divide; Hypotenuse<br><em style="font-style:normal;font-size:11px;color:var(--teal)">&rarr; horizontal component</em></div></div>
+      <div class="trig-card c-coral-card"><div class="label">Tangent</div><div class="main">tan(&theta;)</div><div class="desc">Opposite &divide; Adjacent<br><em style="font-style:normal;font-size:11px;color:var(--coral)">= sin(&theta;) / cos(&theta;)</em></div></div>
+    </div>
+
+    <div class="physics-example">
+      <div class="pe-title">AP Physics 1 connection</div>
+      <div class="pe-body">A force <strong>F</strong> at angle &theta; splits into two components: <strong>F&middot;cos(&theta;)</strong> horizontal and <strong>F&middot;sin(&theta;)</strong> vertical. This decomposition is essential for analyzing inclined planes, projectile motion, and equilibrium problems.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num teal">2</div>
+      <h2>The Unit Circle &mdash; Interactive Explorer</h2>
+    </div>
+    <p class="prose">A <em>unit circle</em> has radius = 1. Any point on it is (cos &theta;, sin &theta;). Drag the slider to see how the trig functions change &mdash; this is where the identities come from.</p>
+
+    <div class="interactive-panel">
+      <div class="panel-title">Unit circle explorer</div>
+      <div class="panel-body">
+        <div class="angle-slider-row">
+          <label>Angle &theta;</label>
+          <input type="range" id="angleSlider" min="0" max="360" value="45" step="1">
+          <span class="angle-display" id="angleDisplay">45&deg;</span>
+        </div>
+        <canvas id="unitCircle" height="300"></canvas>
+        <div class="readout-row">
+          <div class="readout r-sin"><div class="rlabel">sin &theta;</div><div class="rval" id="sinVal">0.707</div></div>
+          <div class="readout r-cos"><div class="rlabel">cos &theta;</div><div class="rval" id="cosVal">0.707</div></div>
+          <div class="readout r-tan"><div class="rlabel">tan &theta;</div><div class="rval" id="tanVal">1.000</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num coral">3</div>
+      <h2>Special Angles You Must Memorize</h2>
+    </div>
+    <p class="prose">These five angles appear constantly in AP Physics 1. Knowing them cold saves time on exams.</p>
+
+    <svg width="100%" viewBox="0 0 680 200" role="img"><title>Table of special angle values for sin, cos, and tan</title><desc>A table showing trig values at 0, 30, 45, 60, and 90 degrees</desc>
+      <rect x="20" y="20" width="640" height="36" rx="8" fill="#185FA5"/>
+      <text x="70" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="white" font-weight="600">&theta;</text>
+      <text x="195" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="white" font-weight="600">0&deg;</text>
+      <text x="323" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="white" font-weight="600">30&deg;</text>
+      <text x="451" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="white" font-weight="600">45&deg;</text>
+      <text x="579" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="white" font-weight="600">60&deg;</text>
+      <text x="640" y="43" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="12" fill="white" font-weight="600">90&deg;</text>
+      <rect x="20" y="57" width="640" height="42" rx="4" fill="#E6F1FB"/>
+      <text x="70" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#185FA5" font-weight="600">sin &theta;</text>
+      <text x="195" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0C447C">0</text>
+      <text x="323" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0C447C">1/2</text>
+      <text x="451" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0C447C">&radic;2/2</text>
+      <text x="579" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0C447C">&radic;3/2</text>
+      <text x="640" y="83" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0C447C">1</text>
+      <rect x="20" y="100" width="640" height="42" rx="4" fill="#E1F5EE"/>
+      <text x="70" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#0F6E56" font-weight="600">cos &theta;</text>
+      <text x="195" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#085041">1</text>
+      <text x="323" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#085041">&radic;3/2</text>
+      <text x="451" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#085041">&radic;2/2</text>
+      <text x="579" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#085041">1/2</text>
+      <text x="640" y="126" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#085041">0</text>
+      <rect x="20" y="143" width="640" height="42" rx="4" fill="#FAECE7"/>
+      <text x="70" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#993C1D" font-weight="600">tan &theta;</text>
+      <text x="195" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#712B13">0</text>
+      <text x="323" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#712B13">1/&radic;3</text>
+      <text x="451" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#712B13">1</text>
+      <text x="579" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#712B13">&radic;3</text>
+      <text x="640" y="169" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#712B13">&infin;</text>
+    </svg>
+    <p class="prose" style="font-size:13px; color:var(--text2); font-style:italic; margin-top:0.5rem;">Memory trick: sin goes 0 &rarr; 1 as the angle grows; cos does the reverse. The pattern is &radic;0/2, &radic;1/2, &radic;2/2, &radic;3/2, &radic;4/2.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num blue">4</div>
+      <h2>Sine &amp; Cosine as Waves</h2>
+    </div>
+    <p class="prose">As &theta; sweeps around the unit circle, sin(&theta;) traces a <em>wave</em>. This is why oscillation, sound, and circular motion all use trig functions in physics.</p>
+
+    <div class="interactive-panel">
+      <div class="panel-title">Wave visualization</div>
+      <div class="panel-body">
+        <canvas id="waveCanvas" height="180"></canvas>
+        <div class="wave-labels">
+          <div class="wave-label"><div class="wave-dot" style="background:#185FA5"></div><span style="font-size:13px">sin(&theta;) &mdash; vertical position</span></div>
+          <div class="wave-label"><div class="wave-dot" style="background:#1D9E75"></div><span style="font-size:13px">cos(&theta;) &mdash; horizontal position</span></div>
+          <div class="wave-label"><div class="wave-dot" style="border-top:2px dashed #D85A30; width:14px; height:0;"></div><span style="font-size:13px">tan(&theta;)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num purple">5</div>
+      <h2>Deriving Key Identities from the Unit Circle</h2>
+    </div>
+    <p class="prose">Because any point on the unit circle satisfies x&sup2; + y&sup2; = 1, and since x = cos &theta; and y = sin &theta;, we get the most fundamental identity in trigonometry &mdash; directly from the Pythagorean theorem.</p>
+
+    <svg width="100%" viewBox="0 0 680 260" role="img"><title>Pythagorean identity derivation from unit circle</title><desc>Diagram showing how sin squared plus cos squared equals 1 is derived from the unit circle using the Pythagorean theorem</desc>
+      <circle cx="140" cy="130" r="90" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+      <line x1="50" y1="130" x2="230" y2="130" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <line x1="140" y1="40" x2="140" y2="220" stroke="#999" stroke-width="0.8" opacity="0.6"/>
+      <line x1="140" y1="130" x2="198" y2="72" stroke="#534AB7" stroke-width="2" stroke-linecap="round"/>
+      <line x1="198" y1="130" x2="198" y2="72" stroke="#185FA5" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+      <line x1="140" y1="130" x2="198" y2="130" stroke="#1D9E75" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+      <circle cx="198" cy="72" r="5" fill="#534AB7"/>
+      <text x="162" y="100" font-family="JetBrains Mono,monospace" font-size="13" fill="#534AB7" font-weight="600">r=1</text>
+      <text x="205" y="108" font-family="JetBrains Mono,monospace" font-size="12" fill="#185FA5">sin &theta;</text>
+      <text x="163" y="148" font-family="JetBrains Mono,monospace" font-size="12" fill="#1D9E75">cos &theta;</text>
+      <text x="201" y="64" font-family="Lora,Georgia,serif" font-size="13" fill="#534AB7">(cos &theta;, sin &theta;)</text>
+      <text x="55" y="245" font-family="Lora,Georgia,serif" font-size="11" fill="#777" font-style="italic">unit circle: radius = 1</text>
+      <rect x="270" y="30" width="380" height="210" rx="10" fill="var(--bg2)" stroke="var(--border)" stroke-width="0.5"/>
+      <text x="460" y="58" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="13" fill="#777" font-weight="600">Pythagorean theorem on the triangle:</text>
+      <text x="460" y="88" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15">opposite&sup2; + adjacent&sup2; = hypotenuse&sup2;</text>
+      <line x1="290" y1="100" x2="638" y2="100" stroke="var(--border)" stroke-width="0.5"/>
+      <text x="460" y="122" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15">(sin &theta;)&sup2; + (cos &theta;)&sup2; = 1&sup2;</text>
+      <line x1="290" y1="134" x2="638" y2="134" stroke="var(--border)" stroke-width="0.5"/>
+      <rect x="310" y="148" width="300" height="48" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+      <text x="460" y="165" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="17" fill="#534AB7" font-weight="600">sin&sup2;&theta; + cos&sup2;&theta; = 1</text>
+      <text x="460" y="183" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="11" fill="#534AB7" font-style="italic">The Pythagorean Identity</text>
+      <text x="460" y="220" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="12" fill="#777">true for every angle &theta; &mdash; no exceptions</text>
+    </svg>
+
+    <div class="identity-grid">
+      <div class="identity-item"><div class="i-name">Pythagorean (core)</div><div class="i-formula">sin&sup2;&theta; + cos&sup2;&theta; = 1</div></div>
+      <div class="identity-item"><div class="i-name">Tangent definition</div><div class="i-formula">tan &theta; = sin &theta; / cos &theta;</div></div>
+      <div class="identity-item"><div class="i-name">Derived from core</div><div class="i-formula">1 + tan&sup2;&theta; = sec&sup2;&theta;</div></div>
+      <div class="identity-item"><div class="i-name">Derived from core</div><div class="i-formula">cot&sup2;&theta; + 1 = csc&sup2;&theta;</div></div>
+      <div class="identity-item"><div class="i-name">Complementary angles</div><div class="i-formula">sin &theta; = cos(90&deg;&minus;&theta;)</div></div>
+      <div class="identity-item"><div class="i-name">Symmetry (even/odd)</div><div class="i-formula">cos(&minus;&theta;) = cos &theta;<br>sin(&minus;&theta;) = &minus;sin &theta;</div></div>
+    </div>
+
+    <div class="physics-example">
+      <div class="pe-title">AP Physics 1 &mdash; why this matters</div>
+      <div class="pe-body">When you find vector components using <strong>F&middot;sin(&theta;)</strong> and <strong>F&middot;cos(&theta;)</strong>, the Pythagorean identity guarantees that the total magnitude is always F &mdash; no matter the angle. It's the mathematical proof that decomposing then recombining a vector gives you back what you started with.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const slider = document.getElementById('angleSlider');
+const display = document.getElementById('angleDisplay');
+const sinEl = document.getElementById('sinVal');
+const cosEl = document.getElementById('cosVal');
+const tanEl = document.getElementById('tanVal');
+const uc = document.getElementById('unitCircle');
+const wc = document.getElementById('waveCanvas');
+
+function drawUnitCircle(deg) {
+  const canvas = uc;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || 640;
+  const H = 300;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const cx = W/2, cy = H/2, r = Math.min(W,H)*0.38;
+  const rad = deg * Math.PI / 180;
+  const px = cx + r * Math.cos(rad);
+  const py = cy - r * Math.sin(rad);
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
+  const textColor = isDark ? '#c2c0b6' : '#3d3d3a';
+
+  ctx.fillStyle = isDark ? 'rgba(83,74,183,0.07)' : '#EEEDFE';
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.fill();
+
+  ctx.strokeStyle = gridColor; ctx.lineWidth = 0.7;
+  ctx.beginPath(); ctx.moveTo(cx-r-20,cy); ctx.lineTo(cx+r+20,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,cy-r-20); ctx.lineTo(cx,cy+r+20); ctx.stroke();
+
+  ctx.strokeStyle = isDark ? '#9c8fe8' : '#534AB7'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.stroke();
+
+  ctx.strokeStyle = isDark ? '#5DCAA5' : '#1D9E75'; ctx.lineWidth = 1.5;
+  ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,cy); ctx.stroke();
+
+  ctx.strokeStyle = isDark ? '#85B7EB' : '#185FA5'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(px,cy); ctx.lineTo(px,py); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.strokeStyle = isDark ? '#9c8fe8' : '#534AB7'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+
+  if (deg > 3 && deg < 357) {
+    ctx.strokeStyle = isDark ? '#EF9F27' : '#D85A30'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cx,cy,r*0.22, -rad, 0, true); ctx.stroke();
+  }
+
+  ctx.fillStyle = isDark ? '#AFA9EC' : '#534AB7';
+  ctx.beginPath(); ctx.arc(px,py,5,0,2*Math.PI); ctx.fill();
+
+  ctx.fillStyle = textColor;
+  ctx.font = '12px "JetBrains Mono", monospace';
+  ctx.fillText('('+Math.cos(rad).toFixed(2)+', '+Math.sin(rad).toFixed(2)+')', Math.min(px+8, W-120), py-8);
+  ctx.fillStyle = isDark ? '#EF9F27' : '#993C1D';
+  ctx.font = 'italic 16px Lora, Georgia, serif';
+  ctx.fillText('\u03b8', cx + r*0.28*Math.cos(rad*0.4), cy - r*0.28*Math.sin(rad*0.4) + 5);
+
+  ctx.fillStyle = textColor; ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.fillText('0\u00b0/360\u00b0', cx+r+4, cy+4);
+  ctx.fillText('90\u00b0', cx-14, cy-r-6);
+  ctx.fillText('180\u00b0', cx-r-36, cy+4);
+  ctx.fillText('270\u00b0', cx-12, cy+r+14);
+}
+
+function drawWaves() {
+  const canvas = wc;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || 640;
+  const H = 180;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const cy = H/2;
+  const amp = H*0.36;
+  const pad = 30;
+  const ww = W - pad*2;
+
+  ctx.strokeStyle = gridColor; ctx.lineWidth = 0.7;
+  ctx.beginPath(); ctx.moveTo(pad,cy); ctx.lineTo(W-pad,cy); ctx.stroke();
+  for (let i=0;i<=4;i++) {
+    const x = pad + i*(ww/4);
+    ctx.beginPath(); ctx.moveTo(x,cy-amp-8); ctx.lineTo(x,cy+amp+8); ctx.stroke();
+  }
+  ctx.fillStyle = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
+  ctx.font = '10px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center';
+  ['0\u00b0','90\u00b0','180\u00b0','270\u00b0','360\u00b0'].forEach((l,i)=>ctx.fillText(l, pad+i*(ww/4), cy+amp+22));
+
+  const curDeg = parseInt(slider.value);
+  const markerX = pad + (curDeg/360)*ww;
+  ctx.strokeStyle = isDark ? 'rgba(239,159,39,0.5)' : 'rgba(216,90,48,0.4)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(markerX,cy-amp-8); ctx.lineTo(markerX,cy+amp+8); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.strokeStyle = isDark ? '#85B7EB' : '#185FA5'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let x=0;x<=ww;x++) {
+    const a = (x/ww)*2*Math.PI;
+    const y = cy - amp*Math.sin(a);
+    x===0 ? ctx.moveTo(pad+x,y) : ctx.lineTo(pad+x,y);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = isDark ? '#5DCAA5' : '#1D9E75'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let x=0;x<=ww;x++) {
+    const a = (x/ww)*2*Math.PI;
+    const y = cy - amp*Math.cos(a);
+    x===0 ? ctx.moveTo(pad+x,y) : ctx.lineTo(pad+x,y);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle = isDark ? '#F0997B' : '#D85A30'; ctx.lineWidth = 1.5;
+  ctx.setLineDash([4,3]);
+  let inPath = false;
+  ctx.beginPath();
+  for (let x=0;x<=ww;x++) {
+    const a = (x/ww)*2*Math.PI;
+    const t = Math.tan(a);
+    const y = cy - (amp*0.4)*t;
+    if (Math.abs(t) > 4) { inPath = false; continue; }
+    if (!inPath) { ctx.moveTo(pad+x,y); inPath=true; }
+    else ctx.lineTo(pad+x,y);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const dotX = pad + (curDeg/360)*ww;
+  const sinDotY = cy - amp*Math.sin(curDeg*Math.PI/180);
+  ctx.fillStyle = isDark ? '#85B7EB' : '#185FA5';
+  ctx.beginPath(); ctx.arc(dotX, sinDotY, 5, 0, 2*Math.PI); ctx.fill();
+
+  const cosDotY = cy - amp*Math.cos(curDeg*Math.PI/180);
+  ctx.fillStyle = isDark ? '#5DCAA5' : '#1D9E75';
+  ctx.beginPath(); ctx.arc(dotX, cosDotY, 5, 0, 2*Math.PI); ctx.fill();
+}
+
+function update() {
+  const deg = parseInt(slider.value);
+  const rad = deg * Math.PI / 180;
+  display.textContent = deg + '\u00b0';
+  const s = Math.sin(rad), c = Math.cos(rad), t = Math.tan(rad);
+  sinEl.textContent = s.toFixed(3);
+  cosEl.textContent = c.toFixed(3);
+  tanEl.textContent = Math.abs(t) > 999 ? '\u221e' : t.toFixed(3);
+  drawUnitCircle(deg);
+  drawWaves();
+}
+
+slider.addEventListener('input', update);
+window.addEventListener('load', update);
+window.addEventListener('resize', update);
+setTimeout(update, 100);
+</script>
+</body>
+</html>
