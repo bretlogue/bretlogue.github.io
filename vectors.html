@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vector Math for AP Physics 1</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1A1A18;--bg2:#232320;--text:#E8E6DD;--text2:#B4B2A9;--border:#3A3A36;
+  --blue-l:#0C2A45;--teal-l:#08332A;--coral-l:#3D1E12;--purple-l:#211D45;--amber-l:#3D2C0E;}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:720px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:720px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+h1{font-size:26px;font-weight:600;margin-bottom:.3rem;text-align:center}
+.subtitle{text-align:center;color:var(--text2);font-style:italic;margin-bottom:2rem;font-size:14px}
+h2{font-size:18px;font-weight:600}
+.section{margin-bottom:2.5rem}
+.sec-label{display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
+.badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.b-blue{background:var(--blue-l);color:var(--blue)}
+.b-teal{background:var(--teal-l);color:var(--teal)}
+.b-coral{background:var(--coral-l);color:var(--coral)}
+.b-purple{background:var(--purple-l);color:var(--purple)}
+.prose{font-size:14px;line-height:1.75;color:var(--text2);margin-bottom:1rem}
+.em{color:var(--blue);font-weight:600}
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;background:var(--bg)}
+.panel-hd{padding:.5rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem}
+.row label{font-size:13px;color:var(--text2);min-width:60px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:14px;font-weight:600;min-width:52px;text-align:right}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.75rem}
+.ro{border-radius:8px;padding:.5rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:15px;font-weight:600}
+.r-blue{background:var(--blue-l)}.r-blue .rl{color:var(--blue)}.r-blue .rv{color:var(--blue)}
+.r-teal{background:var(--teal-l)}.r-teal .rl{color:var(--teal)}.r-teal .rv{color:var(--teal)}
+.r-coral{background:var(--coral-l)}.r-coral .rl{color:var(--coral)}.r-coral .rv{color:var(--coral)}
+.r-purple{background:var(--purple-l)}.r-purple .rl{color:var(--purple)}.r-purple .rv{color:var(--purple)}
+.formula{background:var(--bg2);border-left:3px solid #378ADD;border-radius:0 8px 8px 0;padding:.6rem 1rem;margin:.75rem 0;font-family:monospace;font-size:13px;line-height:1.8}
+.f-b{color:var(--blue)}.f-t{color:var(--teal)}
+.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+@media (max-width:600px){.example-grid{grid-template-columns:1fr}.add-controls{grid-template-columns:1fr !important}}
+.ex-card{border:0.5px solid var(--border);border-radius:10px;padding:.85rem 1rem;background:var(--bg);cursor:pointer;transition:background .15s}
+.ex-card:hover{background:var(--bg2)}
+.ex-card.active{border-color:#378ADD;background:var(--blue-l)}
+.ex-card .ex-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.ex-card .ex-sub{font-size:12px;color:var(--text2)}
+.ex-card.active .ex-title{color:var(--blue)}
+.worked{background:var(--bg2);border-radius:10px;padding:1rem;margin-top:.75rem;font-size:13px;line-height:1.9}
+.worked .step{margin-bottom:.35rem}
+.worked .result{font-family:monospace;font-size:14px;font-weight:600;color:var(--blue);margin-top:.5rem;padding:.5rem .75rem;background:var(--blue-l);border-radius:6px}
+canvas{display:block;width:100%}
+.add-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:.5rem}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer;border:none}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+<h1>Vector Math for AP Physics 1</h1>
+<p class="subtitle">Applying trigonometry to forces, motion, and the dot product</p>
+
+<div class="section">
+  <div class="sec-label"><div class="badge b-blue">1</div><h2>What is a vector?</h2></div>
+  <p class="prose">A <span class="em">scalar</span> has magnitude only (speed = 60 mph). A <span class="em">vector</span> has both magnitude and direction (velocity = 60 mph north). Trig is the tool that lets us work with direction &mdash; decomposing vectors into components and reassembling them.</p>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive vector &mdash; drag the sliders</div>
+    <div class="panel-bd">
+      <div class="row"><label>Magnitude</label><input type="range" id="mag" min="1" max="10" value="6" step="0.1"><span class="val" id="mag-v">6.0</span></div>
+      <div class="row"><label>Angle &theta;</label><input type="range" id="ang" min="0" max="360" value="35" step="1"><span class="val" id="ang-v">35&deg;</span></div>
+      <canvas id="vec-canvas" height="220"></canvas>
+      <div class="readouts">
+        <div class="ro r-blue"><div class="rl">x = cos &theta; &middot; |v|</div><div class="rv" id="vx">4.91</div></div>
+        <div class="ro r-teal"><div class="rl">y = sin &theta; &middot; |v|</div><div class="rv" id="vy">3.44</div></div>
+        <div class="ro r-coral"><div class="rl">|v| check</div><div class="rv" id="vmag">6.00</div></div>
+      </div>
+      <div class="formula" style="margin-top:.75rem">
+        <span class="f-b">Vx = |V| &middot; cos &theta;</span>&nbsp;&nbsp;&nbsp;<span class="f-t">Vy = |V| &middot; sin &theta;</span><br>
+        |V| = &radic;(Vx&sup2; + Vy&sup2;)&nbsp;&nbsp;&nbsp;&nbsp;&theta; = arctan(Vy / Vx)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><div class="badge b-teal">2</div><h2>Adding vectors &mdash; the component method</h2></div>
+  <p class="prose">To add two vectors, break each into x and y components using trig, add the matching components, then use the Pythagorean theorem to find the resultant magnitude and arctan to find its angle.</p>
+
+  <div class="panel">
+    <div class="panel-hd">Vector addition sandbox</div>
+    <div class="panel-bd">
+      <div class="add-controls">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:.5rem">Vector A (blue)</div>
+          <div class="row"><label>|A|</label><input type="range" id="amag" min="1" max="8" value="5" step="0.1"><span class="val" id="amag-v">5.0</span></div>
+          <div class="row"><label>&theta;_A</label><input type="range" id="aang" min="0" max="360" value="30" step="1"><span class="val" id="aang-v">30&deg;</span></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:.5rem">Vector B (teal)</div>
+          <div class="row"><label>|B|</label><input type="range" id="bmag" min="1" max="8" value="4" step="0.1"><span class="val" id="bmag-v">4.0</span></div>
+          <div class="row"><label>&theta;_B</label><input type="range" id="bang" min="0" max="360" value="110" step="1"><span class="val" id="bang-v">110&deg;</span></div>
+        </div>
+      </div>
+      <canvas id="add-canvas" height="250"></canvas>
+      <div class="readouts" style="grid-template-columns:repeat(4,1fr)">
+        <div class="ro r-blue"><div class="rl">Rx</div><div class="rv" id="rx">0.00</div></div>
+        <div class="ro r-teal"><div class="rl">Ry</div><div class="rv" id="ry">0.00</div></div>
+        <div class="ro r-coral"><div class="rl">|R|</div><div class="rv" id="rm">0.00</div></div>
+        <div class="ro r-purple"><div class="rl">&theta;_R</div><div class="rv" id="ra">0&deg;</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><div class="badge b-coral">3</div><h2>Worked examples</h2></div>
+  <p class="prose">These are the exact scenarios you'll see on the AP Physics 1 exam. Select one to see the step-by-step trig breakdown.</p>
+
+  <div class="example-grid">
+    <div class="ex-card active" data-ex="0"><div class="ex-title">Inclined plane force</div><div class="ex-sub">30&deg; ramp, 20 N applied</div></div>
+    <div class="ex-card" data-ex="1"><div class="ex-title">Projectile launch</div><div class="ex-sub">45&deg; angle, 25 m/s initial</div></div>
+    <div class="ex-card" data-ex="2"><div class="ex-title">Tension in a rope</div><div class="ex-sub">Object hanging at 60&deg;</div></div>
+    <div class="ex-card" data-ex="3"><div class="ex-title">Two-force equilibrium</div><div class="ex-sub">Find resultant direction</div></div>
+  </div>
+
+  <div id="worked-area"></div>
+  <canvas id="ex-canvas" height="200" style="border:0.5px solid var(--border);border-radius:10px;margin-top:.75rem"></canvas>
+</div>
+
+<div class="section">
+  <div class="sec-label"><div class="badge b-purple">4</div><h2>The dot product &mdash; trig in disguise</h2></div>
+  <p class="prose">The dot product tells you how much two vectors point in the <span class="em">same direction</span>. It uses cosine, because cosine measures alignment. When &theta; = 0&deg; vectors are perfectly aligned; when &theta; = 90&deg; they are perpendicular and the dot product is zero.</p>
+  <div class="formula">
+    <span style="color:var(--purple)">A &middot; B = |A| |B| cos &theta;</span><br>
+    <span style="color:var(--purple)">A &middot; B = Ax&middot;Bx + Ay&middot;By</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--text2)">(component form &mdash; same result)</span>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Dot product visualizer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Angle between</label><input type="range" id="dot-ang" min="0" max="180" value="45" step="1"><span class="val" id="dot-ang-v">45&deg;</span></div>
+      <canvas id="dot-canvas" height="200"></canvas>
+      <div class="readouts" style="grid-template-columns:repeat(3,1fr);margin-top:.75rem">
+        <div class="ro r-blue"><div class="rl">cos &theta;</div><div class="rv" id="dot-cos">0.707</div></div>
+        <div class="ro r-purple"><div class="rl">A &middot; B</div><div class="rv" id="dot-val">35.36</div></div>
+        <div class="ro r-teal"><div class="rl">Work done</div><div class="rv" id="dot-work">35.4 J</div></div>
+      </div>
+      <p class="prose" style="margin-top:.75rem;margin-bottom:0;font-size:13px">In AP Physics 1, Work = F &middot; d &middot; cos &theta; &mdash; this is just the dot product. If you push at 45&deg; to the direction of motion, only cos(45&deg;) &asymp; 70.7% of your force does useful work.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const isDark = () => window.matchMedia('(prefers-color-scheme:dark)').matches;
+const BLUE='#185FA5', TEAL='#0F6E56', CORAL='#993C1D', PURPLE='#534AB7';
+
+function getTheme(){
+  const dark = isDark();
+  return { grid: dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.07)', axis: dark?'rgba(255,255,255,0.25)':'rgba(0,0,0,0.25)', text: dark?'#c2c0b6':'#3d3d3a' };
+}
+function setupCanvas(id, h){
+  const c = document.getElementById(id);
+  const dpr = window.devicePixelRatio||1;
+  const W = c.offsetWidth||640;
+  c.width = W*dpr; c.height = h*dpr;
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr,dpr);
+  return {ctx, W, H:h};
+}
+function drawGrid(ctx, W, H, cx, cy, scale, t){
+  ctx.strokeStyle = t.grid; ctx.lineWidth = 0.5;
+  for(let i=-10;i<=10;i++){
+    const x = cx+i*scale, y = cy+i*scale;
+    if(x>=0&&x<=W){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    if(y>=0&&y<=H){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  }
+  ctx.strokeStyle=t.axis; ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+}
+function arrow(ctx, x1,y1,x2,y2, color, lw=2){
+  const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy);
+  if(len<2) return;
+  const nx=dx/len,ny=dy/len;
+  const hs=10, hw=5;
+  ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.fillStyle=color;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);
+  ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);
+  ctx.closePath();ctx.fill();
+}
+function dashLine(ctx, x1,y1,x2,y2,color){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=1;ctx.setLineDash([5,4]);
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.setLineDash([]);ctx.restore();
+}
+function label(ctx,text,x,y,color,size=12,align='center'){
+  ctx.fillStyle=color;ctx.font=`${size}px monospace`;
+  ctx.textAlign=align;ctx.fillText(text,x,y);
+}
+
+function drawVecCanvas(){
+  const {ctx,W,H} = setupCanvas('vec-canvas',220);
+  const t = getTheme();
+  ctx.clearRect(0,0,W,H);
+  const mag = parseFloat(document.getElementById('mag').value);
+  const deg = parseFloat(document.getElementById('ang').value);
+  const rad = deg*Math.PI/180;
+  const scale = Math.min(W,H)*0.07;
+  const cx=W*0.25, cy=H*0.55;
+  drawGrid(ctx,W,H,cx,cy,scale,t);
+  const ex=cx+mag*Math.cos(rad)*scale, ey=cy-mag*Math.sin(rad)*scale;
+  dashLine(ctx,ex,cy,ex,ey,'#1D9E75');
+  dashLine(ctx,cx,cy,ex,cy,'#378ADD');
+  arrow(ctx,cx,cy,ex,ey,BLUE,2.5);
+  label(ctx,'|V|='+mag.toFixed(1),cx+(ex-cx)*0.45-8,cy-(ey-cy)*0.55,t.text,12);
+  if(deg>3&&deg<357){
+    ctx.strokeStyle=CORAL;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(cx,cy,scale*0.9,-rad,0,true);ctx.stroke();
+    label(ctx,'\u03b8='+deg+'\u00b0',cx+scale*1.3,cy-scale*0.25,CORAL,11);
+  }
+  const xcomp = (mag*Math.cos(rad));
+  label(ctx,'Vx='+xcomp.toFixed(2),cx+(ex-cx)*0.5,cy+15,'#185FA5',11);
+  const ycomp = (mag*Math.sin(rad));
+  label(ctx,'Vy='+ycomp.toFixed(2),ex+36,(cy+ey)*0.5,'#0F6E56',11);
+  label(ctx,'x',W*0.98,cy-6,t.axis,12,'right');
+  label(ctx,'y',cx+6,12,t.axis,12);
+  document.getElementById('mag-v').textContent=mag.toFixed(1);
+  document.getElementById('ang-v').textContent=deg+'\u00b0';
+  const vx=mag*Math.cos(rad),vy=mag*Math.sin(rad);
+  document.getElementById('vx').textContent=vx.toFixed(2);
+  document.getElementById('vy').textContent=vy.toFixed(2);
+  document.getElementById('vmag').textContent=Math.sqrt(vx*vx+vy*vy).toFixed(2);
+}
+
+function drawAddCanvas(){
+  const {ctx,W,H} = setupCanvas('add-canvas',250);
+  const t = getTheme();
+  ctx.clearRect(0,0,W,H);
+  const amag=parseFloat(document.getElementById('amag').value);
+  const aang=parseFloat(document.getElementById('aang').value)*Math.PI/180;
+  const bmag=parseFloat(document.getElementById('bmag').value);
+  const bang=parseFloat(document.getElementById('bang').value)*Math.PI/180;
+  const scale=Math.min(W,H)*0.065;
+  const cx=W*0.35,cy=H*0.5;
+  drawGrid(ctx,W,H,cx,cy,scale,t);
+  const ax=amag*Math.cos(aang)*scale, ay=-amag*Math.sin(aang)*scale;
+  const bx=bmag*Math.cos(bang)*scale, by=-bmag*Math.sin(bang)*scale;
+  const rx=ax+bx,ry=ay+by;
+  arrow(ctx,cx,cy,cx+ax,cy+ay,BLUE,2.5);
+  arrow(ctx,cx+ax,cy+ay,cx+ax+bx,cy+ay+by,TEAL,2.5);
+  arrow(ctx,cx,cy,cx+rx,cy+ry,CORAL,2);
+  label(ctx,'A',cx+ax*0.5-10,cy+ay*0.5,BLUE,12);
+  label(ctx,'B',cx+ax+bx*0.5+10,cy+ay+by*0.5,TEAL,12);
+  label(ctx,'R',cx+rx*0.5+10,cy+ry*0.5-6,CORAL,12);
+  document.getElementById('amag-v').textContent=amag.toFixed(1);
+  document.getElementById('aang-v').textContent=Math.round(parseFloat(document.getElementById('aang').value))+'\u00b0';
+  document.getElementById('bmag-v').textContent=bmag.toFixed(1);
+  document.getElementById('bang-v').textContent=Math.round(parseFloat(document.getElementById('bang').value))+'\u00b0';
+  const RX=(amag*Math.cos(aang)+bmag*Math.cos(bang));
+  const RY=(amag*Math.sin(aang)+bmag*Math.sin(bang));
+  const RM=Math.sqrt(RX*RX+RY*RY);
+  const RA=Math.atan2(RY,RX)*180/Math.PI;
+  document.getElementById('rx').textContent=RX.toFixed(2);
+  document.getElementById('ry').textContent=RY.toFixed(2);
+  document.getElementById('rm').textContent=RM.toFixed(2);
+  document.getElementById('ra').textContent=Math.round(RA<0?RA+360:RA)+'\u00b0';
+}
+
+const examples = [
+  {
+    title:'Inclined plane: 20 N at 30\u00b0',
+    steps:[
+      'A 20 N force acts along a 30\u00b0 incline.',
+      'Component parallel to incline: F\u2225 = 20 &middot; cos(30\u00b0) = 20 &times; 0.866 = 17.3 N',
+      'Component perpendicular to incline: F\u22a5 = 20 &middot; sin(30\u00b0) = 20 &times; 0.500 = 10.0 N',
+      'The normal force must equal F\u22a5 for the object to stay on the surface.',
+    ],
+    result:'F\u2225 = 17.3 N (along ramp) | F\u22a5 = 10.0 N (into surface)',
+    draw(ctx,W,H,t){
+      const cx=W*0.25,cy=H*0.75;
+      const ang=30*Math.PI/180, L=120;
+      ctx.strokeStyle=t.axis;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(cx-20,cy);ctx.lineTo(cx+L*Math.cos(ang)+20,cy-L*Math.sin(ang));ctx.stroke();
+      ctx.strokeStyle=t.grid;ctx.lineWidth=0.5;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+L*Math.cos(ang),cy);ctx.stroke();
+      ctx.strokeStyle=CORAL;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(cx,cy,28,-(ang),0,true);ctx.stroke();
+      label(ctx,'30\u00b0',cx+32,cy-8,CORAL,11);
+      const mx=cx+L*0.45,my=cy-L*0.45*Math.sin(ang);
+      arrow(ctx,mx,my,mx+60*Math.cos(ang),my-60*Math.sin(ang),BLUE,2);
+      label(ctx,'F=20N',mx+65*Math.cos(ang)+4,my-65*Math.sin(ang),BLUE,11,'left');
+      dashLine(ctx,mx+60*Math.cos(ang),my-60*Math.sin(ang),mx+60*Math.cos(ang),my,'#1D9E75');
+      dashLine(ctx,mx,my,mx+60*Math.cos(ang),my,'#378ADD');
+      label(ctx,'F\u2225=17.3N',mx+30,my+14,'#185FA5',11);
+      label(ctx,'F\u22a5=10N',mx+65,my-30,'#0F6E56',11);
+    }
+  },
+  {
+    title:'Projectile: 25 m/s at 45\u00b0',
+    steps:[
+      'A ball is launched at 25 m/s at 45\u00b0 above horizontal.',
+      'Horizontal velocity: Vx = 25 &middot; cos(45\u00b0) = 25 &times; 0.707 = 17.7 m/s (constant)',
+      'Vertical velocity: Vy = 25 &middot; sin(45\u00b0) = 25 &times; 0.707 = 17.7 m/s (decreases due to gravity)',
+      'At 45\u00b0, Vx = Vy &mdash; maximum range. Any other angle gives shorter range.',
+    ],
+    result:'Vx = 17.7 m/s | Vy = 17.7 m/s | Range = Vx &middot; (2Vy/g)',
+    draw(ctx,W,H,t){
+      const ox=60,oy=H*0.75;
+      ctx.strokeStyle=t.axis;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(40,oy);ctx.lineTo(W-20,oy);ctx.stroke();
+      ctx.strokeStyle='#378ADD';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);
+      ctx.beginPath();
+      for(let x=0;x<=260;x++){
+        const t2=x/260, vx0=17.7,vy0=17.7,g=9.8;
+        const time=t2*(2*vy0/g);
+        const px=ox+vx0*time*7.5;
+        const py=oy-(vy0*time-0.5*g*time*time)*7.5;
+        x===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.stroke();ctx.setLineDash([]);
+      arrow(ctx,ox,oy,ox+50,oy-50,PURPLE,2.5);
+      label(ctx,'25 m/s',ox+55,oy-55,PURPLE,11,'left');
+      arrow(ctx,ox,oy,ox+50,oy,'#185FA5',1.5);
+      arrow(ctx,ox,oy,ox,oy-50,'#0F6E56',1.5);
+      label(ctx,'Vx',ox+55,oy+4,'#185FA5',11,'left');
+      label(ctx,'Vy',ox+6,oy-55,'#0F6E56',11,'left');
+      ctx.strokeStyle=CORAL;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(ox,oy,30,-45*Math.PI/180,0,true);ctx.stroke();
+      label(ctx,'45\u00b0',ox+32,oy-8,CORAL,11);
+    }
+  },
+  {
+    title:'Tension: rope at 60\u00b0',
+    steps:[
+      'A 50 N weight hangs from a rope angled at 60\u00b0 to the ceiling.',
+      'The rope tension T must have a vertical component equal to the weight.',
+      'Vertical: T &middot; sin(60\u00b0) = 50 N &rarr; T = 50 / sin(60\u00b0) = 50 / 0.866 = 57.7 N',
+      'Horizontal component: T &middot; cos(60\u00b0) = 57.7 &times; 0.5 = 28.9 N (balanced by wall).',
+    ],
+    result:'Tension T = 57.7 N | Horizontal pull on wall = 28.9 N',
+    draw(ctx,W,H,t){
+      const wx=W*0.45,wy=H*0.7;
+      ctx.fillStyle=t.axis;ctx.fillRect(40,20,W-80,8);
+      const ang=60*Math.PI/180;
+      const rx=wx-100*Math.sin(ang),ry=20+100*Math.cos(ang);
+      arrow(ctx,wx,wy,rx,ry,BLUE,2.5);
+      label(ctx,'T=57.7N',rx-8,ry-8,BLUE,11,'right');
+      arrow(ctx,wx,wy,wx,wy+55,CORAL,2);
+      label(ctx,'W=50N',wx+6,wy+45,CORAL,11,'left');
+      ctx.strokeStyle=TEAL;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(wx,wy,25,Math.PI*1.5,Math.PI*1.5+ang,false);ctx.stroke();
+      label(ctx,'60\u00b0',wx-10,wy-30,TEAL,11,'right');
+      dashLine(ctx,wx,wy,wx,ry,'#1D9E75');
+      dashLine(ctx,rx,ry,wx,ry,'#378ADD');
+      label(ctx,'Ty',wx+6,(wy+ry)*0.5,'#0F6E56',11,'left');
+      label(ctx,'Tx',(wx+rx)*0.5,ry-6,'#185FA5',11);
+      ctx.fillStyle='#888780';
+      ctx.beginPath();ctx.arc(wx,wy,8,0,2*Math.PI);ctx.fill();
+    }
+  },
+  {
+    title:'Equilibrium: two forces',
+    steps:[
+      'Force A = 8 N at 0\u00b0; Force B = 6 N at 90\u00b0. Find resultant R.',
+      'Rx = Ax + Bx = 8&middot;cos(0\u00b0) + 6&middot;cos(90\u00b0) = 8 + 0 = 8 N',
+      'Ry = Ay + By = 8&middot;sin(0\u00b0) + 6&middot;sin(90\u00b0) = 0 + 6 = 6 N',
+      '|R| = &radic;(8&sup2; + 6&sup2;) = &radic;(64+36) = &radic;100 = 10 N',
+      '&theta;_R = arctan(6/8) = arctan(0.75) = 36.9\u00b0',
+    ],
+    result:'|R| = 10 N at \u03b8 = 36.9\u00b0 \u2014 a classic 3-4-5 triangle scaled by 2',
+    draw(ctx,W,H,t){
+      const cx=W*0.3,cy=H*0.6;
+      const sc=22;
+      drawGrid(ctx,W,H,cx,cy,sc,t);
+      arrow(ctx,cx,cy,cx+8*sc,cy,BLUE,2.5);
+      arrow(ctx,cx+8*sc,cy,cx+8*sc,cy-6*sc,TEAL,2.5);
+      arrow(ctx,cx,cy,cx+8*sc,cy-6*sc,CORAL,2.5);
+      label(ctx,'A=8N',cx+8*sc*0.5,cy+14,'#185FA5',11);
+      label(ctx,'B=6N',cx+8*sc+6,cy-6*sc*0.5,'#0F6E56',11,'left');
+      label(ctx,'R=10N',cx+8*sc*0.5+10,cy-6*sc*0.5-8,CORAL,12);
+      ctx.strokeStyle=PURPLE;ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.arc(cx,cy,28,-Math.atan2(6,8),0,true);ctx.stroke();
+      label(ctx,'36.9\u00b0',cx+32,cy-8,PURPLE,11);
+    }
+  }
+];
+
+let activeEx = 0;
+function renderExample(i){
+  activeEx = i;
+  document.querySelectorAll('.ex-card').forEach((c,j)=>{ c.classList.toggle('active',j===i); });
+  const ex = examples[i];
+  const area = document.getElementById('worked-area');
+  let html = `<div class="worked"><div style="font-weight:600;margin-bottom:.5rem">${ex.title}</div>`;
+  ex.steps.forEach(s=>{ html+=`<div class="step">&bull; ${s}</div>`; });
+  html+=`<div class="result">${ex.result}</div></div>`;
+  area.innerHTML=html;
+  const {ctx,W,H}=setupCanvas('ex-canvas',200);
+  const t=getTheme();
+  ctx.clearRect(0,0,W,H);
+  ex.draw(ctx,W,H,t);
+}
+
+function drawDotCanvas(){
+  const {ctx,W,H}=setupCanvas('dot-canvas',200);
+  ctx.clearRect(0,0,W,H);
+  const t=getTheme();
+  const deg=parseFloat(document.getElementById('dot-ang').value);
+  const rad=deg*Math.PI/180;
+  const cx=W*0.35,cy=H*0.55,sc=55;
+  drawGrid(ctx,W,H,cx,cy,40,t);
+  arrow(ctx,cx,cy,cx+sc,cy,BLUE,2.5);
+  arrow(ctx,cx,cy,cx+sc*Math.cos(rad),cy-sc*Math.sin(rad),TEAL,2.5);
+  const proj=sc*Math.cos(rad);
+  dashLine(ctx,cx+sc*Math.cos(rad),cy-sc*Math.sin(rad),cx+proj,cy,'#534AB7');
+  ctx.strokeStyle=CORAL;ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.arc(cx,cy,20,-rad,0,true);ctx.stroke();
+  label(ctx,'\u03b8',cx+24,cy-8,CORAL,11);
+  label(ctx,'A',cx+sc+6,cy,BLUE,12,'left');
+  label(ctx,'B',cx+sc*Math.cos(rad)+6,cy-sc*Math.sin(rad)-6,TEAL,12,'left');
+  label(ctx,'projection',cx+proj*0.5,cy+14,PURPLE,11);
+  const cosV=Math.cos(rad);
+  const dotV=7*7*cosV;
+  document.getElementById('dot-ang-v').textContent=deg+'\u00b0';
+  document.getElementById('dot-cos').textContent=cosV.toFixed(3);
+  document.getElementById('dot-val').textContent=dotV.toFixed(2);
+  document.getElementById('dot-work').textContent=dotV.toFixed(1)+' J';
+}
+
+function init(){ drawVecCanvas();drawAddCanvas();renderExample(0);drawDotCanvas(); }
+
+document.getElementById('mag').addEventListener('input',drawVecCanvas);
+document.getElementById('ang').addEventListener('input',drawVecCanvas);
+document.getElementById('amag').addEventListener('input',drawAddCanvas);
+document.getElementById('aang').addEventListener('input',drawAddCanvas);
+document.getElementById('bmag').addEventListener('input',drawAddCanvas);
+document.getElementById('bang').addEventListener('input',drawAddCanvas);
+document.getElementById('dot-ang').addEventListener('input',drawDotCanvas);
+document.querySelectorAll('.ex-card').forEach(c=>{
+  c.addEventListener('click',()=>renderExample(parseInt(c.dataset.ex)));
+});
+
+window.addEventListener('load',init);
+setTimeout(init,80);
+window.addEventListener('resize',()=>{drawVecCanvas();drawAddCanvas();drawDotCanvas();renderExample(activeEx);});
+</script>
+</body>
+</html>
