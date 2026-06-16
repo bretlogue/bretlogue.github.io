@@ -16,12 +16,6 @@
     --gray: #5F5E5A; --gray-l: #F1EFE8;
     --bg: #FFFFFF; --bg2: #FAF9F6; --text: #2C2C2A; --text2: #5F5E5A; --border: #E5E3DC;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1A1A18; --bg2: #232320; --text: #E8E6DD; --text2: #B4B2A9; --border: #3A3A36;
-      --blue-l: #0C2A45; --teal-l: #08332A; --coral-l: #3D1E12; --amber-l: #3D2C0E; --purple-l: #211D45;
-    }
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Lora', Georgia, serif; font-size: 16px; line-height: 1.7; color: var(--text); background: var(--bg2); padding: 2rem 1rem 4rem; }
   .tutorial { max-width: 720px; margin: 0 auto; background: var(--bg); border-radius: 16px; padding: 1rem 2rem 2.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
@@ -294,7 +288,7 @@ function drawUnitCircle(deg) {
   const px = cx + r * Math.cos(rad);
   const py = cy - r * Math.sin(rad);
 
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = false;
   const gridColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)';
   const textColor = isDark ? '#c2c0b6' : '#3d3d3a';
 
@@ -352,7 +346,7 @@ function drawWaves() {
   ctx.scale(dpr, dpr);
   ctx.clearRect(0,0,W,H);
 
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = false;
   const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const cy = H/2;
   const amp = H*0.36;
