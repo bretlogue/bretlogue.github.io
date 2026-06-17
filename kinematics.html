@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1: Kinematics — AP Physics 1 Walkthrough</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:760px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+
+.unit-tag{display:inline-block;background:var(--blue-l);color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:.75rem;font-family:monospace}
+h1{font-size:27px;font-weight:700;margin-bottom:.3rem}
+.subtitle{color:var(--text2);font-size:14px;margin-bottom:1.5rem}
+.exam-weight{display:flex;gap:10px;margin-bottom:2rem;flex-wrap:wrap}
+.weight-chip{background:var(--gray-l);border-radius:8px;padding:.4rem .8rem;font-size:12px;color:var(--text2);font-family:monospace}
+
+.toc{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:13px}
+.toc-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:.6rem}
+.toc a{display:block;color:var(--blue);text-decoration:none;padding:.2rem 0}
+.toc a:hover{text-decoration:underline}
+
+h2{font-size:19px;font-weight:700}
+.topic-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;font-family:monospace;margin-right:8px;flex-shrink:0}
+.section{margin-bottom:2.75rem;scroll-margin-top:1rem}
+.section-header{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.t-blue{background:var(--blue-l);color:var(--blue)}
+.t-teal{background:var(--teal-l);color:var(--teal)}
+.t-coral{background:var(--coral-l);color:var(--coral)}
+.t-purple{background:var(--purple-l);color:var(--purple)}
+.t-amber{background:var(--amber-l);color:var(--amber)}
+
+.prose{font-size:15px;line-height:1.75;margin-bottom:1rem}
+.prose em{color:var(--blue);font-style:normal;font-weight:600}
+.prose strong{font-weight:700}
+
+.formula-box{background:var(--gray-l);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1rem 0;font-family:monospace;font-size:14px;line-height:2}
+
+.callout{border-radius:10px;padding:.9rem 1.1rem;margin:1.1rem 0;font-size:13.5px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
+.c-warn{background:var(--amber-l);border:0.5px solid #EF9F27}
+.c-warn .callout-title{color:var(--amber)}
+.c-tip{background:var(--purple-l);border:0.5px solid #AFA9EC}
+.c-tip .callout-title{color:var(--purple)}
+.c-ex{background:var(--teal-l);border:0.5px solid #5DCAA5}
+.c-ex .callout-title{color:var(--teal)}
+
+.eq-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.eq-table th{background:var(--blue);color:white;padding:.5rem .75rem;text-align:left;font-size:12px;font-weight:600}
+.eq-table th:first-child{border-radius:8px 0 0 0}
+.eq-table th:last-child{border-radius:0 8px 0 0}
+.eq-table td{padding:.55rem .75rem;border-bottom:0.5px solid var(--border);font-family:monospace}
+.eq-table tr:last-child td{border-bottom:none}
+.eq-table tr:nth-child(even) td{background:var(--bg2)}
+
+.worked{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;margin:1.1rem 0}
+.worked-title{font-weight:700;font-size:14px;margin-bottom:.7rem;display:flex;align-items:center;gap:8px}
+.worked-num{background:var(--blue);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:monospace;flex-shrink:0}
+.given{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:.6rem .85rem;margin:.6rem 0;font-family:monospace;font-size:13px;line-height:1.7}
+.step{margin:.5rem 0;font-size:13.5px;line-height:1.7}
+.step-label{font-weight:600;color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.15rem}
+.step-math{font-family:monospace;font-size:13.5px;background:var(--bg);border-radius:6px;padding:.45rem .7rem;margin-top:.2rem;display:inline-block}
+.answer-box{font-family:monospace;font-size:14.5px;font-weight:700;color:var(--blue);background:var(--blue-l);border-radius:8px;padding:.6rem .9rem;margin-top:.7rem}
+
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;background:var(--bg)}
+.panel-hd{padding:.5rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem}
+.row label{font-size:13px;color:var(--text2);min-width:90px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:13px;font-weight:600;min-width:60px;text-align:right}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.75rem}
+@media (max-width:600px){.readouts{grid-template-columns:1fr 1fr}}
+.ro{border-radius:8px;padding:.5rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:14.5px;font-weight:700}
+.r-b{background:var(--blue-l)}.r-b .rl{color:var(--blue)}.r-b .rv{color:var(--blue)}
+.r-t{background:var(--teal-l)}.r-t .rl{color:var(--teal)}.r-t .rv{color:var(--teal)}
+.r-c{background:var(--coral-l)}.r-c .rl{color:var(--coral)}.r-c .rv{color:var(--coral)}
+.r-p{background:var(--purple-l)}.r-p .rl{color:var(--purple)}.r-p .rv{color:var(--purple)}
+
+canvas{display:block;width:100%}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer;border:none}
+
+.practice-list{margin:1rem 0}
+.practice-item{border:0.5px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;background:var(--bg)}
+.practice-q{font-size:13.5px;line-height:1.6;margin-bottom:.5rem}
+.practice-toggle{font-size:11px;color:var(--blue);text-decoration:underline;cursor:pointer;font-weight:600}
+.practice-answer{display:none;margin-top:.6rem;padding-top:.6rem;border-top:0.5px solid var(--border);font-size:13px;line-height:1.7}
+
+.gridtable{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+@media (max-width:600px){.gridtable{grid-template-columns:1fr}}
+.gcard{border:0.5px solid var(--border);border-radius:8px;padding:.7rem .9rem;background:var(--bg2);font-size:13px}
+.gcard .gtitle{font-weight:700;font-size:12px;margin-bottom:.3rem}
+
+.summary-box{background:var(--blue-l);border-radius:12px;padding:1.25rem 1.5rem;margin-top:2.5rem}
+.summary-box h3{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:.6rem}
+.summary-box ul{margin-left:1.1rem;font-size:13.5px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+
+<span class="unit-tag">Unit 1</span>
+<h1>Kinematics</h1>
+<p class="subtitle">The study of motion in one and two dimensions &mdash; before we ask "why," we learn to describe "how"</p>
+<div class="exam-weight">
+  <span class="weight-chip">10&ndash;15% of AP Exam</span>
+  <span class="weight-chip">5 sub-topics</span>
+  <span class="weight-chip">Foundation for every later unit</span>
+</div>
+
+<div class="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#topic1">1.1 &middot; Scalars and Vectors in One Dimension</a>
+  <a href="#topic2">1.2 &middot; Displacement, Velocity, and Acceleration</a>
+  <a href="#topic3">1.3 &middot; Representing Motion (Graphs)</a>
+  <a href="#topic4">1.4 &middot; Reference Frames and Relative Motion</a>
+  <a href="#topic5">1.5 &middot; Vectors and Motion in Two Dimensions</a>
+  <a href="#practice">Practice Problems</a>
+</div>
+
+<!-- TOPIC 1.1 -->
+<div class="section" id="topic1">
+  <div class="section-header"><div class="topic-num t-blue">1.1</div><h2>Scalars and Vectors in One Dimension</h2></div>
+  <p class="prose">A <em>scalar</em> is a quantity with magnitude only &mdash; a number and a unit. Distance, speed, time, and mass are all scalars. A <em>vector</em> has both magnitude and direction &mdash; displacement, velocity, and acceleration are vectors. The distinction matters constantly in AP Physics 1, because two quantities that sound similar (distance vs. displacement, speed vs. velocity) can have very different values in the same scenario.</p>
+
+  <div class="gridtable">
+    <div class="gcard"><div class="gtitle" style="color:var(--blue)">Distance (scalar)</div>Total length of the path traveled. Always positive, never decreases.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--teal)">Displacement (vector)</div>Straight-line change in position, from start to end. Can be zero even if distance traveled is large.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--blue)">Speed (scalar)</div>Distance &divide; time. Always positive.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--teal)">Velocity (vector)</div>Displacement &divide; time. Can be negative, indicating direction.</div>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    If you walk 5 m east then 5 m west, your <strong>distance</strong> traveled is 10 m, but your <strong>displacement</strong> is 0 m. The AP exam tests this distinction constantly &mdash; always ask "are they asking for path length or net change in position?"
+  </div>
+
+  <p class="prose">In one dimension, direction is represented with a sign: positive and negative. You choose which direction is positive (often "right" or "up"), and everything is measured relative to that choice. The sign of velocity tells you direction of motion; the sign of acceleration tells you which way the velocity is changing &mdash; not necessarily which way the object is moving.</p>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    A negative acceleration does <strong>not</strong> mean "slowing down." It means acceleration points in the negative direction. If velocity and acceleration have the <em>same</em> sign, the object speeds up. If they have <em>opposite</em> signs, it slows down. Always check both signs together.
+  </div>
+</div>
+
+<!-- TOPIC 1.2 -->
+<div class="section" id="topic2">
+  <div class="section-header"><div class="topic-num t-teal">1.2</div><h2>Displacement, Velocity, and Acceleration</h2></div>
+  <p class="prose">These three quantities are connected by calculus, but AP Physics 1 only requires the algebra-based relationships: velocity is the rate of change of position, and acceleration is the rate of change of velocity. For motion with <em>constant acceleration</em> &mdash; the overwhelming majority of Unit 1 problems &mdash; four equations connect every combination of these variables.</p>
+
+  <table class="eq-table">
+    <tr><th>Equation</th><th>Solves for</th><th>Missing variable</th></tr>
+    <tr><td>v = v&#8320; + at</td><td>final velocity</td><td>displacement (&Delta;x)</td></tr>
+    <tr><td>&Delta;x = v&#8320;t + &frac12;at&sup2;</td><td>displacement</td><td>final velocity (v)</td></tr>
+    <tr><td>v&sup2; = v&#8320;&sup2; + 2a&Delta;x</td><td>final velocity (no time needed)</td><td>time (t)</td></tr>
+    <tr><td>&Delta;x = &frac12;(v&#8320; + v)t</td><td>displacement (average velocity form)</td><td>acceleration (a)</td></tr>
+  </table>
+
+  <div class="callout c-tip">
+    <div class="callout-title">How to choose the right equation</div>
+    List your knowns and your unknown. Each equation is missing exactly one of the five kinematic variables (v&#8320;, v, a, t, &Delta;x). Pick the equation that's missing the variable you don't have and don't need. This single habit eliminates almost all confusion about "which formula do I use."
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">1</div>Worked Example &mdash; Braking Car</div>
+    <p class="prose" style="margin-bottom:.5rem">A car traveling at 24 m/s brakes with a constant acceleration of &minus;4 m/s&sup2;. How far does it travel before stopping?</p>
+    <div class="given">Given: v&#8320; = 24 m/s, v = 0 m/s (stops), a = &minus;4 m/s&sup2;<br>Find: &Delta;x</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; choose the equation</div>
+      We have v&#8320;, v, and a. We want &Delta;x and don't care about t. That points to v&sup2; = v&#8320;&sup2; + 2a&Delta;x.
+      <div class="step-math">0&sup2; = 24&sup2; + 2(&minus;4)&Delta;x</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; solve algebraically before plugging in numbers</div>
+      <div class="step-math">0 = 576 &minus; 8&Delta;x &rarr; &Delta;x = 576 / 8</div>
+    </div>
+    <div class="answer-box">&Delta;x = 72 m</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Sanity check: a positive displacement makes sense, since the car keeps moving forward as it slows. The negative acceleration matches a velocity that's decreasing toward zero &mdash; signs agree with the physical picture.</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; constant acceleration explorer</div>
+    <div class="panel-bd">
+      <div class="row"><label>v&#8320; (m/s)</label><input type="range" id="k12-v0" min="-10" max="20" value="5" step="1"><span class="val" id="k12-v0v">5</span></div>
+      <div class="row"><label>a (m/s&sup2;)</label><input type="range" id="k12-a" min="-8" max="8" value="2" step="0.5"><span class="val" id="k12-av">2.0</span></div>
+      <div class="row"><label>t (s)</label><input type="range" id="k12-t" min="0" max="10" value="4" step="0.5"><span class="val" id="k12-tv">4.0</span></div>
+      <canvas id="k12-canvas" height="160"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">v at time t</div><div class="rv" id="k12-vf">13.0 m/s</div></div>
+        <div class="ro r-t"><div class="rl">&Delta;x</div><div class="rv" id="k12-dx">36.0 m</div></div>
+        <div class="ro r-c"><div class="rl">avg velocity</div><div class="rv" id="k12-avg">9.0 m/s</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 1.3 -->
+<div class="section" id="topic3">
+  <div class="section-header"><div class="topic-num t-coral">1.3</div><h2>Representing Motion: Graphs</h2></div>
+  <p class="prose">The same motion can be shown as a motion diagram, a position-time graph, a velocity-time graph, words, or equations. The AP exam constantly asks you to translate between these representations. The relationships between the three graph types are the single most tested skill in this topic.</p>
+
+  <table class="eq-table">
+    <tr><th>Graph</th><th>Slope means</th><th>Area under curve means</th></tr>
+    <tr><td>Position vs. time (x&ndash;t)</td><td>velocity</td><td>(not typically used)</td></tr>
+    <tr><td>Velocity vs. time (v&ndash;t)</td><td>acceleration</td><td>displacement</td></tr>
+    <tr><td>Acceleration vs. time (a&ndash;t)</td><td>(not typically used)</td><td>change in velocity</td></tr>
+  </table>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    The velocity-time graph is the workhorse of Unit 1. If you can read a v&ndash;t graph fluently &mdash; pulling acceleration from slope and displacement from area &mdash; you can answer the majority of kinematics questions on the exam, including ones with changing (non-constant) acceleration where the four kinematic equations don't apply.
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; build a v&ndash;t graph and read it</div>
+    <div class="panel-bd">
+      <div class="row"><label>v&#8320; (m/s)</label><input type="range" id="k13-v0" min="-15" max="15" value="-5" step="1"><span class="val" id="k13-v0v">-5</span></div>
+      <div class="row"><label>a (m/s&sup2;)</label><input type="range" id="k13-a" min="-5" max="5" value="2" step="0.5"><span class="val" id="k13-av">2.0</span></div>
+      <canvas id="k13-canvas" height="220"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Slope (= a)</div><div class="rv" id="k13-slope">2.0 m/s&sup2;</div></div>
+        <div class="ro r-t"><div class="rl">Area 0&ndash;6s (= &Delta;x)</div><div class="rv" id="k13-area">6.0 m</div></div>
+        <div class="ro r-c"><div class="rl">Direction change at</div><div class="rv" id="k13-flip">2.5 s</div></div>
+      </div>
+      <p class="prose" style="margin-top:.75rem;margin-bottom:0;font-size:13px">Notice: when the graph crosses zero, the object momentarily stops, then moves in the opposite direction. Shaded regions above the axis count as positive area (forward displacement); below the axis count as negative (backward displacement).</p>
+    </div>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Students often confuse "the v&ndash;t graph crosses zero" with "the object stops accelerating." They're unrelated. Crossing zero on a v&ndash;t graph means velocity is momentarily zero (the object is turning around); the slope &mdash; acceleration &mdash; can be nonzero the whole time.
+  </div>
+</div>
+
+<!-- TOPIC 1.4 -->
+<div class="section" id="topic4">
+  <div class="section-header"><div class="topic-num t-purple">1.4</div><h2>Reference Frames and Relative Motion</h2></div>
+  <p class="prose">All motion is described relative to a chosen reference frame. A passenger on a train moving at 20 m/s appears stationary to another passenger but is moving at 20 m/s to someone standing on the ground. Velocities add (or subtract) when switching between reference frames, as long as we're careful with signs and directions.</p>
+
+  <div class="formula-box">
+    v<sub>A relative to C</sub> = v<sub>A relative to B</sub> + v<sub>B relative to C</sub>
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">2</div>Worked Example &mdash; Walking on a Train</div>
+    <p class="prose" style="margin-bottom:.5rem">A train moves at 15 m/s east relative to the ground. A passenger walks at 2 m/s east relative to the train. What is the passenger's velocity relative to the ground?</p>
+    <div class="given">Given: v<sub>train/ground</sub> = +15 m/s, v<sub>passenger/train</sub> = +2 m/s<br>Find: v<sub>passenger/ground</sub></div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; add the velocities</div>
+      <div class="step-math">v<sub>passenger/ground</sub> = v<sub>passenger/train</sub> + v<sub>train/ground</sub> = 2 + 15</div>
+    </div>
+    <div class="answer-box">v<sub>passenger/ground</sub> = 17 m/s east</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">If the passenger instead walked toward the back of the train at 2 m/s, you'd use &minus;2 m/s, giving 13 m/s east relative to the ground. Always assign a consistent positive direction before adding.</p>
+  </div>
+</div>
+
+<!-- TOPIC 1.5 -->
+<div class="section" id="topic5">
+  <div class="section-header"><div class="topic-num t-amber">1.5</div><h2>Vectors and Motion in Two Dimensions</h2></div>
+  <p class="prose">Two-dimensional motion is solved by splitting it into two independent one-dimensional problems &mdash; horizontal (x) and vertical (y) &mdash; that share only one quantity: time. This is the single biggest idea in 2D kinematics. Once a vector is broken into components using sine and cosine, each direction is solved with the same four equations from Topic 1.2.</p>
+
+  <div class="formula-box">
+    A<sub>x</sub> = A&middot;cos(&theta;) &nbsp;&nbsp;&nbsp; A<sub>y</sub> = A&middot;sin(&theta;)<br>
+    A = &radic;(A<sub>x</sub>&sup2; + A<sub>y</sub>&sup2;) &nbsp;&nbsp;&nbsp; &theta; = tan&#8315;&sup9;(A<sub>y</sub> / A<sub>x</sub>)
+  </div>
+
+  <p class="prose"><strong>Projectile motion</strong> is the special case tested most heavily: an object launched into the air has zero acceleration horizontally (constant horizontal velocity) and constant acceleration g = 9.8 m/s&sup2; downward, vertically. The two directions never interact &mdash; gravity never affects horizontal velocity, and horizontal motion never affects how fast the object falls.</p>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    A projectile launched at an angle takes exactly as long to rise to its peak as it takes to fall back to launch height. At the peak, vertical velocity is exactly zero &mdash; but horizontal velocity is completely unchanged from launch. Acceleration (g) never pauses, even at the peak.
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">3</div>Worked Example &mdash; Projectile Launched at an Angle</div>
+    <p class="prose" style="margin-bottom:.5rem">A ball is launched at 30 m/s at 40&deg; above horizontal from level ground. Find the time of flight and the horizontal range.</p>
+    <div class="given">Given: v&#8320; = 30 m/s, &theta; = 40&deg;, g = 9.8 m/s&sup2;, launch height = landing height<br>Find: time of flight (T) and range (R)</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; split into components</div>
+      <div class="step-math">v&#8320;<sub>x</sub> = 30&middot;cos(40&deg;) = 23.0 m/s &nbsp;&nbsp; v&#8320;<sub>y</sub> = 30&middot;sin(40&deg;) = 19.3 m/s</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; find time of flight using the vertical direction only</div>
+      Since launch and landing height are equal, use &Delta;y = 0: &nbsp;0 = v&#8320;<sub>y</sub>t &minus; &frac12;gt&sup2;
+      <div class="step-math">T = 2v&#8320;<sub>y</sub> / g = 2(19.3) / 9.8</div>
+    </div>
+    <div class="answer-box">T = 3.94 s</div>
+    <div class="step" style="margin-top:.8rem">
+      <div class="step-label">Step 3 &mdash; find range using the horizontal direction (constant velocity)</div>
+      <div class="step-math">R = v&#8320;<sub>x</sub>&middot;T = 23.0 &times; 3.94</div>
+    </div>
+    <div class="answer-box">R = 90.6 m</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Notice that step 2 used only vertical quantities, and step 3 used only horizontal quantities &mdash; the two directions were never mixed except through the shared variable T.</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; projectile launcher</div>
+    <div class="panel-bd">
+      <div class="row"><label>Speed (m/s)</label><input type="range" id="proj-v" min="5" max="40" value="30" step="1"><span class="val" id="proj-vv">30</span></div>
+      <div class="row"><label>Angle &theta;</label><input type="range" id="proj-ang" min="5" max="85" value="40" step="1"><span class="val" id="proj-angv">40&deg;</span></div>
+      <canvas id="proj-canvas" height="240"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Time of flight</div><div class="rv" id="proj-t">3.94 s</div></div>
+        <div class="ro r-t"><div class="rl">Max height</div><div class="rv" id="proj-h">19.0 m</div></div>
+        <div class="ro r-c"><div class="rl">Range</div><div class="rv" id="proj-r">90.6 m</div></div>
+      </div>
+      <p class="prose" style="margin-top:.75rem;margin-bottom:0;font-size:13px">Try setting the angle to 45&deg; &mdash; notice the range hits its maximum value there. Then compare 30&deg; and 60&deg;: equal ranges, because they're symmetric around 45&deg;.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRACTICE -->
+<div class="section" id="practice">
+  <div class="section-header"><div class="topic-num t-blue" style="background:var(--gray-l);color:var(--text2)">&#10003;</div><h2>Practice Problems</h2></div>
+  <p class="prose">Try each problem before checking the answer. These mirror the style and difficulty of AP Physics 1 free-response questions.</p>
+  <div class="practice-list" id="practice-list"></div>
+</div>
+
+<div class="summary-box">
+  <h3>Unit 1 takeaways</h3>
+  <ul>
+    <li>Distinguish scalars (distance, speed) from vectors (displacement, velocity, acceleration) &mdash; direction matters.</li>
+    <li>Pick the kinematic equation that's missing the variable you don't need.</li>
+    <li>On a v&ndash;t graph: slope = acceleration, area = displacement.</li>
+    <li>Relative motion: velocities add across reference frames, with signs tracked carefully.</li>
+    <li>2D motion = two independent 1D problems linked only by time. Projectiles have zero horizontal acceleration and constant vertical acceleration g.</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+const isDark=()=>false;
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',AMBER='#BA7517',GRAY='#5F5E5A';
+const g=9.8;
+
+function setupC(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||640;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+function arrowF(ctx,x1,y1,x2,y2,col,lw=2){
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+  const nx=dx/l,ny=dy/l,hs=9,hw=5;
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);ctx.closePath();ctx.fill();
+}
+
+// 1.2 constant acceleration explorer
+function drawK12(){
+  const v0=parseFloat(document.getElementById('k12-v0').value);
+  const a=parseFloat(document.getElementById('k12-a').value);
+  const t=parseFloat(document.getElementById('k12-t').value);
+  document.getElementById('k12-v0v').textContent=v0;
+  document.getElementById('k12-av').textContent=a.toFixed(1);
+  document.getElementById('k12-tv').textContent=t.toFixed(1);
+  const vf=v0+a*t;
+  const dx=v0*t+0.5*a*t*t;
+  const avg=(v0+vf)/2;
+  document.getElementById('k12-vf').textContent=vf.toFixed(1)+' m/s';
+  document.getElementById('k12-dx').textContent=dx.toFixed(1)+' m';
+  document.getElementById('k12-avg').textContent=avg.toFixed(1)+' m/s';
+  const r=setupC('k12-canvas',160);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const pad=40,tMax=Math.max(t,1)*1.15;
+  let vMax=Math.max(Math.abs(v0),Math.abs(vf),5)*1.2;
+  const toX=tt=>pad+(tt/tMax)*(W-pad-20);
+  const toY=v=>H/2-(v/vMax)*(H/2-15);
+  ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=0.7;
+  ctx.beginPath();ctx.moveTo(pad,H/2);ctx.lineTo(W-10,H/2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(pad,10);ctx.lineTo(pad,H-10);ctx.stroke();
+  txt(ctx,'v (m/s)',pad-6,20,GRAY,10,'right');
+  txt(ctx,'t (s)',W-15,H/2+18,GRAY,10);
+  // shaded area
+  ctx.fillStyle='rgba(24,95,165,0.12)';
+  ctx.beginPath();ctx.moveTo(toX(0),H/2);
+  for(let i=0;i<=50;i++){const tt=(i/50)*t;ctx.lineTo(toX(tt),toY(v0+a*tt));}
+  ctx.lineTo(toX(t),H/2);ctx.closePath();ctx.fill();
+  // line
+  ctx.strokeStyle=BLUE;ctx.lineWidth=2.5;
+  ctx.beginPath();
+  for(let i=0;i<=50;i++){const tt=(i/50)*t;const y=toY(v0+a*tt);i===0?ctx.moveTo(toX(tt),y):ctx.lineTo(toX(tt),y);}
+  ctx.stroke();
+  ctx.fillStyle=CORAL;ctx.beginPath();ctx.arc(toX(t),toY(vf),4,0,2*Math.PI);ctx.fill();
+}
+
+// 1.3 v-t graph
+function drawK13(){
+  const v0=parseFloat(document.getElementById('k13-v0').value);
+  const a=parseFloat(document.getElementById('k13-a').value);
+  document.getElementById('k13-v0v').textContent=v0;
+  document.getElementById('k13-av').textContent=a.toFixed(1);
+  document.getElementById('k13-slope').textContent=a.toFixed(1)+' m/s\u00b2';
+  const tEnd=6;
+  const area=v0*tEnd+0.5*a*tEnd*tEnd;
+  document.getElementById('k13-area').textContent=area.toFixed(1)+' m';
+  const flipT = a!==0 ? (-v0/a) : NaN;
+  document.getElementById('k13-flip').textContent=(flipT>0&&flipT<tEnd)?flipT.toFixed(1)+' s':'never';
+  const r=setupC('k13-canvas',220);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const pad=44;
+  const vMax=20;
+  const toX=tt=>pad+(tt/tEnd)*(W-pad-20);
+  const toY=v=>H/2-(v/vMax)*(H/2-20);
+  ctx.strokeStyle='rgba(0,0,0,0.06)';ctx.lineWidth=0.6;
+  for(let tt=0;tt<=tEnd;tt++){ctx.beginPath();ctx.moveTo(toX(tt),20);ctx.lineTo(toX(tt),H-20);ctx.stroke();}
+  ctx.strokeStyle='rgba(0,0,0,0.25)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(pad,H/2);ctx.lineTo(W-10,H/2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(pad,15);ctx.lineTo(pad,H-15);ctx.stroke();
+  txt(ctx,'v',pad-10,28,GRAY,11,'right');
+  txt(ctx,'t (s)',W-15,H/2+18,GRAY,10);
+  for(let tt=0;tt<=tEnd;tt++) txt(ctx,tt,toX(tt),H/2+14,GRAY,9);
+  // shaded pos/neg area
+  ctx.beginPath();ctx.moveTo(toX(0),H/2);
+  for(let i=0;i<=100;i++){const tt=(i/100)*tEnd;ctx.lineTo(toX(tt),toY(v0+a*tt));}
+  ctx.lineTo(toX(tEnd),H/2);ctx.closePath();
+  ctx.fillStyle='rgba(15,110,86,0.15)';ctx.fill();
+  ctx.strokeStyle=TEAL;ctx.lineWidth=2.5;
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){const tt=(i/100)*tEnd;const y=toY(v0+a*tt);i===0?ctx.moveTo(toX(tt),y):ctx.lineTo(toX(tt),y);}
+  ctx.stroke();
+}
+
+// 1.5 projectile
+function drawProj(){
+  const v0=parseFloat(document.getElementById('proj-v').value);
+  const ang=parseFloat(document.getElementById('proj-ang').value);
+  document.getElementById('proj-vv').textContent=v0;
+  document.getElementById('proj-angv').textContent=ang+'\u00b0';
+  const rad=ang*Math.PI/180;
+  const vx=v0*Math.cos(rad),vy=v0*Math.sin(rad);
+  const T=2*vy/g;
+  const hMax=vy*vy/(2*g);
+  const R=vx*T;
+  document.getElementById('proj-t').textContent=T.toFixed(2)+' s';
+  document.getElementById('proj-h').textContent=hMax.toFixed(1)+' m';
+  document.getElementById('proj-r').textContent=R.toFixed(1)+' m';
+  const r=setupC('proj-canvas',240);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const pad=30,groundY=H-30;
+  const scale=(W-pad*2)/Math.max(R*1.15,10);
+  const vscale=Math.min(scale,(groundY-20)/Math.max(hMax*1.3,5));
+  ctx.strokeStyle='rgba(0,0,0,0.25)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(pad-10,groundY);ctx.lineTo(W-10,groundY);ctx.stroke();
+  ctx.strokeStyle=PURPLE;ctx.lineWidth=2;ctx.setLineDash([]);
+  ctx.beginPath();
+  for(let i=0;i<=100;i++){
+    const tt=(i/100)*T;
+    const px=pad+vx*tt*scale;
+    const py=groundY-(vy*tt-0.5*g*tt*tt)*vscale;
+    i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+  arrowF(ctx,pad,groundY,pad+Math.min(vx,15)*3,groundY-Math.min(vy,15)*3,BLUE,2);
+  txt(ctx,ang+'\u00b0',pad+34,groundY-10,CORAL,11);
+  ctx.strokeStyle=CORAL;ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(pad,groundY,26,-rad,0,true);ctx.stroke();
+  // peak marker
+  const peakX=pad+vx*(T/2)*scale, peakY=groundY-hMax*vscale;
+  ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.setLineDash([4,3]);ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(peakX,peakY);ctx.lineTo(peakX,groundY);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle=PURPLE;ctx.beginPath();ctx.arc(peakX,peakY,4,0,2*Math.PI);ctx.fill();
+  txt(ctx,'peak',peakX,peakY-10,PURPLE,10);
+  const landX=pad+R*scale;
+  ctx.fillStyle=TEAL;ctx.beginPath();ctx.arc(landX,groundY,4,0,2*Math.PI);ctx.fill();
+  txt(ctx,'R='+R.toFixed(1)+'m',landX,groundY+18,TEAL,11);
+}
+
+function redrawAll(){drawK12();drawK13();drawProj();}
+
+['k12-v0','k12-a','k12-t'].forEach(id=>document.getElementById(id).addEventListener('input',drawK12));
+['k13-v0','k13-a'].forEach(id=>document.getElementById(id).addEventListener('input',drawK13));
+['proj-v','proj-ang'].forEach(id=>document.getElementById(id).addEventListener('input',drawProj));
+
+// Practice problems
+const practiceItems=[
+  {
+    q:'A cyclist accelerates from rest at 1.5 m/s&sup2; for 8 seconds. What is her final velocity and how far does she travel?',
+    a:'v = v&#8320; + at = 0 + (1.5)(8) = <strong>12 m/s</strong>.<br>&Delta;x = v&#8320;t + &frac12;at&sup2; = 0 + &frac12;(1.5)(8&sup2;) = <strong>48 m</strong>.'
+  },
+  {
+    q:'A ball is dropped (not thrown) from a height of 20 m. How long does it take to hit the ground, and what is its impact speed? (g = 9.8 m/s&sup2;)',
+    a:'Using &Delta;y = &frac12;gt&sup2; with &Delta;y = 20: 20 = &frac12;(9.8)t&sup2; &rarr; t&sup2; = 4.08 &rarr; <strong>t = 2.02 s</strong>.<br>v = gt = (9.8)(2.02) = <strong>19.8 m/s</strong>.'
+  },
+  {
+    q:'A position-time graph shows an object at x = 2 m at t = 0, moving to x = 14 m at t = 4 s along a straight line. What is the average velocity, and what would the corresponding v&ndash;t graph look like?',
+    a:'Average velocity = &Delta;x/&Delta;t = (14&minus;2)/4 = <strong>3 m/s</strong>. Since the x&ndash;t graph is a straight line (constant slope), the v&ndash;t graph would be a horizontal line at v = 3 m/s &mdash; constant velocity means zero acceleration.'
+  },
+  {
+    q:'A boat can travel at 4 m/s in still water. It heads directly across a river that flows at 3 m/s. What is the boat\'s resultant speed relative to the shore?',
+    a:'The boat\'s velocity and the current are perpendicular, so use the Pythagorean theorem: v = &radic;(4&sup2; + 3&sup2;) = &radic;(16+9) = &radic;25 = <strong>5 m/s</strong> (a classic 3-4-5 triangle).'
+  },
+  {
+    q:'A projectile is launched horizontally (0&deg;) at 15 m/s from a cliff 45 m high. How far from the base of the cliff does it land?',
+    a:'Vertical: &Delta;y = &frac12;gt&sup2; &rarr; 45 = &frac12;(9.8)t&sup2; &rarr; t&sup2; = 9.18 &rarr; t = 3.03 s.<br>Horizontal: R = v&#8320;t = (15)(3.03) = <strong>45.4 m</strong>. Notice gravity and horizontal speed are totally independent &mdash; the horizontal velocity never changes during the fall.'
+  }
+];
+function buildPractice(){
+  const list=document.getElementById('practice-list');
+  practiceItems.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='practice-item';
+    d.innerHTML=`<div class="practice-q"><strong>${i+1}.</strong> ${item.q}</div><div class="practice-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">show solution</div><div class="practice-answer">${item.a}</div>`;
+    list.appendChild(d);
+  });
+}
+
+buildPractice();
+window.addEventListener('load',redrawAll);
+setTimeout(redrawAll,100);
+window.addEventListener('resize',redrawAll);
+</script>
+</body>
+</html>
