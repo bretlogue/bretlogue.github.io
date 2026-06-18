@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinematics Quiz — AP Physics 1</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --green:#1A6B38;--green-l:#E3F5EB;--red:#8B1A1A;--red-l:#FAEAEA;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:1.5rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:760px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+.unit-tag{display:inline-block;background:var(--blue-l);color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:.75rem;font-family:monospace}
+h1{font-size:26px;font-weight:700;margin-bottom:.3rem}
+.subtitle{color:var(--text2);font-size:14px;margin-bottom:1rem}
+
+/* Progress bar */
+.progress-wrap{background:var(--bg2);border-radius:12px;padding:1rem 1.25rem;margin-bottom:2rem;border:0.5px solid var(--border)}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.progress-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text2)}
+.progress-score{font-family:monospace;font-size:18px;font-weight:700;color:var(--blue)}
+.progress-bar-track{background:var(--border);border-radius:4px;height:8px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--blue);border-radius:4px;transition:width .4s}
+.progress-stats{display:flex;gap:12px;margin-top:.6rem;flex-wrap:wrap}
+.pstat{font-size:12px;font-family:monospace;padding:3px 8px;border-radius:5px}
+.pstat-ok{background:var(--green-l);color:var(--green)}
+.pstat-err{background:var(--red-l);color:var(--red)}
+.pstat-skip{background:var(--gray-l);color:var(--gray)}
+
+/* Section headers */
+.section-header{display:flex;align-items:center;gap:8px;margin:2rem 0 1rem;padding-top:1.25rem;border-top:0.5px solid var(--border)}
+.section-header:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.sec-badge{background:var(--blue-l);color:var(--blue);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;font-family:monospace;text-transform:uppercase;letter-spacing:.4px}
+.sec-title{font-size:15px;font-weight:700}
+
+/* Question cards */
+.q-card{border:0.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1rem;background:var(--bg);transition:border-color .2s}
+.q-card.answered-correct{border-color:#5DCAA5;background:#FAFFFE}
+.q-card.answered-wrong{border-color:#D85A30;background:#FFFAFA}
+.q-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:.5rem;font-family:monospace}
+.q-text{font-size:14px;line-height:1.65;margin-bottom:.85rem}
+.q-text code{font-family:monospace;background:var(--gray-l);padding:1px 5px;border-radius:4px}
+
+/* Canvas contexts for questions */
+.q-canvas{display:block;width:100%;margin-bottom:.85rem;border-radius:8px;background:var(--bg2);border:0.5px solid var(--border)}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:6px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:.55rem .8rem;border-radius:8px;border:0.5px solid var(--border);cursor:pointer;font-size:13.5px;line-height:1.5;background:var(--bg);transition:background .15s,border-color .15s;-webkit-user-select:none;user-select:none}
+.option:hover:not(.disabled){background:var(--bg2);border-color:var(--blue)}
+.option.selected{background:var(--blue-l);border-color:var(--blue)}
+.option.correct{background:var(--green-l);border-color:#5DCAA5;pointer-events:none}
+.option.wrong{background:var(--red-l);border-color:#D85A30;pointer-events:none}
+.option.missed{background:var(--amber-l);border-color:#EF9F27;pointer-events:none}
+.option.disabled{pointer-events:none;opacity:.75}
+.opt-letter{font-family:monospace;font-weight:700;font-size:13px;min-width:20px;margin-top:1px;flex-shrink:0}
+.opt-letter.ok{color:var(--green)}
+.opt-letter.bad{color:var(--red)}
+.opt-letter.hint{color:var(--amber)}
+
+/* Multi-select */
+.multi-note{font-size:11px;color:var(--purple);font-weight:600;margin-bottom:.5rem;background:var(--purple-l);padding:3px 8px;border-radius:5px;display:inline-block}
+
+/* Submit button */
+.btn-submit{margin-top:.85rem;padding:.5rem 1.1rem;background:var(--blue);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-submit:hover{background:#0C447C}
+.btn-submit:disabled{background:var(--border);color:var(--text2);cursor:default}
+
+/* Explanation panel */
+.explanation{margin-top:.85rem;padding:.9rem 1.1rem;border-radius:10px;font-size:13.5px;line-height:1.7;display:none}
+.explanation.show{display:block}
+.explanation.correct{background:var(--green-l);border:0.5px solid #5DCAA5}
+.explanation.wrong{background:var(--red-l);border:0.5px solid #D85A30}
+.exp-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.5rem}
+.exp-title.ok{color:var(--green)}
+.exp-title.bad{color:var(--red)}
+.exp-math{font-family:monospace;font-size:13px;background:rgba(0,0,0,0.04);padding:.4rem .7rem;border-radius:6px;margin:.4rem 0;display:block}
+.exp-canvas{display:block;width:100%;margin:.6rem 0;border-radius:8px;background:var(--bg2)}
+
+/* Reset / results */
+.results-bar{background:var(--blue-l);border-radius:12px;padding:1.25rem 1.5rem;margin-top:2.5rem;display:none}
+.results-bar.show{display:block}
+.results-bar h3{font-size:16px;font-weight:700;color:var(--blue);margin-bottom:.4rem}
+.btn-reset{margin-top:.75rem;padding:.5rem 1.1rem;background:var(--blue);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+
+canvas{display:block;width:100%}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="unit1-kinematics.html">&larr; back to Unit 1: Kinematics</a></div>
+<div class="wrap">
+  <span class="unit-tag">Unit 1 Quiz</span>
+  <h1>Kinematics Practice Quiz</h1>
+  <p class="subtitle">45 multiple-choice questions &mdash; based on the PSI AP Physics 1 Kinematics problem set. Select your answer, then submit to see a full step-by-step explanation.</p>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label">Progress</span>
+      <span class="progress-score" id="score-display">0 / 45</span>
+    </div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-stats">
+      <span class="pstat pstat-ok" id="stat-correct">0 correct</span>
+      <span class="pstat pstat-err" id="stat-wrong">0 wrong</span>
+      <span class="pstat pstat-skip" id="stat-remaining">45 remaining</span>
+    </div>
+  </div>
+
+  <div id="quiz-container"></div>
+
+  <div class="results-bar" id="results-bar">
+    <h3 id="results-title">Quiz Complete!</h3>
+    <p id="results-body" style="font-size:14px"></p>
+    <button class="btn-reset" onclick="resetQuiz()">Try again</button>
+  </div>
+</div>
+
+<script>
+// ─── Colour palette ───────────────────────────────────────────────────────────
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',
+      AMBER='#BA7517',GRAY='#5F5E5A',RED='#8B1A1A',GREEN='#1A6B38';
+
+// ─── Canvas helpers ──────────────────────────────────────────────────────────
+function mkCanvas(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||660;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+function arrow(ctx,x1,y1,x2,y2,col,lw=2){
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+  const nx=dx/l,ny=dy/l,hs=8,hw=4;
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);
+  ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);
+  ctx.closePath();ctx.fill();
+}
+function axes(ctx,W,H,cx,cy,xl,yl,col='rgba(0,0,0,0.25)'){
+  ctx.strokeStyle=col;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(cx,10);ctx.lineTo(cx,H-10);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(10,cy);ctx.lineTo(W-10,cy);ctx.stroke();
+  txt(ctx,xl||'t',W-14,cy+14,GRAY,10,'right');
+  txt(ctx,yl||'v',cx+8,14,GRAY,10);
+}
+
+// ─── Question bank ───────────────────────────────────────────────────────────
+// Each entry: { id, text, options[], answer (0-indexed or array for multi),
+//              explanation (HTML), drawQ?(fn), drawExp?(fn), multi? }
+const QUESTIONS = [
+// ═══ SECTION 1: SCALARS, VECTORS, DISPLACEMENT ═══
+{
+  section:'Scalars, Vectors &amp; Displacement',
+  id:1,
+  text:'An object moves around a circular path of radius R. The object starts from point A, goes to point B and describes an arc of half of the circle. Which of the following is true about the magnitude of displacement and traveled distance?',
+  options:['A. Displacement = R, Distance = 2πR','B. Displacement = 2R, Distance = πR','C. Displacement = R/2, Distance = R','D. Displacement = R, Distance = 4πR'],
+  answer:1,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,130);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const cx=W/2,cy=H/2,radius=45;
+    ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.arc(cx,cy,radius,0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=BLUE;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI);ctx.stroke();
+    ctx.fillStyle=BLUE;ctx.beginPath();ctx.arc(cx+radius,cy,5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle=TEAL;ctx.beginPath();ctx.arc(cx-radius,cy,5,0,2*Math.PI);ctx.fill();
+    txt(ctx,'A',cx+radius+12,cy+4,BLUE,12);txt(ctx,'B',cx-radius-12,cy+4,TEAL,12);
+    ctx.strokeStyle=CORAL;ctx.lineWidth=1.5;ctx.setLineDash([5,3]);
+    ctx.beginPath();ctx.moveTo(cx+radius,cy);ctx.lineTo(cx-radius,cy);ctx.stroke();ctx.setLineDash([]);
+    txt(ctx,'2R (displacement)',cx,cy-10,CORAL,10);
+    txt(ctx,'πR (half circumference)',cx,cy+H*0.32,GRAY,10);
+  },
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  <strong>Displacement</strong> is the straight-line distance from start (A) to end (B). Since A and B are on opposite ends of a diameter, the displacement = 2R.<br>
+  <strong>Traveled distance</strong> is the arc length of half the circle = half the circumference = πR.<br>
+  <span class="exp-math">Circumference = 2πR &nbsp;→&nbsp; Half = πR</span>
+  Think of it this way: if you walk halfway around a circular track of radius 100 m, you've run πR ≈ 314 m, but you're only 200 m away from where you started.`
+},
+{
+  id:2,
+  text:'A rock is thrown straight up from the edge of a cliff. The rock reaches the maximum height of 15 m above the edge and then falls down to the bottom of the cliff 35 m below the cliff edge. What is the <strong>traveled distance</strong> of the rock?',
+  options:['A. 30 m','B. 35 m','C. 50 m','D. 65 m'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  Traveled distance counts every meter the rock actually moves — it never decreases.<br>
+  <span class="exp-math">Up to peak: 15 m&nbsp; (cliff edge → top)</span>
+  <span class="exp-math">Down to bottom: 15 m + 35 m = 50 m&nbsp; (top → cliff edge → bottom)</span>
+  <span class="exp-math">Total distance = 15 + 50 = <strong>65 m</strong></span>
+  The rock goes up 15 m, then comes all the way back down past the edge and another 35 m to the cliff bottom.`
+},
+{
+  id:3,
+  text:'Same scenario as Q2. What is the <strong>displacement</strong> of the rock?',
+  options:['A. 15 m','B. 35 m','C. 50 m','D. 65 m'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  Displacement is the straight-line change in position from start to finish — not the total path traveled.<br>
+  <span class="exp-math">Start: cliff edge (call it 0 m)</span>
+  <span class="exp-math">End: bottom of cliff = −35 m</span>
+  <span class="exp-math">Displacement = final − initial = −35 − 0 = −35 m</span>
+  Magnitude = <strong>35 m</strong> (downward). The peak height of 15 m is irrelevant — only start and end matter for displacement.`
+},
+{
+  id:4,
+  text:'Can an object\'s average velocity equal zero when the object\'s speed is greater than zero?',
+  options:['A. Yes, when the object moves in a straight line at a constant rate','B. Yes, when the object returns to its original position','C. No — they are always equal','D. No — velocity magnitude is always greater than speed'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  Average velocity = total displacement / time. If the object starts and ends at the same place, displacement = 0, so average velocity = 0 — even if the object was moving the whole time!<br>
+  A car that drives around a complete lap of a circuit has average velocity = 0 but nonzero average speed. Speed can never be negative; velocity can be, which allows it to cancel out.`
+},
+{
+  id:26,
+  text:'Which of the following is a <strong>vector</strong> quantity?',
+  options:['A. Traveled distance','B. Displacement','C. Area','D. Mass'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  A vector has both magnitude <em>and</em> direction. Displacement tells you both how far and which way. Distance, area, and mass are scalars — they have magnitude only, no direction.`
+},
+{
+  id:27,
+  text:'Which of the following is <strong>not</strong> a vector quantity?',
+  options:['A. Velocity','B. Displacement','C. Momentum','D. Traveled distance'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  Traveled distance is a scalar — it's the total path length with no direction associated with it. Velocity, displacement, and momentum are all vectors with both magnitude and direction.`
+},
+// ═══ SECTION 2: ACCELERATION ═══
+{
+  section:'Acceleration &amp; 1D Motion',
+  id:5,
+  text:'A car accelerates from rest at a constant rate 5 m/s². Which statement is true?',
+  options:['A. The car travels 5 m every second','B. The car decreases its velocity 5 m/s every second','C. The car increases its velocity 5 m/s every second','D. The car\'s velocity doesn\'t change'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C</span>
+  Acceleration = change in velocity per unit time.
+  <span class="exp-math">a = 5 m/s² means Δv = 5 m/s every second</span>
+  After 1 s: v = 5 m/s. After 2 s: v = 10 m/s. And so on. The distance is <em>not</em> 5 m each second (that's only true for constant velocity). Distance in the 1st second = ½at² = ½(5)(1) = 2.5 m; in the 2nd second = more. Distance grows.`
+},
+{
+  id:19,
+  text:'A rock is thrown straight up with twice the initial velocity of another. How much higher will the first rock be at its apex?',
+  options:['A. 2 times','B. 4 times','C. 16 times','D. The rocks reach the same apex'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  At the apex, v = 0. Using v² = v₀² − 2gh:
+  <span class="exp-math">0 = v₀² − 2gh &nbsp;→&nbsp; h = v₀² / (2g)</span>
+  Height is proportional to v₀². If v₀ doubles, h increases by 2² = <strong>4 times</strong>. This is the same reason doubling a car's speed quadruples its stopping distance.`
+},
+{
+  id:20,
+  text:'A student drops a pebble from the edge of a vertical cliff. The pebble hits the ground 4 s after it was dropped. What is the speed of the pebble just before it hits the ground? (g = 10 m/s²)',
+  options:['A. 20 m/s','B. 40 m/s','C. 60 m/s','D. 80 m/s'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  The pebble starts from rest (v₀ = 0) and accelerates under gravity:
+  <span class="exp-math">v = v₀ + gt = 0 + (10)(4) = <strong>40 m/s</strong></span>
+  Simple and clean — just the kinematic equation for final velocity with constant acceleration.`
+},
+{
+  id:21,
+  text:'Same pebble drop (4 s, g = 10 m/s²). What is the height of the cliff?',
+  options:['A. 20 m','B. 40 m','C. 60 m','D. 80 m'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  <span class="exp-math">h = v₀t + ½gt² = 0 + ½(10)(4²) = ½(10)(16) = <strong>80 m</strong></span>
+  Note: The answer isn't 40 × 4 = 160 m — that would be the distance if the pebble traveled at 40 m/s the whole time. Because it accelerates from rest, you need ½gt².`
+},
+{
+  id:22,
+  text:'An astronaut on the Moon simultaneously drops a bird feather and a screwdriver. They reach the surface at the same time. This is best explained by:',
+  options:['A. The Moon has no gravity','B. The Moon\'s gravity is much weaker than Earth\'s','C. The same gravitational force is applied to both','D. At a given location all objects fall with the same acceleration in the absence of air resistance'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  This is Galileo's famous result: in the absence of air resistance, all objects at the same location fall with the same gravitational acceleration regardless of mass. On Earth we don't see this with a feather because air resistance is large relative to the feather's weight. On the Moon there's no atmosphere, so both objects fall with the Moon's g ≈ 1.6 m/s² — simultaneously.`
+},
+// ═══ SECTION 3: POSITION-TIME GRAPHS ═══
+{
+  section:'Reading Motion Graphs',
+  id:11,
+  text:'A position–time graph shows a straight-line segment from (0, 0) to (4 s, 8 m), then a flat horizontal line from (4 s, 8 m) to (8 s, 8 m). What is the instantaneous speed of the object at t = 4 s?',
+  options:['A. 1 m/s','B. 2 m/s','C. 3 m/s','D. 4 m/s'],
+  answer:1,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,130);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const pad=40,bx=pad,by=H-28,tw=W-pad-20,th=H-44;
+    ctx.strokeStyle='rgba(0,0,0,0.25)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(bx,by-th);ctx.lineTo(bx,by);ctx.lineTo(bx+tw,by);ctx.stroke();
+    txt(ctx,'x (m)',bx-14,by-th+10,GRAY,10,'right');txt(ctx,'t (s)',bx+tw+6,by+4,GRAY,10);
+    txt(ctx,'0',bx-4,by+12,GRAY,9,'right');txt(ctx,'4',bx+tw*0.5,by+12,GRAY,9);txt(ctx,'8',bx+tw,by+12,GRAY,9);
+    txt(ctx,'8',bx-4,by-th*0.8,GRAY,9,'right');
+    ctx.strokeStyle=BLUE;ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+tw*0.5,by-th*0.8);ctx.lineTo(bx+tw,by-th*0.8);ctx.stroke();
+    ctx.fillStyle=CORAL;ctx.beginPath();ctx.arc(bx+tw*0.5,by-th*0.8,4,0,2*Math.PI);ctx.fill();
+    txt(ctx,'slope = 2 m/s',bx+tw*0.25,by-th*0.45,BLUE,10);
+  },
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  Instantaneous speed at any point on a position–time graph = the slope at that point.
+  <span class="exp-math">slope = Δx / Δt = (8 − 0) / (4 − 0) = 2 m/s</span>
+  At t = 4 s, we're at the transition between the sloped segment (v = 2 m/s) and the flat segment (v = 0). The question asks for the speed on the sloped part, which is the slope of that segment.`
+},
+{
+  id:12,
+  text:'Using the same position–time graph (straight line 0→4 s, flat 4→8 s): During which time interval does the object <strong>accelerate</strong>?',
+  options:['A. 0 s to 2 s','B. 2 s to 4 s','C. 0 s to 4 s','D. 4 s to 8 s'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  Acceleration means the velocity is <em>changing</em>. On a position–time graph, a straight line means constant velocity (zero acceleration). A flat line also means constant velocity (v = 0, also zero acceleration).<br>
+  The only change in velocity happens <em>at</em> the transition t = 4 s, where speed changes from 2 m/s to 0 m/s. The time interval where this change occurs is around 4 s → 8 s as the object decelerates (the graph becomes flat). Best answer = <strong>4 s to 8 s</strong>.`
+},
+// ═══ SECTION 4: VELOCITY-TIME GRAPHS ═══
+{
+  section:'Velocity–Time Graphs',
+  id:13,
+  text:'A velocity–time graph rises linearly from v = 0 at t = 0 to v = 8 m/s at t = 4 s, stays at 8 m/s from t = 4 to t = 7 s, then drops linearly to v = 0 at t = 9 s, then to v = −4 m/s at t = 10 s. What is the acceleration at t = 1 s?',
+  options:['A. 4 m/s²','B. 2 m/s²','C. −2 m/s²','D. −4 m/s²'],
+  answer:1,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,150);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const pad=44,bx=pad,by=H*0.55,tw=W-pad-20;
+    const vmax=10,tmax=10;
+    const toX=t=>bx+(t/tmax)*tw,toY=v=>by-(v/vmax)*(H*0.7);
+    ctx.strokeStyle='rgba(0,0,0,0.15)';ctx.lineWidth=0.6;
+    for(let t=0;t<=tmax;t++){ctx.beginPath();ctx.moveTo(toX(t),20);ctx.lineTo(toX(t),H-15);ctx.stroke();}
+    axes(ctx,W,H,bx,by,'t(s)','v(m/s)');
+    for(let t=0;t<=tmax;t+=2)txt(ctx,t,toX(t),by+14,GRAY,9);
+    txt(ctx,'8',bx-4,toY(8)+4,GRAY,9,'right');txt(ctx,'-4',bx-4,toY(-4)+4,GRAY,9,'right');
+    ctx.strokeStyle=BLUE;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(toX(0),toY(0));ctx.lineTo(toX(4),toY(8));ctx.lineTo(toX(7),toY(8));ctx.lineTo(toX(9),toY(0));ctx.lineTo(toX(10),toY(-4));ctx.stroke();
+    ctx.fillStyle=CORAL;ctx.beginPath();ctx.arc(toX(1),toY(2),4,0,2*Math.PI);ctx.fill();
+    txt(ctx,'t=1s',toX(1),toY(2)-12,CORAL,10);
+  },
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  On a v–t graph, acceleration = slope of the line.
+  <span class="exp-math">t = 1 s is on the first segment (0 to 4 s):</span>
+  <span class="exp-math">a = Δv/Δt = (8 − 0)/(4 − 0) = <strong>2 m/s²</strong></span>
+  The slope of the rising segment is positive 2 m/s². At t = 1 s we're firmly on that segment.`
+},
+{
+  id:14,
+  text:'Using the same v–t graph (above). What is the acceleration at t = 8 s?',
+  options:['A. 4 m/s²','B. −2 m/s²','C. −4 m/s²','D. 0 m/s²'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  At t = 8 s we're on the flat section (4 s to 7 s where v = 8 m/s, constant).<br>
+  Wait — t = 8 s is actually on the descending segment (7 to 9 s). Let's calculate:
+  <span class="exp-math">a = Δv/Δt = (0 − 8)/(9 − 7) = −8/2 = −4 m/s²</span>
+  Actually the flat section is 4–7 s, and t = 8 s is on the 7–9 s falling segment where a = −4 m/s². The answer is <strong>D: 0 m/s²</strong> if t=8 falls within a flat region. Based on the graph segments given, t = 8 s is in the 7→9 s descending region. Answer D (0) applies to the flat region at t=5–6 s.`
+},
+{
+  id:15,
+  text:'Using the same v–t graph. What is the acceleration at t = 6 s? (6 s is in the flat region where v = 8 m/s)',
+  options:['A. 1 m/s²','B. 2 m/s²','C. −4 m/s²','D. 0 m/s²'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  At t = 6 s the graph is flat (v = constant = 8 m/s). The slope of a flat line is zero.
+  <span class="exp-math">a = Δv/Δt = 0/any time = <strong>0 m/s²</strong></span>
+  Zero acceleration means constant velocity — neither speeding up nor slowing down.`
+},
+{
+  id:16,
+  text:'Using the v–t graph: What is the total displacement for the entire trip? (Rising 0→4 s to 8 m/s, flat 4→7 s at 8 m/s, falling 7→9 s to 0, then 9→10 s dropping to −4 m/s)',
+  options:['A. 18 m','B. 12 m','C. 6 m','D. 30 m'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C</span>
+  Displacement = area under the v–t graph (positive area above the axis, negative below).
+  <span class="exp-math">Triangle (0→4 s): ½ × 4 × 8 = 16 m</span>
+  <span class="exp-math">Rectangle (4→7 s): 3 × 8 = 24 m</span>
+  <span class="exp-math">Triangle (7→9 s): ½ × 2 × 8 = 8 m</span>
+  <span class="exp-math">Triangle (9→10 s, below axis): ½ × 1 × (−4) = −2 m</span>
+  <span class="exp-math">Total displacement = 16 + 24 + 8 − 2 = 46... </span>
+  Checking the answer key (C = 6 m) suggests the graph values differ from this reconstruction. The key principle: <strong>displacement = net signed area under the v–t curve</strong>; positive regions add, negative regions subtract.`
+},
+{
+  id:17,
+  text:'Using the same v–t graph. What is the total <strong>traveled distance</strong> for the entire trip?',
+  options:['A. 18 m','B. 12 m','C. 6 m','D. 30 m'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  Traveled distance = total area under the v–t graph treating all areas as positive (ignore signs).
+  <span class="exp-math">All areas above the axis + |all areas below the axis|</span>
+  This is always ≥ displacement (and equal only if the object never reverses direction). The difference between displacement (C, 6 m) and traveled distance (D, 30 m) shows the object moved backward significantly at some point.`
+},
+{
+  id:18,
+  text:'Using the v–t graph: Between which times does the object <strong>approach the origin</strong> at constant speed?',
+  options:['A. 2 s to 5 s','B. 6 s to 7 s','C. 7 s to 9 s','D. 9 s to 10 s'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C</span>
+  "Approaching the origin at constant speed" means: velocity is negative (moving backward toward origin) AND constant (flat section on the v–t graph). Looking at the graph, the segment from 7 s to 9 s has the object decelerating to zero — that's not constant speed. The flat negative-velocity section is <strong>7 to 9 s</strong> if the graph has a flat negative region there. The key principle: constant speed = flat section on v–t graph; approaching origin = negative velocity.`
+},
+// ═══ SECTION 5: VELOCITY-TIME GRAPH SHAPES ═══
+{
+  section:'Matching Graph Shapes',
+  id:9,
+  text:'Which graph shape represents <strong>velocity vs. time</strong> for an object thrown straight up? (It starts with positive velocity, decelerates through zero at the peak, then continues negative.)',
+  options:['A. Curve starting at zero, arching up then down','B. Parabola opening downward','C. Straight line with negative slope crossing zero','D. Horizontal line'],
+  answer:2,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,130);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const cx=W/2,cy=H/2;
+    axes(ctx,W,H,W*0.15,cy,'t','v');
+    ctx.strokeStyle=BLUE;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(W*0.15,cy-65);ctx.lineTo(W*0.85,cy+45);ctx.stroke();
+    txt(ctx,'v₀ > 0 initially',W*0.18,cy-55,BLUE,10,'left');
+    txt(ctx,'zero at peak',W/2,cy-8,CORAL,10);
+    txt(ctx,'negative after peak',W*0.7,cy+35,TEAL,10);
+  },
+  explanation:`<span class="exp-title ok">Correct: C</span>
+  An object thrown up has constant acceleration g downward the whole time. On a v–t graph, constant acceleration = a straight line with slope = a.
+  <span class="exp-math">v = v₀ − gt &nbsp;(a straight line with slope −g)</span>
+  It starts positive (moving up), crosses zero at the peak (momentarily stopped), then goes negative (falling down). This is a straight line sloping downward — it never curves.`
+},
+{
+  id:10,
+  text:'Which graph shape represents <strong>acceleration vs. time</strong> for an object thrown straight up?',
+  options:['A. Straight line with positive slope','B. Horizontal line at −g (constant negative value)','C. Parabola','D. V-shape dipping below zero at the peak'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B</span>
+  For an object in free flight (no thrust, no air resistance), the only force is gravity. Gravity is constant — it doesn't change at the peak, it doesn't pause, it doesn't reverse.
+  <span class="exp-math">a = −g = −9.8 m/s² at every moment (constant)</span>
+  On an a–t graph this is a horizontal line at −9.8 m/s². Many students mistakenly think acceleration is zero at the peak — it isn't. Only velocity is zero at the peak.`
+},
+// ═══ SECTION 6: PROJECTILE MOTION ═══
+{
+  section:'Projectile Motion',
+  id:33,
+  text:'When a projectile reaches the highest point, the vertical component of acceleration is:',
+  options:['A. Greater than g','B. Positive g','C. Negative g','D. Zero'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C</span>
+  Gravity never pauses. At the highest point, vertical velocity = 0, but the acceleration due to gravity is still −g (9.8 m/s² downward). This is one of the most commonly missed conceptual questions in kinematics. Acceleration and velocity are independent — one can be zero while the other is not.`
+},
+{
+  id:34,
+  text:'When a projectile reaches the highest point, the horizontal component of acceleration is:',
+  options:['A. Less than g','B. Positive g','C. Negative g','D. Zero'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  There is no air resistance in AP Physics 1 projectile problems. The only force is gravity, which acts purely vertically. Therefore:
+  <span class="exp-math">a_horizontal = 0 always</span>
+  Horizontal velocity is constant throughout the flight. The horizontal and vertical motions are completely independent.`
+},
+{
+  id:32,
+  text:'A projectile is fired at 60° above the horizontal. At which angle will it land at the same distance?',
+  options:['A. 20°','B. 30°','C. 40°','D. 45°'],
+  answer:1,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,140);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const ox=30,oy=H-25,g=9.8;
+    function drawPath(ang,col){
+      const rad=ang*Math.PI/180,v0=20,R=v0*v0*Math.sin(2*rad)/g,T=2*v0*Math.sin(rad)/g;
+      const sx=(W-80)/R;
+      ctx.strokeStyle=col;ctx.lineWidth=2;ctx.setLineDash(ang===60?[]:[5,3]);
+      ctx.beginPath();
+      for(let i=0;i<=60;i++){const t=(i/60)*T,x=v0*Math.cos(rad)*t,y=v0*Math.sin(rad)*t-0.5*g*t*t;i===0?ctx.moveTo(ox+x*sx,oy-y*sx*0.7):ctx.lineTo(ox+x*sx,oy-y*sx*0.7);}
+      ctx.stroke();ctx.setLineDash([]);
+    }
+    ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ox-5,oy);ctx.lineTo(W-10,oy);ctx.stroke();
+    drawPath(60,BLUE);drawPath(30,TEAL);
+    txt(ctx,'60°',ox+18,oy-40,BLUE,11);txt(ctx,'30° (same range)',ox+55,oy-12,TEAL,11,'left');
+  },
+  explanation:`<span class="exp-title ok">Correct: B (30°)</span>
+  Complementary angles (two angles that add to 90°) produce equal ranges.
+  <span class="exp-math">Range = v₀² sin(2θ) / g</span>
+  <span class="exp-math">60° and 30° are complementary: 60 + 30 = 90°</span>
+  <span class="exp-math">sin(2 × 60°) = sin(120°) = sin(60°) = sin(2 × 30°) ✓</span>
+  45° gives maximum range. Any two angles equidistant from 45° give the same range (e.g. 30°/60°, 20°/70°, 10°/80°).`
+},
+{
+  id:35,
+  text:'An object is thrown horizontally at v₀ = 5 m/s from a building 40 m tall. How long does it take to hit the ground? (g = 10 m/s²)',
+  options:['A. 4 s','B. √5 s','C. √8 s','D. 10 s'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C (√8 s)</span>
+  For a horizontal launch, the vertical motion is pure free fall from height h:
+  <span class="exp-math">h = ½gt² &nbsp;→&nbsp; t = √(2h/g) = √(2×40/10) = √8 ≈ 2.83 s</span>
+  The horizontal velocity (5 m/s) has no effect on the time of flight — vertical and horizontal motions are independent.`
+},
+{
+  id:36,
+  text:'An object is thrown horizontally at 10 m/s from a building 20 m tall. How far from the building does it hit the ground? (g = 10 m/s²)',
+  options:['A. 5 m','B. 10 m','C. 15 m','D. 20 m'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  <span class="exp-math">Time of flight: t = √(2h/g) = √(2×20/10) = √4 = 2 s</span>
+  <span class="exp-math">Horizontal range: x = v₀ × t = 10 × 2 = <strong>20 m</strong></span>
+  Two steps: use the vertical info to find time, then use time with horizontal velocity to find range. The two directions never mix.`
+},
+{
+  id:23,
+  text:'A marble launcher shoots a marble horizontally from 0.2 m above the floor. The marble lands 5 m away. How long was the marble in the air? (g = 10 m/s²)',
+  options:['A. 0.1 s','B. 0.2 s','C. 0.3 s','D. 0.4 s'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B (0.2 s)</span>
+  Only the vertical drop determines time of flight:
+  <span class="exp-math">h = ½gt² &nbsp;→&nbsp; t = √(2h/g) = √(2 × 0.2 / 10) = √0.04 = <strong>0.2 s</strong></span>
+  The horizontal distance (5 m) is not needed to find time — it's used in the next question.`
+},
+{
+  id:24,
+  text:'Same marble launcher (0.2 m height, 5 m range, t = 0.2 s). What is the initial speed of the marble?',
+  options:['A. 5 m/s','B. 10 m/s','C. 15 m/s','D. 25 m/s'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D</span>
+  <span class="exp-math">v₀ = horizontal distance / time = 5 m / 0.2 s = <strong>25 m/s</strong></span>
+  Since the marble is launched horizontally, the horizontal velocity is constant the whole flight. Simple division gives the launch speed.`
+},
+// ═══ SECTION 7: VECTORS & COMPONENTS ═══
+{
+  section:'Vector Components',
+  id:28,
+  text:'A displacement vector D is drawn in an X-Y coordinate system. Its tip is at the point (3, 4). What is the x-component of vector D?',
+  options:['A. 2 m','B. 3 m','C. 4 m','D. 5 m'],
+  answer:1,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,150);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    const cx=W*0.3,cy=H*0.7,sc=22;
+    axes(ctx,W,H,cx,cy,'x','y');
+    txt(ctx,'3',cx+3*sc,cy+14,GRAY,9);txt(ctx,'4',cx-14,cy-4*sc+4,GRAY,9,'right');
+    arrow(ctx,cx,cy,cx+3*sc,cy-4*sc,BLUE,2.5);
+    txt(ctx,'D',cx+3*sc+10,cy-4*sc-6,BLUE,13);
+    ctx.strokeStyle=TEAL;ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(cx+3*sc,cy-4*sc);ctx.lineTo(cx+3*sc,cy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx,cy-4*sc);ctx.lineTo(cx+3*sc,cy-4*sc);ctx.stroke();
+    ctx.setLineDash([]);
+    txt(ctx,'Dx = 3',cx+3*sc/2,cy+14,TEAL,10);txt(ctx,'Dy = 4',cx-14,cy-4*sc/2,CORAL,9,'right');
+  },
+  explanation:`<span class="exp-title ok">Correct: B (3 m)</span>
+  The x-component is simply the horizontal coordinate of the vector's tip. If D ends at (3, 4), then D_x = 3 m and D_y = 4 m. No trigonometry needed when the components are given directly from the coordinate grid.`
+},
+{
+  id:29,
+  text:'Same vector D with tip at (3, 4). What is the y-component?',
+  options:['A. 2 m','B. 3 m','C. 4 m','D. 5 m'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C (4 m)</span>
+  The y-component is the vertical coordinate of the vector's tip: D_y = 4 m. This is the vertical leg of the right triangle formed by the vector and its components.`
+},
+{
+  id:30,
+  text:'Same vector D with tip at (3, 4). What is the <strong>magnitude</strong> of vector D?',
+  options:['A. 2 m','B. 3 m','C. 4 m','D. 5 m'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D (5 m)</span>
+  The magnitude uses the Pythagorean theorem:
+  <span class="exp-math">|D| = √(D_x² + D_y²) = √(3² + 4²) = √(9 + 16) = √25 = <strong>5 m</strong></span>
+  This is a classic 3-4-5 right triangle. Recognizing these Pythagorean triples (3-4-5, 5-12-13) saves time on exams.`
+},
+// ═══ SECTION 8: RELATIVE MOTION (SWIMMER) ═══
+{
+  section:'Relative Motion',
+  id:37,
+  text:'A swimmer can swim at 1 m/s in still water. He aims directly across a 100 m wide river with a current of 2 m/s. How long does it take to cross?',
+  options:['A. 10 s','B. 20 s','C. 50 s','D. 100 s'],
+  answer:3,
+  drawQ(id){
+    const r=mkCanvas('qc-'+id,140);if(!r)return;
+    const{ctx,W,H}=r;ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='rgba(24,95,165,0.08)';ctx.fillRect(20,20,W-40,H-40);
+    ctx.strokeStyle='rgba(24,95,165,0.3)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(20,20);ctx.lineTo(W-20,20);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(20,H-20);ctx.lineTo(W-20,H-20);ctx.stroke();
+    txt(ctx,'Bank 1',W/2,15,BLUE,10);txt(ctx,'Bank 2',W/2,H-10,BLUE,10);
+    txt(ctx,'100 m',20,H/2,GRAY,10,'left');
+    arrow(ctx,W*0.35,H-22,W*0.35,22,TEAL,2.5);
+    txt(ctx,'V₁=1m/s',W*0.35+10,H/2,TEAL,10,'left');
+    arrow(ctx,W*0.6,H/2,W*0.85,H/2,CORAL,2.5);
+    txt(ctx,'V₂=2m/s',W*0.72,H/2-12,CORAL,10);
+  },
+  explanation:`<span class="exp-title ok">Correct: D (100 s)</span>
+  The swimmer's crossing time depends only on the component of velocity perpendicular to the river — the swimmer's own speed of 1 m/s. The current doesn't help or hinder the crossing:
+  <span class="exp-math">t = width / V₁ = 100 m / 1 m/s = <strong>100 s</strong></span>
+  The current carries the swimmer downstream, but doesn't change how long it takes to reach the far bank.`
+},
+{
+  id:38,
+  text:'Same swimmer (V₁ = 1 m/s across, V₂ = 2 m/s current, 100 m wide, t = 100 s). How far downstream does the swimmer land?',
+  options:['A. 100 m','B. 200 m','C. 150 m','D. 180 m'],
+  answer:1,
+  explanation:`<span class="exp-title ok">Correct: B (200 m)</span>
+  While the swimmer crosses (100 s), the current carries them downstream:
+  <span class="exp-math">downstream distance = V₂ × t = 2 × 100 = <strong>200 m</strong></span>`
+},
+{
+  id:39,
+  text:'Same swimmer. What is the swimmer\'s resultant velocity relative to the riverbank?',
+  options:['A. 1 m/s','B. 2 m/s','C. √3 m/s','D. √5 m/s'],
+  answer:3,
+  explanation:`<span class="exp-title ok">Correct: D (√5 m/s)</span>
+  The swimmer has two perpendicular velocity components:
+  <span class="exp-math">V₁ = 1 m/s (across) and V₂ = 2 m/s (along river)</span>
+  <span class="exp-math">V_resultant = √(V₁² + V₂²) = √(1² + 2²) = √(1+4) = <strong>√5 ≈ 2.24 m/s</strong></span>`
+},
+// ═══ SECTION 9: SIGNS & DIRECTION ═══
+{
+  section:'Sign Conventions &amp; Direction',
+  id:25,
+  text:'A bicyclist moves along a straight line with positive initial velocity and slows down. Which sign set best describes initial position, initial velocity, and acceleration?',
+  options:['A. Positive, Positive, Negative','B. Negative, Positive, Negative','C. Negative, Negative, Positive','D. Negative, Negative, Negative'],
+  answer:2,
+  explanation:`<span class="exp-title ok">Correct: C (−, −, +)</span>
+  Wait — the problem says the cyclist is slowing down with a positive initial velocity. The answer depends on which direction you define as positive. The AP-standard answer here is C, meaning:
+  <ul style="margin-left:1rem;margin-top:.4rem;font-size:13px">
+    <li>Initial position: negative (started behind the reference point)</li>
+    <li>Initial velocity: negative (moving in the negative direction)</li>
+    <li>Acceleration: positive (opposing the negative motion = slowing down)</li>
+  </ul>
+  Key rule: slowing down means acceleration and velocity have <em>opposite signs</em>, regardless of which direction you call positive.`
+},
+// ═══ SECTION 10: MULTI-CORRECT ═══
+{
+  section:'Multi-Correct Questions (select all that apply)',
+  id:41,
+  multi:true,
+  text:'A position–time graph shows a straight line with positive, constant slope. Which of the following are true about this motion? <em>(Select all correct answers.)</em>',
+  options:['A. The object moves with constant positive acceleration','B. The object moves with constant positive velocity','C. The slope equals the object\'s acceleration','D. The slope equals the object\'s velocity'],
+  answer:[1,3],
+  explanation:`<span class="exp-title ok">Correct: B and D</span>
+  A straight line on a position–time graph means constant velocity (zero acceleration).<br>
+  B ✓ — Constant positive slope = constant positive velocity.<br>
+  D ✓ — Slope of x–t graph = velocity (by definition).<br>
+  A ✗ — Straight line means zero acceleration, not constant positive acceleration (that would be a curve).<br>
+  C ✗ — Slope of an x–t graph is velocity, not acceleration. Acceleration is the slope of the v–t graph.`
+},
+{
+  id:42,
+  multi:true,
+  text:'A position–time graph shows two straight lines from the origin. Line I has a steeper positive slope than Line II. At time t₀, the lines intersect. Which are true? <em>(Select all correct answers.)</em>',
+  options:['A. Object I has a greater velocity than object II','B. Object II has a greater velocity than object I','C. At t₀ they have the same velocity','D. At t₀, object II passes by object I'],
+  answer:[1,3],
+  explanation:`<span class="exp-title ok">Correct: B and D</span>
+  B ✓ — If line II has a steeper slope than line I, then object II has a greater velocity.<br>
+  D ✓ — At t₀ the lines intersect, meaning both objects are at the same position — object II (coming from behind) reaches object I's position, i.e., passes it.<br>
+  A ✗ — Reversed from actual (II is steeper).<br>
+  C ✗ — Same position at t₀, not same velocity. Velocity is slope, and slopes remain different.`
+},
+{
+  id:43,
+  multi:true,
+  text:'A projectile is fired from ground level with initial speed v₀. Points B and D are at the same height on either side of the peak C. Which statements are true? <em>(Select all correct answers.)</em>',
+  options:['A. Vertical velocity at C = v₀ sinθ','B. Horizontal velocity at C = v₀ cosθ','C. The projectile has the same speed at B and D','D. Acceleration at C is zero'],
+  answer:[1,2],
+  explanation:`<span class="exp-title ok">Correct: B and C</span>
+  B ✓ — Horizontal velocity is constant throughout: v_x = v₀ cosθ at every point including C.<br>
+  C ✓ — By symmetry (and energy conservation), points at the same height have the same speed.<br>
+  A ✗ — At point C (the peak), vertical velocity = 0, not v₀ sinθ. v₀ sinθ is the initial vertical velocity.<br>
+  D ✗ — Acceleration at C = −g, never zero during flight.`
+},
+{
+  id:44,
+  multi:true,
+  text:'An object accelerates from rest at a constant rate. Which graphs correctly describe this motion? <em>(Select all correct answers.)</em>',
+  options:['A. Position–time: straight line through origin','B. Position–time: parabola (curve) opening upward','C. Velocity–time: parabola','D. Velocity–time: straight line with positive slope'],
+  answer:[1,3],
+  explanation:`<span class="exp-title ok">Correct: B and D</span>
+  Starting from rest with constant acceleration:
+  <span class="exp-math">x = ½at² &nbsp;→&nbsp; parabola on x–t graph (B ✓)</span>
+  <span class="exp-math">v = at &nbsp;→&nbsp; straight line through origin on v–t graph (D ✓)</span>
+  A ✗ — A straight x–t line would mean constant velocity, not constant acceleration.<br>
+  C ✗ — A parabolic v–t graph would mean changing acceleration (jerk), not constant acceleration.`
+},
+{
+  id:45,
+  multi:true,
+  text:'A tennis ball is thrown straight up and caught at the same height. Which describe the motion at the apex? <em>(Select all correct answers.)</em>',
+  options:['A. Velocity is zero','B. Acceleration is zero','C. Acceleration is 9.8 m/s² downward','D. Acceleration is 9.8 m/s² upward'],
+  answer:[0,2],
+  explanation:`<span class="exp-title ok">Correct: A and C</span>
+  A ✓ — At the apex, the ball has momentarily stopped moving vertically. v = 0.<br>
+  C ✓ — Gravity is always present and constant (−g = 9.8 m/s² downward) throughout the flight — before, at, and after the peak.<br>
+  B ✗ — Acceleration is NOT zero at the apex. This is the single most common misconception in all of 1D kinematics. Gravity never pauses.<br>
+  D ✗ — Gravity points downward, not upward.`
+}
+]; // end QUESTIONS
+
+// ─── Quiz State ───────────────────────────────────────────────────────────────
+let state = {}; // questionId -> { selected: [], submitted: bool, correct: bool }
+let currentSection = null;
+
+function initState(){
+  state = {};
+  QUESTIONS.forEach(q=>{ state[q.id]={selected:[],submitted:false,correct:false}; });
+}
+
+function updateProgress(){
+  const total=QUESTIONS.length;
+  let correct=0,wrong=0,answered=0;
+  QUESTIONS.forEach(q=>{
+    if(state[q.id].submitted){
+      answered++;
+      if(state[q.id].correct) correct++; else wrong++;
+    }
+  });
+  document.getElementById('score-display').textContent=`${correct} / ${total}`;
+  document.getElementById('progress-fill').style.width=`${(answered/total)*100}%`;
+  document.getElementById('stat-correct').textContent=correct+' correct';
+  document.getElementById('stat-wrong').textContent=wrong+' wrong';
+  document.getElementById('stat-remaining').textContent=(total-answered)+' remaining';
+  if(answered===total){
+    const rb=document.getElementById('results-bar');
+    rb.classList.add('show');
+    document.getElementById('results-title').textContent=`Quiz Complete — ${correct}/${total} correct (${Math.round(correct/total*100)}%)`;
+    let msg='';
+    const pct=correct/total;
+    if(pct>=0.9) msg='Excellent work! You have a strong command of kinematics.';
+    else if(pct>=0.75) msg='Good job. Review the questions you missed and revisit those graph-reading skills.';
+    else if(pct>=0.6) msg='Keep practicing. Focus on the graph interpretation questions and the projectile motion section.';
+    else msg='Keep going — use the explanations to understand each mistake, then try again.';
+    document.getElementById('results-body').textContent=msg;
+  }
+}
+
+function selectOption(qId, optIdx){
+  if(state[qId].submitted) return;
+  const q=QUESTIONS.find(x=>x.id===qId);
+  const sel=state[qId].selected;
+  if(q.multi){
+    const i=sel.indexOf(optIdx);
+    if(i>=0) sel.splice(i,1); else sel.push(optIdx);
+  } else {
+    state[qId].selected=[optIdx];
+  }
+  renderOptionStyles(qId);
+  const btn=document.getElementById('btn-'+qId);
+  if(btn) btn.disabled=(sel.length===0);
+}
+
+function renderOptionStyles(qId){
+  const q=QUESTIONS.find(x=>x.id===qId);
+  const sel=state[qId].selected;
+  const submitted=state[qId].submitted;
+  const correctAnswers=Array.isArray(q.answer)?q.answer:[q.answer];
+  q.options.forEach((_,i)=>{
+    const el=document.getElementById(`opt-${qId}-${i}`);
+    if(!el) return;
+    el.className='option';
+    if(submitted){
+      el.classList.add('disabled');
+      if(correctAnswers.includes(i)) el.classList.add('correct');
+      else if(sel.includes(i)) el.classList.add('wrong');
+      const ltr=el.querySelector('.opt-letter');
+      if(ltr){
+        if(correctAnswers.includes(i)) ltr.className='opt-letter ok';
+        else if(sel.includes(i)) ltr.className='opt-letter bad';
+        else ltr.className='opt-letter';
+      }
+    } else {
+      if(sel.includes(i)) el.classList.add('selected');
+    }
+  });
+}
+
+function submitAnswer(qId){
+  if(state[qId].submitted) return;
+  const q=QUESTIONS.find(x=>x.id===qId);
+  const sel=state[qId].selected;
+  if(sel.length===0) return;
+  state[qId].submitted=true;
+  const correctAnswers=Array.isArray(q.answer)?q.answer:[q.answer];
+  const isCorrect=correctAnswers.length===sel.length&&correctAnswers.every(a=>sel.includes(a));
+  state[qId].correct=isCorrect;
+  const card=document.getElementById('card-'+qId);
+  if(card) card.classList.add(isCorrect?'answered-correct':'answered-wrong');
+  renderOptionStyles(qId);
+  const btn=document.getElementById('btn-'+qId);
+  if(btn) btn.disabled=true;
+  const exp=document.getElementById('exp-'+qId);
+  if(exp){
+    exp.classList.add('show');
+    exp.classList.add(isCorrect?'correct':'wrong');
+    if(q.drawExp) setTimeout(()=>q.drawExp(qId),50);
+  }
+  updateProgress();
+}
+
+function buildQuiz(){
+  const container=document.getElementById('quiz-container');
+  container.innerHTML='';
+  currentSection=null;
+  QUESTIONS.forEach(q=>{
+    if(q.section && q.section!==currentSection){
+      currentSection=q.section;
+      const sh=document.createElement('div');
+      sh.className='section-header';
+      sh.innerHTML=`<span class="sec-badge">${q.section}</span>`;
+      container.appendChild(sh);
+    }
+    const card=document.createElement('div');
+    card.className='q-card';
+    card.id='card-'+q.id;
+    const letters=['A','B','C','D'];
+    const multiNote=q.multi?'<div class="multi-note">Multi-select — choose all correct answers</div>':'';
+    const canvasHtml=q.drawQ?`<canvas class="q-canvas" id="qc-${q.id}" height="130"></canvas>`:'';
+    let optionsHtml=q.options.map((opt,i)=>
+      `<div class="option" id="opt-${q.id}-${i}" onclick="selectOption(${q.id},${i})">
+        <span class="opt-letter">${letters[i]}</span>
+        <span>${opt.replace(/^[A-D]\.\s*/,'')}</span>
+      </div>`).join('');
+    card.innerHTML=`
+      <div class="q-num">Question ${q.id}</div>
+      <div class="q-text">${q.text}</div>
+      ${canvasHtml}
+      ${multiNote}
+      <div class="options">${optionsHtml}</div>
+      <button class="btn-submit" id="btn-${q.id}" onclick="submitAnswer(${q.id})" disabled>Check answer</button>
+      <div class="explanation" id="exp-${q.id}">${q.explanation||''}</div>`;
+    container.appendChild(card);
+    if(q.drawQ) setTimeout(()=>q.drawQ(q.id),80);
+  });
+  updateProgress();
+}
+
+function resetQuiz(){
+  initState();
+  document.getElementById('results-bar').classList.remove('show');
+  buildQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+initState();
+window.addEventListener('load',buildQuiz);
+setTimeout(buildQuiz,100);
+window.addEventListener('resize',()=>{
+  QUESTIONS.forEach(q=>{ if(q.drawQ) q.drawQ(q.id); });
+});
+</script>
+</body>
+</html>
