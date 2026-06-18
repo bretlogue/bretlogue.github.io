@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2: Force and Translational Dynamics — AP Physics 1 Walkthrough</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:760px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+
+.unit-tag{display:inline-block;background:var(--coral-l);color:var(--coral);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:.75rem;font-family:monospace}
+h1{font-size:27px;font-weight:700;margin-bottom:.3rem}
+.subtitle{color:var(--text2);font-size:14px;margin-bottom:1.5rem}
+.exam-weight{display:flex;gap:10px;margin-bottom:2rem;flex-wrap:wrap}
+.weight-chip{background:var(--gray-l);border-radius:8px;padding:.4rem .8rem;font-size:12px;color:var(--text2);font-family:monospace}
+
+.toc{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:13px}
+.toc-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:.6rem}
+.toc a{display:block;color:var(--coral);text-decoration:none;padding:.2rem 0}
+.toc a:hover{text-decoration:underline}
+
+h2{font-size:19px;font-weight:700}
+.topic-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;font-family:monospace;margin-right:8px;flex-shrink:0}
+.section{margin-bottom:2.75rem;scroll-margin-top:1rem}
+.section-header{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.t-blue{background:var(--blue-l);color:var(--blue)}
+.t-teal{background:var(--teal-l);color:var(--teal)}
+.t-coral{background:var(--coral-l);color:var(--coral)}
+.t-purple{background:var(--purple-l);color:var(--purple)}
+.t-amber{background:var(--amber-l);color:var(--amber)}
+
+.prose{font-size:15px;line-height:1.75;margin-bottom:1rem}
+.prose em{color:var(--coral);font-style:normal;font-weight:600}
+.prose strong{font-weight:700}
+
+.formula-box{background:var(--gray-l);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1rem 0;font-family:monospace;font-size:14px;line-height:2}
+
+.callout{border-radius:10px;padding:.9rem 1.1rem;margin:1.1rem 0;font-size:13.5px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
+.c-warn{background:var(--amber-l);border:0.5px solid #EF9F27}
+.c-warn .callout-title{color:var(--amber)}
+.c-tip{background:var(--purple-l);border:0.5px solid #AFA9EC}
+.c-tip .callout-title{color:var(--purple)}
+.c-ex{background:var(--teal-l);border:0.5px solid #5DCAA5}
+.c-ex .callout-title{color:var(--teal)}
+
+.eq-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.eq-table th{background:var(--coral);color:white;padding:.5rem .75rem;text-align:left;font-size:12px;font-weight:600}
+.eq-table th:first-child{border-radius:8px 0 0 0}
+.eq-table th:last-child{border-radius:0 8px 0 0}
+.eq-table td{padding:.55rem .75rem;border-bottom:0.5px solid var(--border);font-family:monospace}
+.eq-table tr:last-child td{border-bottom:none}
+.eq-table tr:nth-child(even) td{background:var(--bg2)}
+
+.worked{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;margin:1.1rem 0}
+.worked-title{font-weight:700;font-size:14px;margin-bottom:.7rem;display:flex;align-items:center;gap:8px}
+.worked-num{background:var(--coral);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:monospace;flex-shrink:0}
+.given{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:.6rem .85rem;margin:.6rem 0;font-family:monospace;font-size:13px;line-height:1.7}
+.step{margin:.5rem 0;font-size:13.5px;line-height:1.7}
+.step-label{font-weight:600;color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.15rem}
+.step-math{font-family:monospace;font-size:13.5px;background:var(--bg);border-radius:6px;padding:.45rem .7rem;margin-top:.2rem;display:inline-block}
+.answer-box{font-family:monospace;font-size:14.5px;font-weight:700;color:var(--coral);background:var(--coral-l);border-radius:8px;padding:.6rem .9rem;margin-top:.7rem}
+
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;background:var(--bg)}
+.panel-hd{padding:.5rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem}
+.row label{font-size:13px;color:var(--text2);min-width:90px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:13px;font-weight:600;min-width:60px;text-align:right}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.75rem}
+@media (max-width:600px){.readouts{grid-template-columns:1fr 1fr}}
+.ro{border-radius:8px;padding:.5rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:14.5px;font-weight:700}
+.r-b{background:var(--blue-l)}.r-b .rl{color:var(--blue)}.r-b .rv{color:var(--blue)}
+.r-t{background:var(--teal-l)}.r-t .rl{color:var(--teal)}.r-t .rv{color:var(--teal)}
+.r-c{background:var(--coral-l)}.r-c .rl{color:var(--coral)}.r-c .rv{color:var(--coral)}
+.r-p{background:var(--purple-l)}.r-p .rl{color:var(--purple)}.r-p .rv{color:var(--purple)}
+.r-a{background:var(--amber-l)}.r-a .rl{color:var(--amber)}.r-a .rv{color:var(--amber)}
+
+canvas{display:block;width:100%}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--coral);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--coral);cursor:pointer;border:none}
+
+.practice-list{margin:1rem 0}
+.practice-item{border:0.5px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;background:var(--bg)}
+.practice-q{font-size:13.5px;line-height:1.6;margin-bottom:.5rem}
+.practice-toggle{font-size:11px;color:var(--coral);text-decoration:underline;cursor:pointer;font-weight:600}
+.practice-answer{display:none;margin-top:.6rem;padding-top:.6rem;border-top:0.5px solid var(--border);font-size:13px;line-height:1.7}
+
+.gridtable{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+@media (max-width:600px){.gridtable{grid-template-columns:1fr}}
+.gcard{border:0.5px solid var(--border);border-radius:8px;padding:.7rem .9rem;background:var(--bg2);font-size:13px}
+.gcard .gtitle{font-weight:700;font-size:12px;margin-bottom:.3rem}
+
+.summary-box{background:var(--coral-l);border-radius:12px;padding:1.25rem 1.5rem;margin-top:2.5rem}
+.summary-box h3{font-size:15px;font-weight:700;color:var(--coral);margin-bottom:.6rem}
+.summary-box ul{margin-left:1.1rem;font-size:13.5px;line-height:1.8}
+
+.law-card{border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0;background:var(--bg)}
+.law-card .law-num{font-family:monospace;font-size:11px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem}
+.law-card .law-statement{font-size:14.5px;font-weight:600;margin-bottom:.4rem}
+.law-card .law-detail{font-size:13px;color:var(--text2);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+
+<span class="unit-tag">Unit 2</span>
+<h1>Force and Translational Dynamics</h1>
+<p class="subtitle">From describing motion to explaining it &mdash; Newton's Laws, free-body diagrams, friction, and circular motion</p>
+<div class="exam-weight">
+  <span class="weight-chip">18&ndash;23% of AP Exam</span>
+  <span class="weight-chip">Highest-weighted unit</span>
+  <span class="weight-chip">9 sub-topics</span>
+</div>
+
+<div class="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#topic1">2.1 &middot; Systems, Center of Mass &amp; Free-Body Diagrams</a>
+  <a href="#topic2">2.2 &middot; Newton's First Law &amp; Equilibrium</a>
+  <a href="#topic3">2.3 &middot; Newton's Second Law</a>
+  <a href="#topic4">2.4 &middot; Newton's Third Law</a>
+  <a href="#topic5">2.5 &middot; Friction</a>
+  <a href="#topic6">2.6 &middot; Inclined Planes</a>
+  <a href="#topic7">2.7 &middot; Uniform Circular Motion</a>
+  <a href="#practice">Practice Problems</a>
+</div>
+
+<!-- TOPIC 2.1 -->
+<div class="section" id="topic1">
+  <div class="section-header"><div class="topic-num t-blue">2.1</div><h2>Systems, Center of Mass &amp; Free-Body Diagrams</h2></div>
+  <p class="prose">A <em>force</em> is a push or pull resulting from the interaction between two objects. Before solving any dynamics problem, you must define your <em>system</em> &mdash; the object or group of objects you're analyzing. Forces from outside the system (<em>external</em>) can change the system's motion. Forces between objects inside the system (<em>internal</em>) always cancel in pairs and never affect the system's center of mass.</p>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    Choosing your system is a strategic decision, not just a formality. Treating a car + trailer as one system makes the tension between them disappear (it's internal) &mdash; useful for finding overall acceleration, but useless if the question asks for the tension itself, which requires isolating one object.
+  </div>
+
+  <p class="prose">A <strong>free-body diagram (FBD)</strong> is the primary tool of this entire unit. It shows only the external forces acting on one object, drawn as arrows from a single point (the object's center of mass).</p>
+
+  <div class="gridtable">
+    <div class="gcard"><div class="gtitle" style="color:var(--blue)">Step 1</div>Isolate the object. Represent it as a single dot &mdash; don't draw the incline, table, or rope it's attached to.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--teal)">Step 2</div>Ask "what touches it?" (normal, friction, tension, spring) and "what fields act on it?" (gravity).</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--coral)">Step 3</div>Draw each force as an arrow from the dot, roughly scaled to magnitude, pointing in its true direction.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--purple)">Step 4</div>Label every arrow (F<sub>g</sub>, F<sub>N</sub>, F<sub>T</sub>, f<sub>k</sub>). Don't draw x/y components on the official diagram &mdash; that's a separate scratch step.</div>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Students often draw a "centripetal force" or "net force" as its own arrow on a free-body diagram. Don't. Only draw <strong>real, physical</strong> forces (gravity, normal, tension, friction, applied push/pull). Centripetal force is just the name for whatever net force happens to point toward the center &mdash; it's not a new force to add to the diagram.
+  </div>
+</div>
+
+<!-- TOPIC 2.2 -->
+<div class="section" id="topic2">
+  <div class="section-header"><div class="topic-num t-teal">2.2</div><h2>Newton's First Law &amp; Equilibrium</h2></div>
+  <div class="law-card">
+    <div class="law-num">Newton's First Law</div>
+    <div class="law-statement">An object's velocity stays constant unless acted on by a net external force.</div>
+    <div class="law-detail">Also called the law of inertia. "Constant velocity" includes zero velocity &mdash; an object at rest stays at rest. This is the definition of <em>translational equilibrium</em>: when the net force on a system is zero, its acceleration is zero, and velocity does not change.</div>
+  </div>
+
+  <p class="prose">Equilibrium problems are solved by setting the sum of forces in each direction equal to zero: &Sigma;F<sub>x</sub> = 0 and &Sigma;F<sub>y</sub> = 0. This is one of the most common AP Physics 1 problem types &mdash; an object hanging from ropes, sitting on a table, or moving at constant velocity.</p>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">1</div>Worked Example &mdash; Sign Hanging from Two Ropes</div>
+    <p class="prose" style="margin-bottom:.5rem">A 40 N sign hangs in equilibrium from two ropes, each making a 50&deg; angle with the ceiling. Find the tension in each rope.</p>
+    <div class="given">Given: weight = 40 N, &theta; = 50&deg; from ceiling (so 40&deg; from horizontal... use angle as given from horizontal for vertical component), symmetric setup so T&#8321; = T&#8322; = T<br>Find: T</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; set up vertical equilibrium</div>
+      Each rope's vertical component must support half the weight. With &theta; measured from the ceiling (horizontal), the vertical component of tension is T&middot;sin(50&deg;).
+      <div class="step-math">2&middot;T&middot;sin(50&deg;) = 40 N</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; solve for T</div>
+      <div class="step-math">T = 40 / (2&middot;sin(50&deg;)) = 40 / (2 &times; 0.766) = 40 / 1.532</div>
+    </div>
+    <div class="answer-box">T = 26.1 N in each rope</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Notice the horizontal components of the two tensions point in opposite directions and cancel automatically by symmetry &mdash; that's why only the vertical equation was needed here.</p>
+  </div>
+</div>
+
+<!-- TOPIC 2.3 -->
+<div class="section" id="topic3">
+  <div class="section-header"><div class="topic-num t-coral">2.3</div><h2>Newton's Second Law</h2></div>
+  <div class="law-card">
+    <div class="law-num">Newton's Second Law</div>
+    <div class="law-statement">&Sigma;F = ma</div>
+    <div class="law-detail">The acceleration of a system's center of mass is directly proportional to net force and inversely proportional to mass, pointing in the same direction as the net force. This is a vector equation &mdash; apply it separately in each direction: &Sigma;F<sub>x</sub> = ma<sub>x</sub> and &Sigma;F<sub>y</sub> = ma<sub>y</sub>.</div>
+  </div>
+
+  <p class="prose">Nearly every problem in this unit, from friction to springs to circular motion, is just a different force to plug into this one equation. The standard procedure: draw the FBD, choose a coordinate system, write &Sigma;F = ma along each axis, then solve algebraically.</p>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">2</div>Worked Example &mdash; Two Blocks Connected by a String</div>
+    <p class="prose" style="margin-bottom:.5rem">A 3 kg block (A) on a frictionless table is connected by a string over a pulley to a hanging 2 kg block (B). Find the acceleration of the system and the tension in the string.</p>
+    <div class="given">Given: m<sub>A</sub> = 3 kg (horizontal, frictionless), m<sub>B</sub> = 2 kg (hanging), g = 9.8 m/s&sup2;<br>Find: a, T</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; write Newton's second law for each block</div>
+      Block A (horizontal): only tension acts horizontally &rarr; T = m<sub>A</sub>a<br>
+      Block B (vertical): gravity pulls down, tension pulls up &rarr; m<sub>B</sub>g &minus; T = m<sub>B</sub>a
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; add the two equations to eliminate T</div>
+      <div class="step-math">m<sub>B</sub>g = (m<sub>A</sub> + m<sub>B</sub>)a &rarr; a = m<sub>B</sub>g / (m<sub>A</sub> + m<sub>B</sub>)</div>
+      <div class="step-math">a = (2)(9.8) / (3 + 2) = 19.6 / 5</div>
+    </div>
+    <div class="answer-box">a = 3.92 m/s&sup2;</div>
+    <div class="step" style="margin-top:.8rem">
+      <div class="step-label">Step 3 &mdash; substitute back to find tension</div>
+      <div class="step-math">T = m<sub>A</sub>a = (3)(3.92)</div>
+    </div>
+    <div class="answer-box">T = 11.76 N</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">This "add the equations" trick is standard for connected systems: it eliminates the internal force (tension) immediately, since the system as a whole only feels the external force m<sub>B</sub>g.</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; Atwood-style system</div>
+    <div class="panel-bd">
+      <div class="row"><label>Mass A (kg)</label><input type="range" id="n23-ma" min="0.5" max="10" value="3" step="0.5"><span class="val" id="n23-mav">3.0</span></div>
+      <div class="row"><label>Mass B (kg)</label><input type="range" id="n23-mb" min="0.5" max="10" value="2" step="0.5"><span class="val" id="n23-mbv">2.0</span></div>
+      <canvas id="n23-canvas" height="220"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Acceleration</div><div class="rv" id="n23-a">3.92 m/s&sup2;</div></div>
+        <div class="ro r-t"><div class="rl">Tension</div><div class="rv" id="n23-t">11.76 N</div></div>
+        <div class="ro r-c"><div class="rl">Net force on system</div><div class="rv" id="n23-f">19.6 N</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 2.4 -->
+<div class="section" id="topic4">
+  <div class="section-header"><div class="topic-num t-purple">2.4</div><h2>Newton's Third Law</h2></div>
+  <div class="law-card">
+    <div class="law-num">Newton's Third Law</div>
+    <div class="law-statement">If object A exerts a force on object B, then B exerts an equal and opposite force on A.</div>
+    <div class="law-detail">These two forces act on <em>different objects</em> at the same time, have equal magnitude, and point in opposite directions. They never cancel each other in a single object's free-body diagram, because each force acts on a different object.</div>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    The normal force on a book and the book's weight are <strong>not</strong> a third-law pair, even though they're equal and opposite &mdash; they act on the <em>same</em> object and just happen to balance (that's Newton's first law / equilibrium, a coincidence of magnitude, not a law). The true third-law partner of "table pushes up on book" is "book pushes down on table."
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">How to find a third-law pair</div>
+    Identify the verb and swap the subject and object. "Table pushes book up" &rarr; partner is "book pushes table down." "Earth pulls rocket down" &rarr; partner is "rocket pulls Earth up." The two forces are always the same type (both normal forces, or both gravitational forces) and act on two different bodies.
+  </div>
+</div>
+
+<!-- TOPIC 2.5 -->
+<div class="section" id="topic5">
+  <div class="section-header"><div class="topic-num t-amber">2.5</div><h2>Friction</h2></div>
+  <p class="prose">Friction is a contact force that opposes relative motion (or attempted relative motion) between two surfaces. It depends only on the normal force and the materials in contact &mdash; never on contact area or speed (in the AP Physics 1 model).</p>
+
+  <div class="eq-table" style="margin-top:1rem">
+    <table style="width:100%;border-collapse:collapse">
+      <tr><th>Type</th><th>Equation</th><th>When it applies</th></tr>
+      <tr><td style="font-family:inherit;font-weight:600">Static friction</td><td style="font-family:monospace">f<sub>s</sub> &le; &mu;<sub>s</sub>N</td><td style="font-family:inherit">Object is not sliding. Friction equals whatever is needed to prevent motion, up to a maximum.</td></tr>
+      <tr><td style="font-family:inherit;font-weight:600">Kinetic friction</td><td style="font-family:monospace">f<sub>k</sub> = &mu;<sub>k</sub>N</td><td style="font-family:inherit">Object is actively sliding. Friction is constant, opposing the sliding direction.</td></tr>
+    </table>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Writing f<sub>s</sub> = &mu;<sub>s</sub>N for an object sitting calmly is wrong unless it's on the verge of slipping. Static friction is an <strong>inequality</strong> &mdash; it adjusts to match the applied force exactly, up to its maximum value. If you push a 10 N box with 4 N and it doesn't move, static friction is exactly 4 N, not &mu;<sub>s</sub>N.
+  </div>
+
+  <div class="formula-box">
+    &mu;<sub>s</sub> &gt; &mu;<sub>k</sub> always (static friction's maximum exceeds kinetic friction)<br>
+    On a horizontal surface: N = mg<br>
+    On an incline: N = mg&middot;cos(&theta;)
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">3</div>Worked Example &mdash; Box Pushed Across the Floor</div>
+    <p class="prose" style="margin-bottom:.5rem">A 12 kg box is pushed with a horizontal force of 50 N across a floor with &mu;<sub>k</sub> = 0.3. Find the box's acceleration.</p>
+    <div class="given">Given: m = 12 kg, F<sub>applied</sub> = 50 N, &mu;<sub>k</sub> = 0.3, g = 9.8 m/s&sup2;<br>Find: a</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; find the normal force</div>
+      <div class="step-math">N = mg = (12)(9.8) = 117.6 N</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; find kinetic friction</div>
+      <div class="step-math">f<sub>k</sub> = &mu;<sub>k</sub>N = (0.3)(117.6) = 35.3 N</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 3 &mdash; apply Newton's second law horizontally</div>
+      <div class="step-math">a = (F<sub>applied</sub> &minus; f<sub>k</sub>) / m = (50 &minus; 35.3) / 12</div>
+    </div>
+    <div class="answer-box">a = 1.22 m/s&sup2;</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; friction force explorer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Applied F (N)</label><input type="range" id="fric-fa" min="0" max="80" value="50" step="1"><span class="val" id="fric-fav">50</span></div>
+      <div class="row"><label>Mass (kg)</label><input type="range" id="fric-m" min="1" max="30" value="12" step="1"><span class="val" id="fric-mv">12</span></div>
+      <div class="row"><label>&mu;<sub>s</sub></label><input type="range" id="fric-mus" min="0.05" max="0.9" value="0.4" step="0.01"><span class="val" id="fric-musv">0.40</span></div>
+      <div class="row"><label>&mu;<sub>k</sub></label><input type="range" id="fric-muk" min="0.05" max="0.9" value="0.3" step="0.01"><span class="val" id="fric-mukv">0.30</span></div>
+      <canvas id="fric-canvas" height="160"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Max static friction</div><div class="rv" id="fric-fsmax">47.0 N</div></div>
+        <div class="ro r-t"><div class="rl">State</div><div class="rv" id="fric-state">Sliding</div></div>
+        <div class="ro r-c"><div class="rl">Acceleration</div><div class="rv" id="fric-a">1.22 m/s&sup2;</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 2.6 -->
+<div class="section" id="topic6">
+  <div class="section-header"><div class="topic-num t-blue">2.6</div><h2>Inclined Planes</h2></div>
+  <p class="prose">On an incline, gravity must be split into two components: one parallel to the surface (causing sliding) and one perpendicular to it (balanced by the normal force). This is the most common multi-step application of everything in this unit so far.</p>
+
+  <div class="formula-box">
+    Parallel to incline: mg&middot;sin(&theta;) &nbsp; (drives the object down the slope)<br>
+    Perpendicular to incline: mg&middot;cos(&theta;) = N &nbsp; (balanced by normal force)<br>
+    Acceleration down a frictionless incline: a = g&middot;sin(&theta;)<br>
+    Acceleration down an incline with friction: a = g(sin&theta; &minus; &mu;<sub>k</sub>cos&theta;)
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    Before solving any incline problem with friction, compute tan(&theta;) and compare it to &mu;<sub>s</sub>. If tan(&theta;) &gt; &mu;<sub>s</sub>, the object slides; if not, it stays put. This 5-second check determines your entire solution path before you write a single equation.
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; incline with friction</div>
+    <div class="panel-bd">
+      <div class="row"><label>Angle &theta;</label><input type="range" id="inc-ang" min="0" max="60" value="30" step="1"><span class="val" id="inc-angv">30&deg;</span></div>
+      <div class="row"><label>&mu;<sub>k</sub></label><input type="range" id="inc-muk" min="0" max="0.8" value="0.2" step="0.01"><span class="val" id="inc-mukv">0.20</span></div>
+      <canvas id="inc-canvas" height="220"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">mg&middot;sin&theta;</div><div class="rv" id="inc-par">49.0 N</div></div>
+        <div class="ro r-t"><div class="rl">Normal force</div><div class="rv" id="inc-norm">84.9 N</div></div>
+        <div class="ro r-c"><div class="rl">Friction f<sub>k</sub></div><div class="rv" id="inc-fric">17.0 N</div></div>
+        <div class="ro r-p"><div class="rl">Acceleration</div><div class="rv" id="inc-acc">3.20 m/s&sup2;</div></div>
+      </div>
+      <p class="prose" style="margin-top:.75rem;margin-bottom:0;font-size:13px">Mass is fixed at 10 kg for this explorer (cancels out of the acceleration formula anyway). Watch what happens as &theta; increases: both the driving force and the normal force change, but in opposite ways.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 2.7 -->
+<div class="section" id="topic7">
+  <div class="section-header"><div class="topic-num t-teal">2.7</div><h2>Uniform Circular Motion</h2></div>
+  <p class="prose">An object moving in a circle at constant speed is still accelerating &mdash; its velocity direction constantly changes, even though its speed doesn't. This <em>centripetal acceleration</em> always points toward the center of the circle.</p>
+
+  <div class="formula-box">
+    a<sub>c</sub> = v&sup2; / r &nbsp;&nbsp;&nbsp; F<sub>c</sub> = ma<sub>c</sub> = mv&sup2; / r
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    "Centripetal force" is not a new, separate force &mdash; it's the name given to whichever real force (tension, friction, gravity, normal force) happens to be pointing toward the center and causing the circular motion. Never add a "centripetal force" arrow to your free-body diagram alongside the real forces; identify which existing force is providing it.
+  </div>
+
+  <p class="prose">When friction provides the centripetal force (a car rounding a flat curve), the maximum speed before slipping comes from setting the maximum static friction equal to the required centripetal force:</p>
+
+  <div class="formula-box">
+    &mu;<sub>s</sub>mg = mv&sup2;/r &nbsp;&rarr;&nbsp; v<sub>max</sub> = &radic;(&mu;<sub>s</sub>gr)
+  </div>
+
+  <p class="prose" style="font-size:13px;color:var(--text2)">Notice mass cancels entirely &mdash; this is a frequent and fast multiple-choice setup on the exam.</p>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">4</div>Worked Example &mdash; Car Rounding a Flat Curve</div>
+    <p class="prose" style="margin-bottom:.5rem">A car rounds a flat curve of radius 50 m. The coefficient of static friction between tires and road is 0.6. What is the maximum speed before the car begins to skid?</p>
+    <div class="given">Given: r = 50 m, &mu;<sub>s</sub> = 0.6, g = 9.8 m/s&sup2;<br>Find: v<sub>max</sub></div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; set max static friction equal to required centripetal force</div>
+      <div class="step-math">&mu;<sub>s</sub>mg = mv&sup2;/r &nbsp;&rarr;&nbsp; v = &radic;(&mu;<sub>s</sub>gr)</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; substitute values</div>
+      <div class="step-math">v = &radic;((0.6)(9.8)(50)) = &radic;294</div>
+    </div>
+    <div class="answer-box">v<sub>max</sub> = 17.1 m/s</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; circular motion explorer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Speed (m/s)</label><input type="range" id="circ-v" min="1" max="30" value="12" step="0.5"><span class="val" id="circ-vv">12.0</span></div>
+      <div class="row"><label>Radius (m)</label><input type="range" id="circ-r" min="2" max="60" value="20" step="1"><span class="val" id="circ-rv">20</span></div>
+      <canvas id="circ-canvas" height="220"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">Centripetal a</div><div class="rv" id="circ-a">7.20 m/s&sup2;</div></div>
+        <div class="ro r-t"><div class="rl">&mu;<sub>s</sub> needed (m=1000kg)</div><div class="rv" id="circ-mu">0.73</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRACTICE -->
+<div class="section" id="practice">
+  <div class="section-header"><div class="topic-num t-blue" style="background:var(--gray-l);color:var(--text2)">&#10003;</div><h2>Practice Problems</h2></div>
+  <p class="prose">Try each problem before checking the answer.</p>
+  <div class="practice-list" id="practice-list"></div>
+</div>
+
+<div class="summary-box">
+  <h3>Unit 2 takeaways</h3>
+  <ul>
+    <li>Define your system first &mdash; internal forces cancel, only external forces change the system's motion.</li>
+    <li>Draw a clean free-body diagram before writing any equation: only real forces, no components, no "net force" arrows.</li>
+    <li>&Sigma;F = ma is the engine of the whole unit. Apply it separately in x and y.</li>
+    <li>Newton's third law pairs act on two different objects and are always the same type of force.</li>
+    <li>Static friction is an inequality (f<sub>s</sub> &le; &mu;<sub>s</sub>N); kinetic friction is fixed (f<sub>k</sub> = &mu;<sub>k</sub>N). Check tan(&theta;) vs. &mu;<sub>s</sub> first on inclines.</li>
+    <li>Centripetal force isn't a new force &mdash; it's whichever real force points toward the center. a<sub>c</sub> = v&sup2;/r.</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',AMBER='#BA7517',GRAY='#5F5E5A';
+const g=9.8;
+
+function setupC(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||640;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+function arrowF(ctx,x1,y1,x2,y2,col,lw=2){
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+  const nx=dx/l,ny=dy/l,hs=9,hw=5;
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);ctx.closePath();ctx.fill();
+}
+
+// 2.3 Atwood machine
+function drawN23(){
+  const ma=parseFloat(document.getElementById('n23-ma').value);
+  const mb=parseFloat(document.getElementById('n23-mb').value);
+  document.getElementById('n23-mav').textContent=ma.toFixed(1);
+  document.getElementById('n23-mbv').textContent=mb.toFixed(1);
+  const a=(mb*g)/(ma+mb);
+  const T=ma*a;
+  document.getElementById('n23-a').textContent=a.toFixed(2)+' m/s\u00b2';
+  document.getElementById('n23-t').textContent=T.toFixed(2)+' N';
+  document.getElementById('n23-f').textContent=(mb*g).toFixed(1)+' N';
+  const r=setupC('n23-canvas',220);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const tableY=H*0.45,tableX1=20,tableX2=W*0.55;
+  ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(tableX1,tableY);ctx.lineTo(tableX2,tableY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(tableX2,tableY);ctx.lineTo(tableX2,20);ctx.stroke();
+  // pulley
+  ctx.strokeStyle=GRAY;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(tableX2,20,8,0,2*Math.PI);ctx.stroke();
+  // block A on table
+  const ablockW=Math.min(30+ma*4,70);
+  const ax=tableX1+40,ay=tableY-28;
+  ctx.fillStyle=BLUE+'22';ctx.strokeStyle=BLUE;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(ax,ay,ablockW,28,4);ctx.fill();ctx.stroke();
+  txt(ctx,'A: '+ma.toFixed(1)+'kg',ax+ablockW/2,ay+18,BLUE,11);
+  // string from A to pulley
+  ctx.strokeStyle=GRAY;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ax+ablockW,ay+14);ctx.lineTo(tableX2,20);ctx.stroke();
+  // hanging block B
+  const bblockH=Math.min(30+mb*4,70);
+  const bx=tableX2-15,by=28;
+  ctx.beginPath();ctx.moveTo(tableX2,20);ctx.lineTo(tableX2,by);ctx.stroke();
+  ctx.fillStyle=TEAL+'22';ctx.strokeStyle=TEAL;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(bx,by,30,bblockH,4);ctx.fill();ctx.stroke();
+  txt(ctx,'B',bx+15,by+bblockH/2,TEAL,11);
+  txt(ctx,mb.toFixed(1)+'kg',bx+15,by+bblockH/2+14,TEAL,10);
+  // acceleration arrow
+  arrowF(ctx,bx+50,by+bblockH/2,bx+50,by+bblockH/2+Math.min(a*8,40),CORAL,2);
+  txt(ctx,'a='+a.toFixed(2)+'m/s\u00b2',bx+90,by+bblockH/2+10,CORAL,11,'left');
+}
+
+// 2.5 friction
+function drawFric(){
+  const fa=parseFloat(document.getElementById('fric-fa').value);
+  const m=parseFloat(document.getElementById('fric-m').value);
+  const mus=parseFloat(document.getElementById('fric-mus').value);
+  const muk=parseFloat(document.getElementById('fric-muk').value);
+  document.getElementById('fric-fav').textContent=fa;
+  document.getElementById('fric-mv').textContent=m;
+  document.getElementById('fric-musv').textContent=mus.toFixed(2);
+  document.getElementById('fric-mukv').textContent=muk.toFixed(2);
+  const N=m*g;
+  const fsmax=mus*N;
+  const sliding = fa>fsmax;
+  document.getElementById('fric-fsmax').textContent=fsmax.toFixed(1)+' N';
+  document.getElementById('fric-state').textContent=sliding?'Sliding':'Static (not moving)';
+  let a=0,frictionForce=0;
+  if(sliding){
+    frictionForce=muk*N;
+    a=(fa-frictionForce)/m;
+  } else {
+    frictionForce=fa;
+    a=0;
+  }
+  document.getElementById('fric-a').textContent=a.toFixed(2)+' m/s\u00b2';
+  const r=setupC('fric-canvas',160);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const groundY=H*0.75;
+  ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(20,groundY);ctx.lineTo(W-20,groundY);ctx.stroke();
+  const bx=W*0.4,by=groundY-40,bw=80,bh=40;
+  ctx.fillStyle=(sliding?CORAL:TEAL)+'22';ctx.strokeStyle=sliding?CORAL:TEAL;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(bx,by,bw,bh,4);ctx.fill();ctx.stroke();
+  txt(ctx,m+'kg',bx+bw/2,by+bh/2+4,sliding?CORAL:TEAL,12);
+  arrowF(ctx,bx+bw,by+bh/2,bx+bw+Math.min(fa*0.8,60),by+bh/2,BLUE,2.5);
+  txt(ctx,'F='+fa+'N',bx+bw+Math.min(fa*0.8,60)+8,by+bh/2+4,BLUE,11,'left');
+  const fLen=Math.min(frictionForce*0.8,60);
+  if(fLen>2){arrowF(ctx,bx,by+bh/2,bx-fLen,by+bh/2,AMBER,2);}
+  txt(ctx,'f='+frictionForce.toFixed(1)+'N',bx-fLen-8,by+bh/2+4,AMBER,11,'right');
+}
+
+// 2.6 incline
+function drawIncline(){
+  const ang=parseFloat(document.getElementById('inc-ang').value);
+  const muk=parseFloat(document.getElementById('inc-muk').value);
+  document.getElementById('inc-angv').textContent=ang+'\u00b0';
+  document.getElementById('inc-mukv').textContent=muk.toFixed(2);
+  const m=10;
+  const rad=ang*Math.PI/180;
+  const par=m*g*Math.sin(rad);
+  const norm=m*g*Math.cos(rad);
+  const fric=muk*norm;
+  const a=g*(Math.sin(rad)-muk*Math.cos(rad));
+  document.getElementById('inc-par').textContent=par.toFixed(1)+' N';
+  document.getElementById('inc-norm').textContent=norm.toFixed(1)+' N';
+  document.getElementById('inc-fric').textContent=fric.toFixed(1)+' N';
+  document.getElementById('inc-acc').textContent=a.toFixed(2)+' m/s\u00b2';
+  const r=setupC('inc-canvas',220);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const cx=W*0.2,cy=H*0.82,L=W*0.62;
+  ctx.strokeStyle='rgba(0,0,0,0.4)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(cx-20,cy);ctx.lineTo(cx+L*Math.cos(rad),cy-L*Math.sin(rad));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx-20,cy);ctx.lineTo(cx+L*Math.cos(rad)+20,cy);ctx.stroke();
+  ctx.strokeStyle=CORAL;ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(cx,cy,30,-rad,0,true);ctx.stroke();
+  txt(ctx,ang+'\u00b0',cx+36,cy-8,CORAL,11);
+  const blockPos=0.5;
+  const bx=cx+L*blockPos*Math.cos(rad),by=cy-L*blockPos*Math.sin(rad);
+  const bw=44,bh=28;
+  ctx.save();
+  ctx.translate(bx,by);ctx.rotate(-rad);
+  ctx.fillStyle=BLUE+'22';ctx.strokeStyle=BLUE;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(-bw/2,-bh-4,bw,bh,4);ctx.fill();ctx.stroke();
+  ctx.restore();
+  const cenx=bx,ceny=by-bh/2-4;
+  arrowF(ctx,cenx,ceny,cenx,ceny+45,GRAY,1.5);
+  txt(ctx,'mg',cenx+8,ceny+45,GRAY,10,'left');
+  const nx=Math.sin(rad),ny=Math.cos(rad);
+  arrowF(ctx,cenx,ceny,cenx+nx*35,ceny-ny*35,TEAL,1.5);
+  txt(ctx,'N',cenx+nx*40,ceny-ny*40,TEAL,10);
+  const fx=Math.cos(rad),fy=-Math.sin(rad);
+  arrowF(ctx,cenx,ceny,cenx-fx*30,ceny-fy*30,AMBER,1.5);
+  txt(ctx,'f',cenx-fx*38,ceny-fy*38,AMBER,10);
+}
+
+// 2.7 circular motion
+function drawCirc(){
+  const v=parseFloat(document.getElementById('circ-v').value);
+  const radius=parseFloat(document.getElementById('circ-r').value);
+  document.getElementById('circ-vv').textContent=v.toFixed(1);
+  document.getElementById('circ-rv').textContent=radius;
+  const ac=v*v/radius;
+  document.getElementById('circ-a').textContent=ac.toFixed(2)+' m/s\u00b2';
+  const muNeeded=ac/g;
+  document.getElementById('circ-mu').textContent=muNeeded.toFixed(2);
+  const r=setupC('circ-canvas',220);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,drawR=Math.min(W,H)*0.32;
+  ctx.strokeStyle='rgba(0,0,0,0.15)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.arc(cx,cy,drawR,0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);
+  const ang=-Math.PI/4;
+  const px=cx+drawR*Math.cos(ang),py=cy+drawR*Math.sin(ang);
+  ctx.fillStyle=BLUE;ctx.beginPath();ctx.arc(px,py,7,0,2*Math.PI);ctx.fill();
+  // velocity tangent
+  const tx=-Math.sin(ang),ty=Math.cos(ang);
+  arrowF(ctx,px,py,px+tx*40,py+ty*40,TEAL,2);
+  txt(ctx,'v',px+tx*48,py+ty*48,TEAL,12);
+  // centripetal accel toward center
+  const cdx=cx-px,cdy=cy-py,cl=Math.sqrt(cdx*cdx+cdy*cdy);
+  arrowF(ctx,px,py,px+(cdx/cl)*40,py+(cdy/cl)*40,CORAL,2);
+  txt(ctx,'a\u1d04',px+(cdx/cl)*48,py+(cdy/cl)*48,CORAL,12);
+  ctx.fillStyle=GRAY;ctx.beginPath();ctx.arc(cx,cy,3,0,2*Math.PI);ctx.fill();
+  txt(ctx,'r='+radius+'m',cx,cy+18,GRAY,11);
+}
+
+function redrawAll(){drawN23();drawFric();drawIncline();drawCirc();}
+
+['n23-ma','n23-mb'].forEach(id=>document.getElementById(id).addEventListener('input',drawN23));
+['fric-fa','fric-m','fric-mus','fric-muk'].forEach(id=>document.getElementById(id).addEventListener('input',drawFric));
+['inc-ang','inc-muk'].forEach(id=>document.getElementById(id).addEventListener('input',drawIncline));
+['circ-v','circ-r'].forEach(id=>document.getElementById(id).addEventListener('input',drawCirc));
+
+const practiceItems=[
+  {
+    q:'A 5 kg object is in equilibrium, hanging from a single vertical rope. What is the tension in the rope?',
+    a:'Since the object is in equilibrium, &Sigma;F = 0, so T = mg = (5)(9.8) = <strong>49 N</strong>.'
+  },
+  {
+    q:'A 1500 kg car accelerates from rest to 20 m/s in 8 seconds. What net force was required?',
+    a:'a = &Delta;v/t = 20/8 = 2.5 m/s&sup2;. F = ma = (1500)(2.5) = <strong>3750 N</strong>.'
+  },
+  {
+    q:'A book rests on a table. Identify the Newton\'s third law partner of the force "table pushes up on book."',
+    a:'Swap the subject and object: the partner force is <strong>"book pushes down on table"</strong> &mdash; equal in magnitude, opposite in direction, acting on the table (not the book).'
+  },
+  {
+    q:'A 20 kg crate sits on a ramp inclined at 25&deg;. If &mu;<sub>s</sub> = 0.5, does the crate slide on its own?',
+    a:'Compare tan(25&deg;) to &mu;<sub>s</sub>: tan(25&deg;) = 0.466, which is less than &mu;<sub>s</sub> = 0.5. Since tan(&theta;) &lt; &mu;<sub>s</sub>, <strong>the crate does not slide</strong> &mdash; static friction is strong enough to hold it in place.'
+  },
+  {
+    q:'A 0.5 kg ball on a string moves in a horizontal circle of radius 0.8 m at 4 m/s. What is the tension in the string?',
+    a:'The tension provides the centripetal force: T = mv&sup2;/r = (0.5)(4&sup2;)/(0.8) = (0.5)(16)/0.8 = <strong>10 N</strong>.'
+  }
+];
+function buildPractice(){
+  const list=document.getElementById('practice-list');
+  practiceItems.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='practice-item';
+    d.innerHTML=`<div class="practice-q"><strong>${i+1}.</strong> ${item.q}</div><div class="practice-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">show solution</div><div class="practice-answer">${item.a}</div>`;
+    list.appendChild(d);
+  });
+}
+
+buildPractice();
+window.addEventListener('load',redrawAll);
+setTimeout(redrawAll,100);
+window.addEventListener('resize',redrawAll);
+</script>
+</body>
+</html>
