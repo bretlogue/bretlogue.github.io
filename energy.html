@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3: Work, Energy, and Power — AP Physics 1 Walkthrough</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:760px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}
+.topnav a:hover{text-decoration:underline}
+
+.unit-tag{display:inline-block;background:var(--teal-l);color:var(--teal);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:.75rem;font-family:monospace}
+h1{font-size:27px;font-weight:700;margin-bottom:.3rem}
+.subtitle{color:var(--text2);font-size:14px;margin-bottom:1.5rem}
+.exam-weight{display:flex;gap:10px;margin-bottom:2rem;flex-wrap:wrap}
+.weight-chip{background:var(--gray-l);border-radius:8px;padding:.4rem .8rem;font-size:12px;color:var(--text2);font-family:monospace}
+
+.toc{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:13px}
+.toc-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:.6rem}
+.toc a{display:block;color:var(--teal);text-decoration:none;padding:.2rem 0}
+.toc a:hover{text-decoration:underline}
+
+h2{font-size:19px;font-weight:700}
+.topic-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;font-family:monospace;margin-right:8px;flex-shrink:0}
+.section{margin-bottom:2.75rem;scroll-margin-top:1rem}
+.section-header{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.t-blue{background:var(--blue-l);color:var(--blue)}
+.t-teal{background:var(--teal-l);color:var(--teal)}
+.t-coral{background:var(--coral-l);color:var(--coral)}
+.t-purple{background:var(--purple-l);color:var(--purple)}
+.t-amber{background:var(--amber-l);color:var(--amber)}
+
+.prose{font-size:15px;line-height:1.75;margin-bottom:1rem}
+.prose em{color:var(--teal);font-style:normal;font-weight:600}
+.prose strong{font-weight:700}
+
+.formula-box{background:var(--gray-l);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1rem 0;font-family:monospace;font-size:14px;line-height:2}
+
+.callout{border-radius:10px;padding:.9rem 1.1rem;margin:1.1rem 0;font-size:13.5px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
+.c-warn{background:var(--amber-l);border:0.5px solid #EF9F27}
+.c-warn .callout-title{color:var(--amber)}
+.c-tip{background:var(--purple-l);border:0.5px solid #AFA9EC}
+.c-tip .callout-title{color:var(--purple)}
+.c-ex{background:var(--teal-l);border:0.5px solid #5DCAA5}
+.c-ex .callout-title{color:var(--teal)}
+
+.eq-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.eq-table th{background:var(--teal);color:white;padding:.5rem .75rem;text-align:left;font-size:12px;font-weight:600}
+.eq-table th:first-child{border-radius:8px 0 0 0}
+.eq-table th:last-child{border-radius:0 8px 0 0}
+.eq-table td{padding:.55rem .75rem;border-bottom:0.5px solid var(--border);font-family:monospace}
+.eq-table tr:last-child td{border-bottom:none}
+.eq-table tr:nth-child(even) td{background:var(--bg2)}
+
+.worked{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;margin:1.1rem 0}
+.worked-title{font-weight:700;font-size:14px;margin-bottom:.7rem;display:flex;align-items:center;gap:8px}
+.worked-num{background:var(--teal);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:monospace;flex-shrink:0}
+.given{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:.6rem .85rem;margin:.6rem 0;font-family:monospace;font-size:13px;line-height:1.7}
+.step{margin:.5rem 0;font-size:13.5px;line-height:1.7}
+.step-label{font-weight:600;color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.15rem}
+.step-math{font-family:monospace;font-size:13.5px;background:var(--bg);border-radius:6px;padding:.45rem .7rem;margin-top:.2rem;display:inline-block}
+.answer-box{font-family:monospace;font-size:14.5px;font-weight:700;color:var(--teal);background:var(--teal-l);border-radius:8px;padding:.6rem .9rem;margin-top:.7rem}
+
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;background:var(--bg)}
+.panel-hd{padding:.5rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem}
+.row label{font-size:13px;color:var(--text2);min-width:90px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:13px;font-weight:600;min-width:60px;text-align:right}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.75rem}
+@media (max-width:600px){.readouts{grid-template-columns:1fr 1fr}}
+.ro{border-radius:8px;padding:.5rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:14.5px;font-weight:700}
+.r-b{background:var(--blue-l)}.r-b .rl{color:var(--blue)}.r-b .rv{color:var(--blue)}
+.r-t{background:var(--teal-l)}.r-t .rl{color:var(--teal)}.r-t .rv{color:var(--teal)}
+.r-c{background:var(--coral-l)}.r-c .rl{color:var(--coral)}.r-c .rv{color:var(--coral)}
+.r-p{background:var(--purple-l)}.r-p .rl{color:var(--purple)}.r-p .rv{color:var(--purple)}
+.r-a{background:var(--amber-l)}.r-a .rl{color:var(--amber)}.r-a .rv{color:var(--amber)}
+
+canvas{display:block;width:100%}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--teal);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--teal);cursor:pointer;border:none}
+
+.practice-list{margin:1rem 0}
+.practice-item{border:0.5px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;background:var(--bg)}
+.practice-q{font-size:13.5px;line-height:1.6;margin-bottom:.5rem}
+.practice-toggle{font-size:11px;color:var(--teal);text-decoration:underline;cursor:pointer;font-weight:600}
+.practice-answer{display:none;margin-top:.6rem;padding-top:.6rem;border-top:0.5px solid var(--border);font-size:13px;line-height:1.7}
+
+.gridtable{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+@media (max-width:600px){.gridtable{grid-template-columns:1fr}}
+.gcard{border:0.5px solid var(--border);border-radius:8px;padding:.7rem .9rem;background:var(--bg2);font-size:13px}
+.gcard .gtitle{font-weight:700;font-size:12px;margin-bottom:.3rem}
+
+.summary-box{background:var(--teal-l);border-radius:12px;padding:1.25rem 1.5rem;margin-top:2.5rem}
+.summary-box h3{font-size:15px;font-weight:700;color:var(--teal);margin-bottom:.6rem}
+.summary-box ul{margin-left:1.1rem;font-size:13.5px;line-height:1.8}
+
+.energy-bars{display:flex;gap:12px;align-items:flex-end;height:170px;margin:.75rem 0;padding:0 1rem}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-track{width:100%;flex:1;background:var(--bg2);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;border:0.5px solid var(--border)}
+.bar-fill{width:100%;border-radius:4px;transition:height .2s}
+.bar-lbl{font-size:12px;font-weight:600;text-align:center}
+.bar-val{font-size:11px;font-family:monospace;color:var(--text2)}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+
+<span class="unit-tag">Unit 3</span>
+<h1>Work, Energy, and Power</h1>
+<p class="subtitle">A second toolkit for solving motion problems &mdash; sometimes faster and more powerful than forces alone</p>
+<div class="exam-weight">
+  <span class="weight-chip">18&ndash;23% of AP Exam</span>
+  <span class="weight-chip">Tied for highest weight</span>
+  <span class="weight-chip">5 sub-topics</span>
+</div>
+
+<div class="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#topic1">3.1 &middot; Translational Kinetic Energy</a>
+  <a href="#topic2">3.2 &middot; Work and the Work-Energy Theorem</a>
+  <a href="#topic3">3.3 &middot; Potential Energy (Gravitational &amp; Elastic)</a>
+  <a href="#topic4">3.4 &middot; Conservation of Energy</a>
+  <a href="#topic5">3.5 &middot; Power</a>
+  <a href="#practice">Practice Problems</a>
+</div>
+
+<!-- TOPIC 3.1 -->
+<div class="section" id="topic1">
+  <div class="section-header"><div class="topic-num t-blue">3.1</div><h2>Translational Kinetic Energy</h2></div>
+  <p class="prose"><em>Kinetic energy</em> is the energy an object has because of its motion. It depends on mass and the <strong>square</strong> of speed, which means doubling speed quadruples kinetic energy &mdash; a relationship the AP exam tests constantly with proportional reasoning questions.</p>
+
+  <div class="formula-box">
+    KE = &frac12;mv&sup2;
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    Because v is squared, kinetic energy grows much faster than speed. A car going 60 mph has <strong>four times</strong> the kinetic energy of the same car at 30 mph, not twice. This is part of why stopping distances increase so dramatically at higher speeds &mdash; the brakes must remove four times the energy.
+  </div>
+
+  <p class="prose" style="font-size:13px;color:var(--text2)">Kinetic energy is a scalar (no direction) and depends on the reference frame of the observer &mdash; a passenger sitting still on a moving train has zero KE relative to the train, but nonzero KE relative to the ground.</p>
+</div>
+
+<!-- TOPIC 3.2 -->
+<div class="section" id="topic2">
+  <div class="section-header"><div class="topic-num t-teal">3.2</div><h2>Work and the Work-Energy Theorem</h2></div>
+  <p class="prose"><em>Work</em> is the transfer of energy that occurs when a force acts through a displacement. Only the component of force <strong>parallel</strong> to the displacement does work &mdash; this is exactly the dot product idea from vector math.</p>
+
+  <div class="formula-box">
+    W = F&middot;d&middot;cos(&theta;) &nbsp;&nbsp;&nbsp; (&theta; = angle between force and displacement)<br>
+    Work-Energy Theorem: &nbsp; W<sub>net</sub> = &Delta;KE = &frac12;mv<sub>f</sub>&sup2; &minus; &frac12;mv<sub>i</sub>&sup2;
+  </div>
+
+  <div class="gridtable">
+    <div class="gcard"><div class="gtitle" style="color:var(--teal)">Positive work</div>Force has a component in the same direction as displacement. Increases KE. (Example: gravity on a falling object.)</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--coral)">Negative work</div>Force has a component opposite to displacement. Decreases KE. (Example: friction opposing motion, gravity on a rising object.)</div>
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    A force doing zero work doesn't mean the object isn't moving &mdash; it means the force is <strong>perpendicular</strong> to the displacement. Normal force on a person walking horizontally does zero work, even though the person is clearly moving, because normal force points straight up while displacement is horizontal: cos(90&deg;) = 0.
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Why the work-energy theorem is powerful</div>
+    It lets you find a final speed directly from forces and distances &mdash; no need for time or acceleration. If you know all the forces doing work and the distance traveled, you skip kinematics entirely.
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">1</div>Worked Example &mdash; Work-Energy Theorem with Friction</div>
+    <p class="prose" style="margin-bottom:.5rem">A 4 kg block slides across a floor at 6 m/s and comes to rest after 3 m due to friction. Find the friction force and the coefficient of kinetic friction.</p>
+    <div class="given">Given: m = 4 kg, v<sub>i</sub> = 6 m/s, v<sub>f</sub> = 0 m/s, d = 3 m, g = 9.8 m/s&sup2;<br>Find: f<sub>k</sub> and &mu;<sub>k</sub></div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; apply the work-energy theorem</div>
+      The only horizontal force doing work is friction, and it's negative (opposes motion):
+      <div class="step-math">W<sub>friction</sub> = &Delta;KE = &frac12;m(v<sub>f</sub>&sup2; &minus; v<sub>i</sub>&sup2;) = &frac12;(4)(0&sup2; &minus; 6&sup2;)</div>
+      <div class="step-math">W<sub>friction</sub> = &frac12;(4)(&minus;36) = &minus;72 J</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; solve for the friction force</div>
+      W = F&middot;d&middot;cos(180&deg;) = &minus;F&middot;d, so:
+      <div class="step-math">&minus;72 = &minus;f<sub>k</sub>(3) &rarr; f<sub>k</sub> = 24 N</div>
+    </div>
+    <div class="answer-box">f<sub>k</sub> = 24 N</div>
+    <div class="step" style="margin-top:.8rem">
+      <div class="step-label">Step 3 &mdash; find &mu;<sub>k</sub> using N = mg</div>
+      <div class="step-math">&mu;<sub>k</sub> = f<sub>k</sub> / N = 24 / (4 &times; 9.8) = 24 / 39.2</div>
+    </div>
+    <div class="answer-box">&mu;<sub>k</sub> = 0.61</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; work and angle explorer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Force (N)</label><input type="range" id="w32-f" min="5" max="50" value="20" step="1"><span class="val" id="w32-fv">20</span></div>
+      <div class="row"><label>Distance (m)</label><input type="range" id="w32-d" min="1" max="10" value="5" step="0.5"><span class="val" id="w32-dv">5.0</span></div>
+      <div class="row"><label>Angle &theta;</label><input type="range" id="w32-ang" min="0" max="180" value="30" step="1"><span class="val" id="w32-angv">30&deg;</span></div>
+      <canvas id="w32-canvas" height="160"></canvas>
+      <div class="readouts">
+        <div class="ro r-b"><div class="rl">F&middot;cos&theta;</div><div class="rv" id="w32-fpar">17.3 N</div></div>
+        <div class="ro r-t"><div class="rl">Work done</div><div class="rv" id="w32-w">86.6 J</div></div>
+        <div class="ro r-c"><div class="rl">Sign</div><div class="rv" id="w32-sign">Positive</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 3.3 -->
+<div class="section" id="topic3">
+  <div class="section-header"><div class="topic-num t-coral">3.3</div><h2>Potential Energy: Gravitational &amp; Elastic</h2></div>
+  <p class="prose"><em>Potential energy</em> is energy stored due to an object's position or configuration. It only exists for <strong>conservative forces</strong> &mdash; forces where work done depends only on starting and ending position, never on the path taken.</p>
+
+  <div class="formula-box">
+    Gravitational PE: &nbsp; PE<sub>grav</sub> = mgh<br>
+    Elastic (spring) PE: &nbsp; PE<sub>elastic</sub> = &frac12;kx&sup2; &nbsp;&nbsp; (Hooke's Law: F<sub>spring</sub> = &minus;kx)
+  </div>
+
+  <div class="gridtable">
+    <div class="gcard"><div class="gtitle" style="color:var(--teal)">Conservative forces</div>Gravity, spring force. Work is path-independent. Can be stored as potential energy. W<sub>conservative</sub> = &minus;&Delta;PE.</div>
+    <div class="gcard"><div class="gtitle" style="color:var(--coral)">Nonconservative forces</div>Friction, air resistance, applied pushes. Work is path-dependent. No potential energy function exists &mdash; energy is dissipated, usually as heat.</div>
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Key insight</div>
+    Gravitational PE is always relative to a chosen reference height &mdash; only <em>changes</em> in PE matter physically. You can set h = 0 anywhere convenient (the ground, a tabletop, the lowest point of motion) as long as you're consistent throughout the problem.
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">2</div>Worked Example &mdash; Spring Compressed by a Block</div>
+    <p class="prose" style="margin-bottom:.5rem">A spring with k = 200 N/m is compressed 0.15 m by a 0.5 kg block. If released on a frictionless surface, find the block's launch speed.</p>
+    <div class="given">Given: k = 200 N/m, x = 0.15 m, m = 0.5 kg, frictionless<br>Find: v (launch speed)</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; find elastic PE stored in the spring</div>
+      <div class="step-math">PE<sub>elastic</sub> = &frac12;kx&sup2; = &frac12;(200)(0.15&sup2;) = &frac12;(200)(0.0225)</div>
+      <div class="step-math">PE<sub>elastic</sub> = 2.25 J</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; all elastic PE converts to KE (frictionless, conservative)</div>
+      <div class="step-math">&frac12;mv&sup2; = 2.25 &rarr; v&sup2; = 2(2.25)/0.5 = 9</div>
+    </div>
+    <div class="answer-box">v = 3.0 m/s</div>
+  </div>
+</div>
+
+<!-- TOPIC 3.4 -->
+<div class="section" id="topic4">
+  <div class="section-header"><div class="topic-num t-purple">3.4</div><h2>Conservation of Energy</h2></div>
+  <p class="prose">When only conservative forces act, total mechanical energy (KE + PE) stays constant &mdash; energy just changes form. When nonconservative forces (like friction) act, mechanical energy is not conserved, and the work they do must be tracked explicitly.</p>
+
+  <div class="formula-box">
+    Conservative forces only: &nbsp; KE<sub>i</sub> + PE<sub>i</sub> = KE<sub>f</sub> + PE<sub>f</sub><br>
+    With nonconservative forces: &nbsp; KE<sub>i</sub> + PE<sub>i</sub> + W<sub>nc</sub> = KE<sub>f</sub> + PE<sub>f</sub>
+  </div>
+
+  <div class="callout c-tip">
+    <div class="callout-title">Why this method beats forces alone</div>
+    Energy conservation solves problems where the path is curved or unknown &mdash; like the speed at the bottom of an oddly-shaped ramp. You don't need to know the shape, only the start and end heights. Force methods (kinematics) would require knowing the exact path; energy methods don't care.
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">3</div>Worked Example &mdash; Roller Coaster with Friction</div>
+    <p class="prose" style="margin-bottom:.5rem">A 300 kg cart starts from rest at the top of a 25 m hill. Friction does &minus;8000 J of work as it descends. Find the speed at the bottom.</p>
+    <div class="given">Given: m = 300 kg, h = 25 m, v<sub>i</sub> = 0, W<sub>friction</sub> = &minus;8000 J, g = 9.8 m/s&sup2;<br>Find: v<sub>f</sub></div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; set up the energy equation</div>
+      <div class="step-math">KE<sub>i</sub> + PE<sub>i</sub> + W<sub>nc</sub> = KE<sub>f</sub> + PE<sub>f</sub></div>
+      <div class="step-math">0 + mgh + W<sub>friction</sub> = &frac12;mv<sub>f</sub>&sup2; + 0</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; substitute known values</div>
+      <div class="step-math">(300)(9.8)(25) + (&minus;8000) = &frac12;(300)v<sub>f</sub>&sup2;</div>
+      <div class="step-math">73500 &minus; 8000 = 150v<sub>f</sub>&sup2; &rarr; 65500 = 150v<sub>f</sub>&sup2;</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 3 &mdash; solve for v<sub>f</sub></div>
+      <div class="step-math">v<sub>f</sub>&sup2; = 436.7 &rarr; v<sub>f</sub> = &radic;436.7</div>
+    </div>
+    <div class="answer-box">v<sub>f</sub> = 20.9 m/s</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; energy bar chart (falling object)</div>
+    <div class="panel-bd">
+      <div class="row"><label>Mass (kg)</label><input type="range" id="e34-mass" min="0.5" max="5" value="2" step="0.1"><span class="val" id="e34-massv">2.0 kg</span></div>
+      <div class="row"><label>Drop height (m)</label><input type="range" id="e34-h" min="1" max="20" value="10" step="0.5"><span class="val" id="e34-hv">10.0 m</span></div>
+      <div class="row"><label>Current height (m)</label><input type="range" id="e34-cur" min="0" max="20" value="6" step="0.1"><span class="val" id="e34-curv">6.0 m</span></div>
+      <div class="energy-bars">
+        <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="e34-pe" style="background:#185FA5"></div></div><div class="bar-lbl" style="color:#185FA5">PE</div><div class="bar-val" id="e34-pev">&mdash;</div></div>
+        <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="e34-ke" style="background:#1D9E75"></div></div><div class="bar-lbl" style="color:#0F6E56">KE</div><div class="bar-val" id="e34-kev">&mdash;</div></div>
+        <div class="bar-wrap"><div class="bar-track"><div class="bar-fill" id="e34-tot" style="background:#534AB7"></div></div><div class="bar-lbl" style="color:#534AB7">Total</div><div class="bar-val" id="e34-totv">&mdash;</div></div>
+      </div>
+      <p class="prose" style="margin-top:.5rem;margin-bottom:0;font-size:13px">The total bar height never changes &mdash; that's conservation of energy made visible. As the object falls, energy shifts from the PE bar into the KE bar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 3.5 -->
+<div class="section" id="topic5">
+  <div class="section-header"><div class="topic-num t-amber">3.5</div><h2>Power</h2></div>
+  <p class="prose"><em>Power</em> is the rate at which work is done or energy is transferred. The same amount of work can be done quickly (high power) or slowly (low power) &mdash; power captures that distinction.</p>
+
+  <div class="formula-box">
+    Average power: &nbsp; P = &Delta;E / &Delta;t = W / t<br>
+    Instantaneous power: &nbsp; P = F&middot;v &nbsp;&nbsp; (force times instantaneous velocity)
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Power and energy are easy to confuse. Energy is measured in joules (J) and represents a total amount; power is measured in watts (W = J/s) and represents a <strong>rate</strong>. Two engines can do the same total work but have very different power if one takes longer.
+  </div>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">4</div>Worked Example &mdash; Motor Lifting a Crate</div>
+    <p class="prose" style="margin-bottom:.5rem">A motor lifts a 150 kg crate at a constant 0.8 m/s. What power must the motor supply?</p>
+    <div class="given">Given: m = 150 kg, v = 0.8 m/s (constant, so F<sub>motor</sub> = weight), g = 9.8 m/s&sup2;<br>Find: P</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; find the required force</div>
+      Constant velocity means equilibrium, so the motor's force equals the crate's weight:
+      <div class="step-math">F = mg = (150)(9.8) = 1470 N</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; apply P = Fv</div>
+      <div class="step-math">P = (1470)(0.8)</div>
+    </div>
+    <div class="answer-box">P = 1176 W</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; power explorer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Force (N)</label><input type="range" id="pow-f" min="10" max="500" value="200" step="10"><span class="val" id="pow-fv">200</span></div>
+      <div class="row"><label>Velocity (m/s)</label><input type="range" id="pow-v" min="0" max="20" value="3" step="0.5"><span class="val" id="pow-vv">3.0</span></div>
+      <canvas id="pow-canvas" height="140"></canvas>
+      <div class="readouts">
+        <div class="ro r-a"><div class="rl">Power</div><div class="rv" id="pow-p">600 W</div></div>
+        <div class="ro r-b"><div class="rl">In horsepower</div><div class="rv" id="pow-hp">0.80 hp</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRACTICE -->
+<div class="section" id="practice">
+  <div class="section-header"><div class="topic-num t-blue" style="background:var(--gray-l);color:var(--text2)">&#10003;</div><h2>Practice Problems</h2></div>
+  <p class="prose">Try each problem before checking the answer.</p>
+  <div class="practice-list" id="practice-list"></div>
+</div>
+
+<div class="summary-box">
+  <h3>Unit 3 takeaways</h3>
+  <ul>
+    <li>KE = &frac12;mv&sup2; &mdash; doubling speed quadruples kinetic energy.</li>
+    <li>Work = F&middot;d&middot;cos(&theta;); only the force component parallel to displacement does work. Perpendicular forces do zero work.</li>
+    <li>The work-energy theorem (W<sub>net</sub> = &Delta;KE) lets you skip kinematics entirely when you know forces and distances.</li>
+    <li>Conservative forces (gravity, springs) store potential energy; nonconservative forces (friction) dissipate it.</li>
+    <li>Conservation of energy handles curved or unknown paths that force methods can't easily solve.</li>
+    <li>Power is a rate (P = W/t = Fv) &mdash; don't confuse it with energy itself.</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',AMBER='#BA7517',GRAY='#5F5E5A';
+const g=9.8;
+
+function setupC(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||640;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+function arrowF(ctx,x1,y1,x2,y2,col,lw=2){
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+  const nx=dx/l,ny=dy/l,hs=9,hw=5;
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);ctx.closePath();ctx.fill();
+}
+
+// 3.2 work and angle
+function drawW32(){
+  const f=parseFloat(document.getElementById('w32-f').value);
+  const d=parseFloat(document.getElementById('w32-d').value);
+  const ang=parseFloat(document.getElementById('w32-ang').value);
+  document.getElementById('w32-fv').textContent=f;
+  document.getElementById('w32-dv').textContent=d.toFixed(1);
+  document.getElementById('w32-angv').textContent=ang+'\u00b0';
+  const rad=ang*Math.PI/180;
+  const fpar=f*Math.cos(rad);
+  const work=fpar*d;
+  document.getElementById('w32-fpar').textContent=fpar.toFixed(1)+' N';
+  document.getElementById('w32-w').textContent=work.toFixed(1)+' J';
+  document.getElementById('w32-sign').textContent=work>0.01?'Positive':(work<-0.01?'Negative':'Zero');
+  const r=setupC('w32-canvas',160);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const ox=50,oy=H*0.7;
+  ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(W-40,oy);ctx.stroke();
+  arrowF(ctx,ox,oy,Math.min(ox+150,W-40),oy,GRAY,1.5);
+  txt(ctx,'displacement',Math.min(ox+150,W-40)/1.3+ox/3,oy+18,GRAY,10);
+  const flen=60;
+  arrowF(ctx,ox,oy,ox+flen*Math.cos(rad),oy-flen*Math.sin(rad),BLUE,2.5);
+  txt(ctx,'F',ox+flen*Math.cos(rad)+12,oy-flen*Math.sin(rad)-4,BLUE,12);
+  if(ang>3){
+    ctx.strokeStyle=CORAL;ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(ox,oy,24,-rad,0,true);ctx.stroke();
+    txt(ctx,ang+'\u00b0',ox+30,oy-10,CORAL,11);
+  }
+  // parallel component dashed
+  ctx.strokeStyle=TEAL;ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(ox+flen*Math.cos(rad),oy-flen*Math.sin(rad));ctx.lineTo(ox+flen*Math.cos(rad),oy);ctx.stroke();
+  ctx.setLineDash([]);
+  txt(ctx,'F\u2225',ox+flen*Math.cos(rad)/2,oy+16,TEAL,11);
+}
+
+// 3.4 energy bars
+function drawE34(){
+  const m=parseFloat(document.getElementById('e34-mass').value);
+  const hMax=parseFloat(document.getElementById('e34-h').value);
+  let hCur=parseFloat(document.getElementById('e34-cur').value);
+  if(hCur>hMax){hCur=hMax;document.getElementById('e34-cur').value=hMax;}
+  document.getElementById('e34-massv').textContent=m.toFixed(1)+' kg';
+  document.getElementById('e34-hv').textContent=hMax.toFixed(1)+' m';
+  document.getElementById('e34-curv').textContent=hCur.toFixed(1)+' m';
+  const peTotal=m*g*hMax,peCur=m*g*hCur,keCur=peTotal-peCur;
+  document.getElementById('e34-pev').textContent=peCur.toFixed(1)+' J';
+  document.getElementById('e34-kev').textContent=keCur.toFixed(1)+' J';
+  document.getElementById('e34-totv').textContent=peTotal.toFixed(1)+' J';
+  const maxH=170;
+  const peH=peTotal>0?Math.round((peCur/peTotal)*maxH):0;
+  const keH=peTotal>0?Math.round((keCur/peTotal)*maxH):0;
+  document.getElementById('e34-pe').style.height=peH+'px';
+  document.getElementById('e34-ke').style.height=keH+'px';
+  document.getElementById('e34-tot').style.height=maxH+'px';
+}
+
+// 3.5 power
+function drawPow(){
+  const f=parseFloat(document.getElementById('pow-f').value);
+  const v=parseFloat(document.getElementById('pow-v').value);
+  document.getElementById('pow-fv').textContent=f;
+  document.getElementById('pow-vv').textContent=v.toFixed(1);
+  const p=f*v;
+  document.getElementById('pow-p').textContent=p.toFixed(0)+' W';
+  document.getElementById('pow-hp').textContent=(p/746).toFixed(2)+' hp';
+  const r=setupC('pow-canvas',140);if(!r)return;
+  const{ctx,W,H}=r;
+  ctx.clearRect(0,0,W,H);
+  const cx=40,cy=H*0.6;
+  const bw=Math.min(40+f*0.3,90),bh=36;
+  ctx.fillStyle=AMBER+'22';ctx.strokeStyle=AMBER;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(cx,cy-bh/2,bw,bh,4);ctx.fill();ctx.stroke();
+  txt(ctx,f+'N',cx+bw/2,cy+4,AMBER,11);
+  const vlen=Math.min(v*8,120);
+  arrowF(ctx,cx+bw,cy,cx+bw+vlen,cy,BLUE,2.5);
+  txt(ctx,v.toFixed(1)+' m/s',cx+bw+vlen+8,cy+4,BLUE,11,'left');
+}
+
+function redrawAll(){drawW32();drawE34();drawPow();}
+
+['w32-f','w32-d','w32-ang'].forEach(id=>document.getElementById(id).addEventListener('input',drawW32));
+['e34-mass','e34-h','e34-cur'].forEach(id=>document.getElementById(id).addEventListener('input',drawE34));
+['pow-f','pow-v'].forEach(id=>document.getElementById(id).addEventListener('input',drawPow));
+
+const practiceItems=[
+  {
+    q:'A 1200 kg car speeds up from 10 m/s to 20 m/s. By what factor does its kinetic energy increase?',
+    a:'KE &prop; v&sup2;. Since speed doubles (10 &rarr; 20), KE increases by 2&sup2; = <strong>4 times</strong>. Check: KE&#8321; = &frac12;(1200)(10&sup2;) = 60,000 J; KE&#8322; = &frac12;(1200)(20&sup2;) = 240,000 J. Indeed 240,000/60,000 = 4.'
+  },
+  {
+    q:'A 70 kg hiker climbs a hill, gaining 150 m of elevation. How much work is done against gravity?',
+    a:'W = &Delta;PE = mgh = (70)(9.8)(150) = <strong>102,900 J</strong> (about 103 kJ).'
+  },
+  {
+    q:'A box is pulled 8 m across a frictionless floor by a 30 N force applied at 60&deg; above horizontal. How much work is done?',
+    a:'W = F&middot;d&middot;cos(&theta;) = (30)(8)cos(60&deg;) = (30)(8)(0.5) = <strong>120 J</strong>.'
+  },
+  {
+    q:'A spring with k = 150 N/m stores 3 J of elastic potential energy. How far is it compressed?',
+    a:'PE = &frac12;kx&sup2; &rarr; 3 = &frac12;(150)x&sup2; &rarr; x&sup2; = 6/150 = 0.04 &rarr; x = &radic;0.04 = <strong>0.2 m</strong>.'
+  },
+  {
+    q:'A 60 kg skier glides down a 40 m frictionless slope starting from rest. What is her speed at the bottom?',
+    a:'Conservation of energy: mgh = &frac12;mv&sup2; &rarr; v = &radic;(2gh) = &radic;(2)(9.8)(40) = &radic;784 = <strong>28 m/s</strong>. Notice mass cancels &mdash; this is always true for frictionless free-fall-style problems.'
+  },
+  {
+    q:'A 1000 W motor lifts a load at constant speed. If the load weighs 2000 N, how fast does it rise?',
+    a:'P = Fv &rarr; v = P/F = 1000/2000 = <strong>0.5 m/s</strong>.'
+  }
+];
+function buildPractice(){
+  const list=document.getElementById('practice-list');
+  practiceItems.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='practice-item';
+    d.innerHTML=`<div class="practice-q"><strong>${i+1}.</strong> ${item.q}</div><div class="practice-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">show solution</div><div class="practice-answer">${item.a}</div>`;
+    list.appendChild(d);
+  });
+}
+
+buildPractice();
+window.addEventListener('load',redrawAll);
+setTimeout(redrawAll,100);
+window.addEventListener('resize',redrawAll);
+</script>
+</body>
+</html>
