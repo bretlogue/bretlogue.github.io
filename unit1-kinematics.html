@@ -148,6 +148,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     If you walk 5 m east then 5 m west, your <strong>distance</strong> traveled is 10 m, but your <strong>displacement</strong> is 0 m. The AP exam tests this distinction constantly &mdash; always ask "are they asking for path length or net change in position?"
   </div>
 
+  <p class="prose">The same idea applies on curved paths, not just straight lines. If an object travels half of a circular loop of radius R, it has covered a <em>distance</em> equal to half the circumference (&pi;R), but its <em>displacement</em> &mdash; the straight line from start to end &mdash; is just the diameter, 2R. Distance follows the actual path; displacement only cares about the start and end points, no matter how curvy the path between them was.</p>
+
   <p class="prose">In one dimension, direction is represented with a sign: positive and negative. You choose which direction is positive (often "right" or "up"), and everything is measured relative to that choice. The sign of velocity tells you direction of motion; the sign of acceleration tells you which way the velocity is changing &mdash; not necessarily which way the object is moving.</p>
 
   <div class="callout c-tip">
@@ -172,6 +174,11 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   <div class="callout c-tip">
     <div class="callout-title">How to choose the right equation</div>
     List your knowns and your unknown. Each equation is missing exactly one of the five kinematic variables (v&#8320;, v, a, t, &Delta;x). Pick the equation that's missing the variable you don't have and don't need. This single habit eliminates almost all confusion about "which formula do I use."
+  </div>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Velocity and acceleration are <strong>independent</strong> &mdash; one can be zero while the other is not, and vice versa. The clearest example: a ball thrown straight up has velocity = 0 for an instant at its peak, but its acceleration is still &minus;9.8 m/s&sup2; the entire time, including at that exact instant. Gravity never pauses just because the ball momentarily stopped moving. This single idea is one of the most heavily tested concepts in all of kinematics.
   </div>
 
   <div class="worked">
@@ -243,6 +250,28 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     <div class="callout-title">Common mistake</div>
     Students often confuse "the v&ndash;t graph crosses zero" with "the object stops accelerating." They're unrelated. Crossing zero on a v&ndash;t graph means velocity is momentarily zero (the object is turning around); the slope &mdash; acceleration &mdash; can be nonzero the whole time.
   </div>
+
+  <p class="prose">The acceleration-time (a&ndash;t) graph is used less often, but it's where the "velocity and acceleration are independent" idea becomes visually obvious. For an object in free fall &mdash; thrown up, falling down, at the peak, it doesn't matter &mdash; the acceleration is a constant <strong>horizontal line at &minus;9.8 m/s&sup2;</strong>. It never dips to zero at the peak and never changes value, even while the v&ndash;t graph for the same motion is a sloped line crossing through zero.</p>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">1.5</div>Worked Example &mdash; Reading a Multi-Segment v&ndash;t Graph</div>
+    <p class="prose" style="margin-bottom:.5rem">A cart's velocity is recorded as follows: it speeds up from 0 to 8 m/s over the first 4 s, holds steady at 8 m/s from t = 4 s to t = 7 s, then slows from 8 m/s down to 0 over the next 2 s (t = 7 s to t = 9 s). Find the acceleration during each segment, and the total distance traveled.</p>
+    <div class="given">Given: three segments &mdash; rising (0&ndash;4s), flat (4&ndash;7s), falling (7&ndash;9s)<br>Find: acceleration in each segment, and total distance</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; acceleration of each segment is its slope</div>
+      <div class="step-math">Segment 1 (0&ndash;4s): a = (8&minus;0)/(4&minus;0) = +2 m/s&sup2;</div>
+      <div class="step-math">Segment 2 (4&ndash;7s): a = (8&minus;8)/(7&minus;4) = 0 m/s&sup2; (flat = constant velocity)</div>
+      <div class="step-math">Segment 3 (7&ndash;9s): a = (0&minus;8)/(9&minus;7) = &minus;4 m/s&sup2;</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; distance is the area under each segment (triangle or rectangle)</div>
+      <div class="step-math">Segment 1 (triangle): &frac12;(4)(8) = 16 m</div>
+      <div class="step-math">Segment 2 (rectangle): (3)(8) = 24 m</div>
+      <div class="step-math">Segment 3 (triangle): &frac12;(2)(8) = 8 m</div>
+    </div>
+    <div class="answer-box">Total distance = 16 + 24 + 8 = 48 m</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">This three-segment shape &mdash; speed up, cruise, slow down &mdash; is the most common v&ndash;t graph style tested on the AP exam. Always break it into its straight-line pieces and handle each one separately: slope for acceleration, area (triangle or rectangle) for distance.</p>
+  </div>
 </div>
 
 <!-- TOPIC 1.4 -->
@@ -264,6 +293,31 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     </div>
     <div class="answer-box">v<sub>passenger/ground</sub> = 17 m/s east</div>
     <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">If the passenger instead walked toward the back of the train at 2 m/s, you'd use &minus;2 m/s, giving 13 m/s east relative to the ground. Always assign a consistent positive direction before adding.</p>
+  </div>
+
+  <p class="prose">Relative motion isn't limited to one dimension. When two velocities are <strong>perpendicular</strong> &mdash; the classic case being a swimmer crossing a flowing river &mdash; they don't simply add or subtract. Instead, they combine like vector components: the swimmer's own velocity carries them across, the current carries them downstream, and the two effects happen independently and simultaneously, just like horizontal and vertical motion in projectile problems.</p>
+
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">2.5</div>Worked Example &mdash; Swimmer Crossing a River</div>
+    <p class="prose" style="margin-bottom:.5rem">A swimmer can swim at 1 m/s in still water. She aims straight across a 100 m wide river whose current flows at 2 m/s. Find the time to cross, the distance she drifts downstream, and her resultant speed relative to the riverbank.</p>
+    <div class="given">Given: v<sub>swimmer</sub> = 1 m/s (across), v<sub>current</sub> = 2 m/s (downstream), width = 100 m<br>Find: time to cross, downstream drift, resultant speed</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; time to cross depends only on the across component</div>
+      The current doesn't speed up or slow down the crossing &mdash; it only pushes sideways:
+      <div class="step-math">t = width / v<sub>swimmer</sub> = 100 / 1</div>
+    </div>
+    <div class="answer-box">t = 100 s</div>
+    <div class="step" style="margin-top:.8rem">
+      <div class="step-label">Step 2 &mdash; downstream drift uses that same time with the current's speed</div>
+      <div class="step-math">drift = v<sub>current</sub>&middot;t = 2 &times; 100</div>
+    </div>
+    <div class="answer-box">drift = 200 m</div>
+    <div class="step" style="margin-top:.8rem">
+      <div class="step-label">Step 3 &mdash; resultant speed combines the two perpendicular velocities</div>
+      <div class="step-math">v<sub>resultant</sub> = &radic;(v<sub>swimmer</sub>&sup2; + v<sub>current</sub>&sup2;) = &radic;(1&sup2; + 2&sup2;) = &radic;5</div>
+    </div>
+    <div class="answer-box">v<sub>resultant</sub> &asymp; 2.24 m/s</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Notice the structure: this is exactly the same logic as 2D projectile motion in Topic 1.5 &mdash; one direction (across) determines time, the other direction (downstream) uses that time independently, and the Pythagorean theorem combines them at the end.</p>
   </div>
 </div>
 
@@ -306,6 +360,19 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
     <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Notice that step 2 used only vertical quantities, and step 3 used only horizontal quantities &mdash; the two directions were never mixed except through the shared variable T.</p>
   </div>
 
+  <p class="prose">One elegant result falls directly out of the range formula: <strong>complementary launch angles</strong> (two angles that add up to 90&deg;, like 30&deg;/60&deg; or 20&deg;/70&deg;) produce exactly the same range, as long as launch and landing height are equal.</p>
+
+  <div class="formula-box">
+    Range = v&#8320;&sup2;&middot;sin(2&theta;) / g
+  </div>
+
+  <p class="prose" style="font-size:13px">Since sin(2 &times; 30&deg;) = sin(60&deg;) and sin(2 &times; 60&deg;) = sin(120&deg;) = sin(60&deg;) as well (because sin(180&deg;&minus;x) = sin(x)), both angles give the identical range. The maximum possible range happens at exactly &theta; = 45&deg;, where sin(2&theta;) = sin(90&deg;) = 1, its largest possible value.</p>
+
+  <div class="callout c-warn">
+    <div class="callout-title">Common mistake</div>
+    Don't assume 60&deg; and 30&deg; give the same <strong>time of flight</strong> or <strong>max height</strong> &mdash; they don't. Only the range is equal. The steeper angle (60&deg;) spends longer in the air and reaches a greater height, while the shallower angle (30&deg;) is faster and flatter; they just happen to land in the same spot.
+  </div>
+
   <div class="panel">
     <div class="panel-hd">Interactive &mdash; projectile launcher</div>
     <div class="panel-bd">
@@ -332,13 +399,16 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 <div class="summary-box">
   <h3>Unit 1 takeaways</h3>
   <ul>
-    <li>Distinguish scalars (distance, speed) from vectors (displacement, velocity, acceleration) &mdash; direction matters.</li>
+    <li>Distinguish scalars (distance, speed) from vectors (displacement, velocity, acceleration) &mdash; direction matters, even on curved paths.</li>
     <li>Pick the kinematic equation that's missing the variable you don't need.</li>
-    <li>On a v&ndash;t graph: slope = acceleration, area = displacement.</li>
-    <li>Relative motion: velocities add across reference frames, with signs tracked carefully.</li>
-    <li>2D motion = two independent 1D problems linked only by time. Projectiles have zero horizontal acceleration and constant vertical acceleration g.</li>
+    <li>Velocity and acceleration are independent: an object can have zero velocity and nonzero acceleration at the same instant (e.g. the peak of a thrown ball).</li>
+    <li>On a v&ndash;t graph: slope = acceleration, area = displacement. On an a&ndash;t graph, free fall is always a flat line at &minus;g.</li>
+    <li>Relative motion: velocities add across reference frames when motion is along one line, and combine via the Pythagorean theorem when perpendicular (like a swimmer crossing a current).</li>
+    <li>2D motion = two independent 1D problems linked only by time. Projectiles have zero horizontal acceleration and constant vertical acceleration g. Complementary angles (e.g. 30&deg;/60&deg;) give equal range.</li>
   </ul>
 </div>
+
+<a href="kinematics-quiz.html" style="display:block;text-align:center;margin-top:1.5rem;padding:.9rem;background:var(--blue);color:white;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px">Test your understanding &rarr; Unit 1 Practice Quiz (45 questions)</a>
 
 </div>
 
