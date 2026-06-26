@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5: Torque and Rotational Dynamics — AP Physics 1</title>
+<style>
+:root{
+  --blue:#185FA5;--blue-l:#E6F1FB;--teal:#0F6E56;--teal-l:#E1F5EE;--coral:#993C1D;--coral-l:#FAECE7;
+  --purple:#534AB7;--purple-l:#EEEDFE;--amber:#BA7517;--amber-l:#FAEEDA;--gray:#5F5E5A;--gray-l:#F1EFE8;
+  --bg:#FFFFFF;--bg2:#FAF9F6;--text:#2C2C2A;--text2:#5F5E5A;--border:#E5E3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg2);padding:2rem 1rem 4rem}
+.wrap{max-width:760px;margin:0 auto;background:var(--bg);border-radius:16px;padding:1.5rem 2rem 2.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.topnav{max-width:760px;margin:0 auto 1rem;font-size:13px;font-family:monospace}
+.topnav a{color:var(--blue);text-decoration:none}.topnav a:hover{text-decoration:underline}
+.unit-tag{display:inline-block;background:var(--amber-l);color:var(--amber);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:.75rem;font-family:monospace}
+h1{font-size:27px;font-weight:700;margin-bottom:.3rem}
+.subtitle{color:var(--text2);font-size:14px;margin-bottom:1.5rem}
+.exam-weight{display:flex;gap:10px;margin-bottom:2rem;flex-wrap:wrap}
+.weight-chip{background:var(--gray-l);border-radius:8px;padding:.4rem .8rem;font-size:12px;color:var(--text2);font-family:monospace}
+.toc{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:13px}
+.toc-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:.6rem}
+.toc a{display:block;color:var(--amber);text-decoration:none;padding:.2rem 0}.toc a:hover{text-decoration:underline}
+h2{font-size:19px;font-weight:700}
+.topic-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;font-family:monospace;margin-right:8px;flex-shrink:0}
+.section{margin-bottom:2.75rem;scroll-margin-top:1rem}
+.section-header{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.t-blue{background:var(--blue-l);color:var(--blue)}.t-teal{background:var(--teal-l);color:var(--teal)}
+.t-coral{background:var(--coral-l);color:var(--coral)}.t-purple{background:var(--purple-l);color:var(--purple)}
+.t-amber{background:var(--amber-l);color:var(--amber)}
+.prose{font-size:15px;line-height:1.75;margin-bottom:1rem}
+.prose em{color:var(--amber);font-style:normal;font-weight:600}
+.prose strong{font-weight:700}
+.formula-box{background:var(--gray-l);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1rem 0;font-family:monospace;font-size:14px;line-height:2}
+.callout{border-radius:10px;padding:.9rem 1.1rem;margin:1.1rem 0;font-size:13.5px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
+.c-warn{background:var(--amber-l);border:0.5px solid #EF9F27}.c-warn .callout-title{color:var(--amber)}
+.c-tip{background:var(--purple-l);border:0.5px solid #AFA9EC}.c-tip .callout-title{color:var(--purple)}
+.c-teal{background:var(--teal-l);border:0.5px solid #5DCAA5}.c-teal .callout-title{color:var(--teal)}
+.analogy-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.analogy-table th{padding:.55rem .75rem;text-align:left;font-size:12px;font-weight:700}
+.analogy-table th:nth-child(1){background:var(--blue);color:white;border-radius:8px 0 0 0}
+.analogy-table th:nth-child(2){background:var(--amber);color:white}
+.analogy-table th:nth-child(3){background:var(--teal);color:white;border-radius:0 8px 0 0}
+.analogy-table td{padding:.5rem .75rem;border-bottom:0.5px solid var(--border)}
+.analogy-table tr:last-child td{border-bottom:none}
+.analogy-table tr:nth-child(even) td{background:var(--bg2)}
+.analogy-table td:nth-child(1){color:var(--blue);font-family:monospace}
+.analogy-table td:nth-child(2){color:var(--amber);font-family:monospace}
+.analogy-table td:nth-child(3){font-family:monospace;font-size:12px}
+.eq-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.eq-table th{background:var(--amber);color:white;padding:.5rem .75rem;text-align:left;font-size:12px;font-weight:600}
+.eq-table th:first-child{border-radius:8px 0 0 0}.eq-table th:last-child{border-radius:0 8px 0 0}
+.eq-table td{padding:.55rem .75rem;border-bottom:0.5px solid var(--border);font-family:monospace;font-size:13px}
+.eq-table tr:last-child td{border-bottom:none}
+.eq-table tr:nth-child(even) td{background:var(--bg2)}
+.worked{background:var(--bg2);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;margin:1.1rem 0}
+.worked-title{font-weight:700;font-size:14px;margin-bottom:.7rem;display:flex;align-items:center;gap:8px}
+.worked-num{background:var(--amber);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:monospace;flex-shrink:0}
+.given{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:.6rem .85rem;margin:.6rem 0;font-family:monospace;font-size:13px;line-height:1.7}
+.step{margin:.5rem 0;font-size:13.5px;line-height:1.7}
+.step-label{font-weight:600;color:var(--text2);font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.15rem}
+.step-math{font-family:monospace;font-size:13.5px;background:var(--bg);border-radius:6px;padding:.45rem .7rem;margin-top:.2rem;display:inline-block}
+.answer-box{font-family:monospace;font-size:14.5px;font-weight:700;color:var(--amber);background:var(--amber-l);border-radius:8px;padding:.6rem .9rem;margin-top:.7rem}
+.panel{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;background:var(--bg)}
+.panel-hd{padding:.5rem 1rem;background:var(--bg2);border-bottom:0.5px solid var(--border);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text2)}
+.panel-bd{padding:1rem}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem}
+.row label{font-size:13px;color:var(--text2);min-width:110px}
+.row input[type=range]{flex:1}
+.row .val{font-family:monospace;font-size:13px;font-weight:600;min-width:65px;text-align:right}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.75rem}
+@media(max-width:600px){.readouts{grid-template-columns:1fr 1fr}}
+.ro{border-radius:8px;padding:.5rem .75rem;text-align:center}
+.ro .rl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ro .rv{font-family:monospace;font-size:14.5px;font-weight:700}
+.r-b{background:var(--blue-l)}.r-b .rl{color:var(--blue)}.r-b .rv{color:var(--blue)}
+.r-t{background:var(--teal-l)}.r-t .rl{color:var(--teal)}.r-t .rv{color:var(--teal)}
+.r-c{background:var(--coral-l)}.r-c .rl{color:var(--coral)}.r-c .rv{color:var(--coral)}
+.r-p{background:var(--purple-l)}.r-p .rl{color:var(--purple)}.r-p .rv{color:var(--purple)}
+.r-a{background:var(--amber-l)}.r-a .rl{color:var(--amber)}.r-a .rv{color:var(--amber)}
+canvas{display:block;width:100%}
+input[type=range]{-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:none}
+.practice-list{margin:1rem 0}
+.practice-item{border:0.5px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.6rem;background:var(--bg)}
+.practice-q{font-size:13.5px;line-height:1.6;margin-bottom:.5rem}
+.practice-toggle{font-size:11px;color:var(--amber);text-decoration:underline;cursor:pointer;font-weight:600}
+.practice-answer{display:none;margin-top:.6rem;padding-top:.6rem;border-top:0.5px solid var(--border);font-size:13px;line-height:1.7}
+.i-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+@media(max-width:600px){.i-grid{grid-template-columns:1fr}}
+.i-card{border:0.5px solid var(--border);border-radius:8px;padding:.75rem 1rem;background:var(--bg2)}
+.i-card .i-name{font-weight:700;font-size:12px;margin-bottom:.3rem}
+.i-card .i-formula{font-family:monospace;font-size:14px;color:var(--amber)}
+.i-card .i-note{font-size:12px;color:var(--text2);margin-top:.2rem}
+.summary-box{background:var(--amber-l);border-radius:12px;padding:1.25rem 1.5rem;margin-top:2.5rem}
+.summary-box h3{font-size:15px;font-weight:700;color:var(--amber);margin-bottom:.6rem}
+.summary-box ul{margin-left:1.1rem;font-size:13.5px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="topnav"><a href="index.html">&larr; back to all lessons</a></div>
+<div class="wrap">
+
+<span class="unit-tag">Unit 5</span>
+<h1>Torque and Rotational Dynamics</h1>
+<p class="subtitle">Everything from linear dynamics has a rotational twin &mdash; this unit builds those parallels systematically</p>
+<div class="exam-weight">
+  <span class="weight-chip">10&ndash;15% of AP Exam</span>
+  <span class="weight-chip">5 sub-topics</span>
+  <span class="weight-chip">All linear laws reappear in rotational form</span>
+</div>
+
+<div class="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#analogy">The Linear &harr; Rotational Analogy Table</a>
+  <a href="#topic1">5.1 &middot; Rotational Kinematics</a>
+  <a href="#topic2">5.2 &middot; Torque</a>
+  <a href="#topic3">5.3 &middot; Rotational Inertia</a>
+  <a href="#topic4">5.4 &middot; Newton's Second Law for Rotation (&tau; = I&alpha;)</a>
+  <a href="#topic5">5.5 &middot; Rotational Equilibrium (&Sigma;&tau; = 0)</a>
+  <a href="#practice">Practice Problems</a>
+</div>
+
+<!-- ANALOGY TABLE -->
+<div class="section" id="analogy">
+  <div class="section-header"><div class="topic-num t-amber" style="font-size:14px">&harr;</div><h2>The Big Picture: Linear &harr; Rotational</h2></div>
+  <p class="prose">Every concept in this unit is the rotational twin of something from Units 1&ndash;4. The table below is the most powerful study tool in this unit &mdash; learn the left column, then the right column maps directly onto it.</p>
+  <table class="analogy-table">
+    <tr><th>Linear quantity</th><th>Rotational twin</th><th>Connection</th></tr>
+    <tr><td>Displacement x (m)</td><td>Angle &theta; (rad)</td><td>&theta; = x/r</td></tr>
+    <tr><td>Velocity v (m/s)</td><td>Angular velocity &omega; (rad/s)</td><td>v = r&omega;</td></tr>
+    <tr><td>Acceleration a (m/s&sup2;)</td><td>Angular accel &alpha; (rad/s&sup2;)</td><td>a<sub>t</sub> = r&alpha;</td></tr>
+    <tr><td>Mass m (kg)</td><td>Rotational inertia I (kg&middot;m&sup2;)</td><td>I = &Sigma;mr&sup2;</td></tr>
+    <tr><td>Force F (N)</td><td>Torque &tau; (N&middot;m)</td><td>&tau; = rF sin&theta;</td></tr>
+    <tr><td>F = ma</td><td>&tau; = I&alpha;</td><td>Same structure</td></tr>
+    <tr><td>Momentum p = mv</td><td>Angular momentum L = I&omega;</td><td>L = pr (point mass)</td></tr>
+    <tr><td>KE = &frac12;mv&sup2;</td><td>Rot. KE = &frac12;I&omega;&sup2;</td><td>Added for rolling objects</td></tr>
+  </table>
+  <div class="callout c-tip">
+    <div class="callout-title">Exam strategy</div>
+    When you can't remember a rotational formula, ask: "What is the linear version?" Then swap m&rarr;I, v&rarr;&omega;, a&rarr;&alpha;, F&rarr;&tau;. You'll get the correct rotational equation almost every time.
+  </div>
+</div>
+
+<!-- TOPIC 5.1 -->
+<div class="section" id="topic1">
+  <div class="section-header"><div class="topic-num t-blue">5.1</div><h2>Rotational Kinematics</h2></div>
+  <p class="prose">Rotating objects are described with angular quantities that mirror linear kinematics exactly. Angles must be in <em>radians</em> (not degrees) because the v = r&omega; link only holds in radians.</p>
+  <div class="formula-box">
+    Angular velocity: &omega; = &Delta;&theta; / &Delta;t &nbsp;(rad/s)<br>
+    Angular acceleration: &alpha; = &Delta;&omega; / &Delta;t &nbsp;(rad/s&sup2;)<br>
+    Linear-angular links: v = r&omega; &nbsp;&nbsp; a<sub>tangential</sub> = r&alpha;
+  </div>
+  <p class="prose">The four kinematic equations from Unit 1 translate directly &mdash; swap x&rarr;&theta;, v&rarr;&omega;, a&rarr;&alpha;:</p>
+  <table class="eq-table">
+    <tr><th>Linear equation</th><th>Rotational equivalent</th></tr>
+    <tr><td>v = v&#8320; + at</td><td>&omega; = &omega;&#8320; + &alpha;t</td></tr>
+    <tr><td>&Delta;x = v&#8320;t + &frac12;at&sup2;</td><td>&Delta;&theta; = &omega;&#8320;t + &frac12;&alpha;t&sup2;</td></tr>
+    <tr><td>v&sup2; = v&#8320;&sup2; + 2a&Delta;x</td><td>&omega;&sup2; = &omega;&#8320;&sup2; + 2&alpha;&Delta;&theta;</td></tr>
+    <tr><td>&Delta;x = &frac12;(v&#8320;+v)t</td><td>&Delta;&theta; = &frac12;(&omega;&#8320;+&omega;)t</td></tr>
+  </table>
+  <div class="callout c-warn">
+    <div class="callout-title">Radians vs. degrees</div>
+    Always convert degrees to radians before plugging into kinematic equations: &theta;<sub>rad</sub> = &theta;<sub>deg</sub> &times; &pi;/180. And 1 rpm = 2&pi;/60 rad/s.
+  </div>
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">1</div>Worked Example &mdash; Spinning Up a Wheel</div>
+    <p class="prose" style="margin-bottom:.5rem">A wheel starts from rest and reaches 120 rpm in 4 s with constant angular acceleration. Find &alpha; and the number of revolutions completed.</p>
+    <div class="given">Given: &omega;&#8320; = 0, &omega;<sub>f</sub> = 120 rpm = 4&pi; rad/s, t = 4 s</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; convert rpm to rad/s</div>
+      <div class="step-math">&omega;<sub>f</sub> = 120 &times; (2&pi;/60) = 4&pi; &asymp; 12.57 rad/s</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; find &alpha;</div>
+      <div class="step-math">&alpha; = (&omega;<sub>f</sub> &minus; &omega;&#8320;) / t = 4&pi; / 4 = &pi; &asymp; 3.14 rad/s&sup2;</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 3 &mdash; find &Delta;&theta; and convert to revolutions</div>
+      <div class="step-math">&Delta;&theta; = &frac12;&alpha;t&sup2; = &frac12;(&pi;)(16) = 8&pi; rad = 4 revolutions</div>
+    </div>
+    <div class="answer-box">&alpha; &asymp; 3.14 rad/s&sup2; &nbsp;|&nbsp; 4 revolutions</div>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; rotational kinematics (&omega; vs. t graph)</div>
+    <div class="panel-bd">
+      <div class="row"><label>&omega;&#8320; (rad/s)</label><input type="range" id="rk-w0" min="0" max="20" value="0" step="0.5"><span class="val" id="rk-w0v">0.0</span></div>
+      <div class="row"><label>&alpha; (rad/s&sup2;)</label><input type="range" id="rk-al" min="-6" max="6" value="2" step="0.25"><span class="val" id="rk-alv">2.00</span></div>
+      <div class="row"><label>Radius r (m)</label><input type="range" id="rk-r" min="0.1" max="2" value="0.5" step="0.1"><span class="val" id="rk-rv">0.50</span></div>
+      <canvas id="rk-canvas" height="160"></canvas>
+      <div class="readouts">
+        <div class="ro r-a"><div class="rl">&omega; at t=4 s</div><div class="rv" id="rk-wf">8.0 rad/s</div></div>
+        <div class="ro r-b"><div class="rl">v<sub>rim</sub></div><div class="rv" id="rk-v">4.0 m/s</div></div>
+        <div class="ro r-t"><div class="rl">&Delta;&theta;</div><div class="rv" id="rk-dth">16.0 rad</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 5.2 -->
+<div class="section" id="topic2">
+  <div class="section-header"><div class="topic-num t-teal">5.2</div><h2>Torque</h2></div>
+  <p class="prose"><em>Torque</em> is the rotational equivalent of force &mdash; it causes angular acceleration. A force only produces torque if it has a component <strong>perpendicular to the line from the pivot to the point of application</strong>. Force aimed directly at the pivot produces zero torque.</p>
+  <div class="formula-box">
+    &tau; = r &middot; F &middot; sin(&theta;) &nbsp;&nbsp; [N&middot;m]<br>
+    Equivalently: &tau; = r<sub>&perp;</sub> &middot; F &nbsp;&nbsp; (r<sub>&perp;</sub> = lever arm)<br>
+    CCW positive, CW negative (standard convention)
+  </div>
+  <div class="callout c-tip">
+    <div class="callout-title">Two ways to read the same formula</div>
+    &tau; = rF sin&theta; can be parsed either way:<br>
+    (1) Full distance r &times; perpendicular component of force: F<sub>&perp;</sub> = F sin&theta;<br>
+    (2) Full force F &times; perpendicular distance to line of action: r<sub>&perp;</sub> = r sin&theta;<br>
+    Pick whichever interpretation matches the geometry of the problem.
+  </div>
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">2</div>Worked Example &mdash; Force at an Angle on a Beam</div>
+    <p class="prose" style="margin-bottom:.5rem">A 0.9 m door is pushed with 15 N at 50&deg; from the door surface (= 40&deg; from perpendicular). Find the torque about the hinge.</p>
+    <div class="given">Given: r = 0.9 m, F = 15 N, &theta; (between F and r) = 90&deg; &minus; 50&deg; = 40&deg;... use the angle between r and F directly</div>
+    <div class="step">
+      <div class="step-label">Identify &theta; between force vector and position vector r</div>
+      If the force is 50&deg; from the door surface, and r lies along the door surface, then the angle between F and r is 50&deg;:
+      <div class="step-math">&tau; = rF sin(50&deg;) = (0.9)(15)(0.766) = 10.3 N&middot;m</div>
+    </div>
+    <div class="answer-box">&tau; = 10.3 N&middot;m (CCW)</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">Compare: if force were perpendicular to door (sin 90&deg; = 1), &tau; = 13.5 N&middot;m &mdash; maximum possible. Any angle away from 90&deg; reduces the torque.</p>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; torque and lever arm visualizer</div>
+    <div class="panel-bd">
+      <div class="row"><label>Force F (N)</label><input type="range" id="tor-f" min="1" max="30" value="15" step="0.5"><span class="val" id="tor-fv">15</span></div>
+      <div class="row"><label>Distance r (m)</label><input type="range" id="tor-r" min="0.1" max="2" value="0.9" step="0.05"><span class="val" id="tor-rv">0.90</span></div>
+      <div class="row"><label>&theta; (F from r)</label><input type="range" id="tor-ang" min="0" max="180" value="90" step="1"><span class="val" id="tor-angv">90&deg;</span></div>
+      <canvas id="tor-canvas" height="200"></canvas>
+      <div class="readouts">
+        <div class="ro r-a"><div class="rl">Torque &tau;</div><div class="rv" id="tor-tau">13.5 N&middot;m</div></div>
+        <div class="ro r-t"><div class="rl">Lever arm</div><div class="rv" id="tor-la">0.90 m</div></div>
+        <div class="ro r-b"><div class="rl">F<sub>&perp;</sub></div><div class="rv" id="tor-fperp">15.0 N</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 5.3 -->
+<div class="section" id="topic3">
+  <div class="section-header"><div class="topic-num t-coral">5.3</div><h2>Rotational Inertia</h2></div>
+  <p class="prose"><em>Rotational inertia</em> (I) is the rotational equivalent of mass &mdash; it measures resistance to angular acceleration. It depends not just on <strong>how much</strong> mass an object has, but on <strong>where</strong> that mass sits relative to the rotation axis. Mass farther from the axis contributes much more to I (by r&sup2;).</p>
+  <div class="formula-box">
+    Point mass: I = mr&sup2;<br>
+    System of point masses: I<sub>total</sub> = &Sigma;mr&sup2;<br>
+    (AP exam provides extended-body formulas &mdash; you do not memorize them)
+  </div>
+  <div class="i-grid">
+    <div class="i-card"><div class="i-name">Solid disk / cylinder</div><div class="i-formula">I = &frac12;MR&sup2;</div><div class="i-note">Average mass distance &lt; R; less rotational inertia than hoop</div></div>
+    <div class="i-card"><div class="i-name">Hoop / thin ring</div><div class="i-formula">I = MR&sup2;</div><div class="i-note">All mass at R; maximum I for given M and R</div></div>
+    <div class="i-card"><div class="i-name">Solid sphere</div><div class="i-formula">I = &frac25;MR&sup2;</div><div class="i-note">Mass near center; smallest I of common shapes</div></div>
+    <div class="i-card"><div class="i-name">Thin rod (about center)</div><div class="i-formula">I = &frac{1}{12}ML&sup2;</div><div class="i-note">About end: I = &frac13;ML&sup2; (farther axis &rarr; larger I)</div></div>
+  </div>
+  <div class="callout c-teal">
+    <div class="callout-title">Hoop vs. disk racing down a ramp &mdash; the AP classic</div>
+    A hoop and a solid disk of equal M and R start from rest at the top of an incline. The <strong>disk wins</strong> because it has lower rotational inertia (&frac12;MR&sup2; vs. MR&sup2;). Less of the gravitational PE is "locked up" as rotational KE, leaving more for translational KE &mdash; faster linear speed at the bottom. This is the most commonly tested application of rotational inertia.
+  </div>
+  <div class="callout c-warn">
+    <div class="callout-title">Parallel axis theorem</div>
+    Shifting the rotation axis away from the center of mass <strong>always increases I</strong>:
+    I = I<sub>cm</sub> + Md&sup2;, where d is the distance between the two parallel axes. A rod rotating about its end has I = &frac13;ML&sup2;, which is 4&times; larger than &frac{1}{12}ML&sup2; about the center.
+  </div>
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">3</div>Worked Example &mdash; Two-Mass System</div>
+    <p class="prose" style="margin-bottom:.5rem">Two 2 kg masses are attached to opposite ends of a 0.8 m massless rod pivoted at its center. Find I.</p>
+    <div class="given">Given: m = 2 kg each, r = 0.4 m each (half of 0.8 m)</div>
+    <div class="step">
+      <div class="step-label">Apply I = &Sigma;mr&sup2;</div>
+      <div class="step-math">I = (2)(0.4)&sup2; + (2)(0.4)&sup2; = 0.32 + 0.32</div>
+    </div>
+    <div class="answer-box">I = 0.64 kg&middot;m&sup2;</div>
+    <p class="prose" style="margin-top:.6rem;margin-bottom:0;font-size:13px">If the pivot moved to one end: r<sub>far</sub> = 0.8 m, so I = (2)(0)&sup2; + (2)(0.8)&sup2; = 1.28 kg&middot;m&sup2; &mdash; doubled because mass is now farther from the axis on average.</p>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; rotational inertia builder (3 point masses)</div>
+    <div class="panel-bd">
+      <div class="row"><label>Mass 1 (kg)</label><input type="range" id="ri-m1" min="0.1" max="5" value="2" step="0.1"><span class="val" id="ri-m1v">2.0</span></div>
+      <div class="row"><label>r<sub>1</sub> (m)</label><input type="range" id="ri-r1" min="0" max="2" value="0.4" step="0.05"><span class="val" id="ri-r1v">0.40</span></div>
+      <div class="row"><label>Mass 2 (kg)</label><input type="range" id="ri-m2" min="0.1" max="5" value="2" step="0.1"><span class="val" id="ri-m2v">2.0</span></div>
+      <div class="row"><label>r<sub>2</sub> (m)</label><input type="range" id="ri-r2" min="0" max="2" value="0.4" step="0.05"><span class="val" id="ri-r2v">0.40</span></div>
+      <div class="row"><label>Mass 3 (kg)</label><input type="range" id="ri-m3" min="0" max="5" value="0" step="0.1"><span class="val" id="ri-m3v">0.0</span></div>
+      <div class="row"><label>r<sub>3</sub> (m)</label><input type="range" id="ri-r3" min="0" max="2" value="1" step="0.05"><span class="val" id="ri-r3v">1.00</span></div>
+      <canvas id="ri-canvas" height="140"></canvas>
+      <div class="readouts">
+        <div class="ro r-a"><div class="rl">I<sub>total</sub></div><div class="rv" id="ri-itot">0.640 kg&middot;m&sup2;</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC 5.4 -->
+<div class="section" id="topic4">
+  <div class="section-header"><div class="topic-num t-purple">5.4</div><h2>Newton's Second Law for Rotation: &tau; = I&alpha;</h2></div>
+  <p class="prose">A net torque causes angular acceleration, just as a net force causes linear acceleration. Rotational inertia I resists the change &mdash; larger I means the same torque produces smaller &alpha;.</p>
+  <div class="formula-box">
+    &tau;<sub>net</sub> = I&alpha;<br>
+    Combined (rolling): &Sigma;F = ma (translation) + &Sigma;&tau; = I&alpha; (rotation) + a = r&alpha; (no-slip link)
+  </div>
+  <div class="callout c-tip">
+    <div class="callout-title">Strategy for combined translational + rotational problems</div>
+    For objects that roll or have a string-wrapped pulley:
+    <ol style="margin:.4rem 0 0 1.2rem;line-height:1.9;font-size:13px">
+      <li>Draw the FBD identifying all forces</li>
+      <li>Write &Sigma;F = ma for the translational direction</li>
+      <li>Write &Sigma;&tau; = I&alpha; about the rotation axis</li>
+      <li>Link with a = r&alpha; (rolling without slipping)</li>
+      <li>Solve the resulting system of equations</li>
+    </ol>
+  </div>
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">4</div>Worked Example &mdash; Mass Hanging from a Pulley</div>
+    <p class="prose" style="margin-bottom:.5rem">A 5 kg mass hangs from a cord wrapped around a solid disk pulley (M = 4 kg, R = 0.3 m) free to rotate. Find the acceleration of the hanging mass.</p>
+    <div class="given">Given: m = 5 kg, M = 4 kg, R = 0.3 m, I<sub>disk</sub> = &frac12;MR&sup2;</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; translation (hanging mass)</div>
+      <div class="step-math">mg &minus; T = ma &nbsp;&rarr;&nbsp; T = m(g&minus;a) &nbsp;&nbsp;(i)</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; rotation (pulley): &tau; = T&middot;R = I&alpha;</div>
+      <div class="step-math">TR = (&frac12;MR&sup2;)(a/R) = &frac12;MRa &nbsp;&rarr;&nbsp; T = &frac12;Ma &nbsp;&nbsp;(ii)</div>
+    </div>
+    <div class="step">
+      <div class="step-label">Step 3 &mdash; substitute (ii) into (i)</div>
+      <div class="step-math">m(g&minus;a) = &frac12;Ma &nbsp;&rarr;&nbsp; mg = a(m + &frac12;M) = a(5+2)</div>
+      <div class="step-math">a = (5)(9.8)/7</div>
+    </div>
+    <div class="answer-box">a = 7.0 m/s&sup2; (vs. 9.8 without pulley mass &mdash; rotational inertia slows the system)</div>
+  </div>
+</div>
+
+<!-- TOPIC 5.5 -->
+<div class="section" id="topic5">
+  <div class="section-header"><div class="topic-num t-amber">5.5</div><h2>Rotational Equilibrium: &Sigma;&tau; = 0</h2></div>
+  <p class="prose">When the net torque on an object is zero, it rotates at constant angular velocity (including &omega; = 0). Full static equilibrium requires both <em>&Sigma;F = 0</em> (no translational acceleration) and <em>&Sigma;&tau; = 0</em> (no angular acceleration).</p>
+  <div class="formula-box">
+    Rotational equilibrium: &Sigma;&tau; = 0 &nbsp;&nbsp;&rarr;&nbsp;&nbsp; &Sigma;&tau;<sub>CCW</sub> = &Sigma;&tau;<sub>CW</sub>
+  </div>
+  <div class="callout c-tip">
+    <div class="callout-title">Pivot selection &mdash; the most important FRQ technique in this unit</div>
+    You can choose <strong>any point</strong> as your pivot. Strategically choose the point where an unknown force acts &mdash; that force has r = 0 and vanishes from the torque equation entirely. This eliminates one unknown without any extra work.
+  </div>
+  <div class="worked">
+    <div class="worked-title"><div class="worked-num">5</div>Worked Example &mdash; Non-Uniform Beam</div>
+    <p class="prose" style="margin-bottom:.5rem">A 4 m uniform beam (M = 10 kg) is supported at 1.5 m from the left end. A 20 kg block hangs from the left end. What downward force at the right end keeps the beam horizontal?</p>
+    <div class="given">Given: L = 4 m, M = 10 kg, m<sub>block</sub> = 20 kg, pivot at x = 1.5 m from left</div>
+    <div class="step">
+      <div class="step-label">Step 1 &mdash; place pivot at support (eliminates unknown reaction force)</div>
+      Distances from pivot: block (left end) = 1.5 m CW; beam CM (x=2 m) = 0.5 m CCW; applied force (x=4 m) = 2.5 m
+    </div>
+    <div class="step">
+      <div class="step-label">Step 2 &mdash; set &Sigma;&tau; = 0</div>
+      <div class="step-math">+(10)(9.8)(0.5) + F(2.5) &minus; (20)(9.8)(1.5) = 0</div>
+      <div class="step-math">49 + 2.5F = 294 &nbsp;&rarr;&nbsp; F = 245/2.5</div>
+    </div>
+    <div class="answer-box">F = 98 N downward at the right end</div>
+  </div>
+  <div class="panel">
+    <div class="panel-hd">Interactive &mdash; seesaw torque balance</div>
+    <div class="panel-bd">
+      <div class="row"><label>Mass A (kg)</label><input type="range" id="eq-ma" min="1" max="20" value="10" step="0.5"><span class="val" id="eq-mav">10.0</span></div>
+      <div class="row"><label>Distance A (m)</label><input type="range" id="eq-ra" min="0.1" max="4" value="2" step="0.05"><span class="val" id="eq-rav">2.00</span></div>
+      <div class="row"><label>Mass B (kg)</label><input type="range" id="eq-mb" min="1" max="20" value="5" step="0.5"><span class="val" id="eq-mbv">5.0</span></div>
+      <div class="row"><label>Distance B (m)</label><input type="range" id="eq-rb" min="0.1" max="4" value="4" step="0.05"><span class="val" id="eq-rbv">4.00</span></div>
+      <canvas id="eq-canvas" height="180"></canvas>
+      <div class="readouts">
+        <div class="ro r-c"><div class="rl">&tau;<sub>A</sub> (CW)</div><div class="rv" id="eq-ta">196 N&middot;m</div></div>
+        <div class="ro r-b"><div class="rl">&tau;<sub>B</sub> (CCW)</div><div class="rv" id="eq-tb">196 N&middot;m</div></div>
+        <div class="ro r-t"><div class="rl">Net &tau;</div><div class="rv" id="eq-net">0 N&middot;m</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRACTICE -->
+<div class="section" id="practice">
+  <div class="section-header"><div class="topic-num t-blue" style="background:var(--gray-l);color:var(--text2)">&#10003;</div><h2>Practice Problems</h2></div>
+  <p class="prose">Try each problem before checking the answer.</p>
+  <div class="practice-list" id="practice-list"></div>
+</div>
+
+<div class="summary-box">
+  <h3>Unit 5 takeaways</h3>
+  <ul>
+    <li>Every linear quantity has a rotational twin. Swap m&rarr;I, v&rarr;&omega;, a&rarr;&alpha;, F&rarr;&tau; to convert any linear law to its rotational equivalent.</li>
+    <li>&tau; = rF sin&theta;. Maximum torque at &theta; = 90&deg;; zero torque when force points directly at (or away from) the pivot.</li>
+    <li>I = &Sigma;mr&sup2; for point masses. The r&sup2; dependence means mass twice as far contributes four times more. A hoop has more I than a disk of the same mass and radius; the disk wins the ramp race.</li>
+    <li>&tau;<sub>net</sub> = I&alpha; is Newton's second law for rotation. Link to translation via a = r&alpha; (rolling without slipping).</li>
+    <li>Rotational equilibrium: &Sigma;&tau; = 0. Choose the pivot strategically &mdash; place it where an unknown force acts to eliminate it from the equation immediately.</li>
+    <li>Units: torque in N&middot;m (rotational tendency, vector); energy/work in J = N&middot;m (scalar). Same unit, different physical meaning.</li>
+  </ul>
+</div>
+
+</div>
+
+<script>
+const BLUE='#185FA5',TEAL='#0F6E56',CORAL='#993C1D',PURPLE='#534AB7',AMBER='#BA7517',GRAY='#5F5E5A';
+
+function setupC(id,h){
+  const c=document.getElementById(id);if(!c)return null;
+  const dpr=window.devicePixelRatio||1,W=c.offsetWidth||680;
+  c.width=W*dpr;c.height=h*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,W,H:h};
+}
+function txt(ctx,s,x,y,col,sz=11,al='center'){
+  ctx.fillStyle=col;ctx.font=`${sz}px monospace`;ctx.textAlign=al;ctx.fillText(s,x,y);
+}
+function arrowF(ctx,x1,y1,x2,y2,col,lw=2){
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);if(l<4)return;
+  const nx=dx/l,ny=dy/l,hs=8,hw=4;
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hs*nx+hw*(-ny),y2-hs*ny+hw*nx);ctx.lineTo(x2-hs*nx-hw*(-ny),y2-hs*ny-hw*nx);ctx.closePath();ctx.fill();
+}
+
+function drawRK(){
+  const w0=parseFloat(document.getElementById('rk-w0').value);
+  const al=parseFloat(document.getElementById('rk-al').value);
+  const r=parseFloat(document.getElementById('rk-r').value);
+  document.getElementById('rk-w0v').textContent=w0.toFixed(1);
+  document.getElementById('rk-alv').textContent=al.toFixed(2);
+  document.getElementById('rk-rv').textContent=r.toFixed(2);
+  const t=4,wf=w0+al*t,dth=w0*t+0.5*al*t*t;
+  document.getElementById('rk-wf').textContent=wf.toFixed(1)+' rad/s';
+  document.getElementById('rk-v').textContent=(wf*r).toFixed(2)+' m/s';
+  document.getElementById('rk-dth').textContent=dth.toFixed(1)+' rad';
+  const rc=setupC('rk-canvas',160);if(!rc)return;
+  const{ctx,W,H}=rc;ctx.clearRect(0,0,W,H);
+  const pad=44,gw=W-pad-20,tMax=4;
+  const wMin=Math.min(w0,wf,0)-0.5,wMax=Math.max(w0,wf,0)+0.5;
+  const toX=tt=>pad+(tt/tMax)*gw,toY=wv=>H*0.88-(wv-wMin)/(wMax-wMin+0.01)*(H*0.78);
+  ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=0.6;
+  for(let tt=0;tt<=4;tt++){ctx.beginPath();ctx.moveTo(toX(tt),H*0.05);ctx.lineTo(toX(tt),H*0.9);ctx.stroke();}
+  const zy=toY(0);
+  ctx.strokeStyle='rgba(0,0,0,0.25)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(pad,zy);ctx.lineTo(W-10,zy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(pad,H*0.05);ctx.lineTo(pad,H*0.9);ctx.stroke();
+  txt(ctx,'\u03c9(rad/s)',pad-4,H*0.1,GRAY,10,'right');txt(ctx,'t(s)',W-15,zy+14,GRAY,10);
+  for(let tt=0;tt<=4;tt++) txt(ctx,tt,toX(tt),H*0.9+12,GRAY,9);
+  ctx.strokeStyle=AMBER;ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(toX(0),toY(w0));ctx.lineTo(toX(4),toY(wf));ctx.stroke();
+  ctx.fillStyle=AMBER;ctx.beginPath();ctx.arc(toX(0),toY(w0),4,0,2*Math.PI);ctx.fill();
+  ctx.fillStyle=CORAL;ctx.beginPath();ctx.arc(toX(4),toY(wf),4,0,2*Math.PI);ctx.fill();
+}
+
+function drawTorque(){
+  const f=parseFloat(document.getElementById('tor-f').value);
+  const r=parseFloat(document.getElementById('tor-r').value);
+  const ang=parseFloat(document.getElementById('tor-ang').value);
+  document.getElementById('tor-fv').textContent=f;
+  document.getElementById('tor-rv').textContent=r.toFixed(2);
+  document.getElementById('tor-angv').textContent=ang+'\u00b0';
+  const rad=ang*Math.PI/180;
+  const tau=r*f*Math.sin(rad);
+  document.getElementById('tor-tau').textContent=tau.toFixed(1)+' N\u00b7m';
+  document.getElementById('tor-la').textContent=(r*Math.sin(rad)).toFixed(2)+' m';
+  document.getElementById('tor-fperp').textContent=(f*Math.sin(rad)).toFixed(1)+' N';
+  const rc=setupC('tor-canvas',200);if(!rc)return;
+  const{ctx,W,H}=rc;ctx.clearRect(0,0,W,H);
+  const pivx=W*0.18,pivy=H*0.65,beamL=W*0.6;
+  ctx.strokeStyle=GRAY;ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(pivx,pivy);ctx.lineTo(pivx+beamL,pivy);ctx.stroke();
+  ctx.fillStyle=AMBER;ctx.beginPath();ctx.arc(pivx,pivy,7,0,2*Math.PI);ctx.fill();
+  txt(ctx,'pivot',pivx,pivy+18,AMBER,10);
+  const fx=pivx+beamL,fy=pivy;
+  const flen=Math.min(f*2.5,100);
+  const fa=rad-Math.PI/2;
+  arrowF(ctx,fx,fy,fx+flen*Math.cos(fa),fy+flen*Math.sin(fa),BLUE,2.5);
+  txt(ctx,'F='+f+'N',fx+flen*Math.cos(fa)+(Math.cos(fa)>0?10:-10),fy+flen*Math.sin(fa)-6,BLUE,11,Math.cos(fa)>0?'left':'right');
+  if(ang>3&&ang<177){
+    ctx.strokeStyle=CORAL;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.arc(fx,fy,24,-Math.PI/2,fa,fa<-Math.PI/2);ctx.stroke();
+    txt(ctx,ang+'\u00b0',fx+34,fy-14,CORAL,10,'left');
+  }
+  const laLen=r*Math.sin(rad);
+  ctx.strokeStyle=TEAL;ctx.lineWidth=1;ctx.setLineDash([5,3]);
+  ctx.beginPath();ctx.moveTo(pivx,pivy+22);ctx.lineTo(pivx+beamL,pivy+22);ctx.stroke();
+  ctx.setLineDash([]);
+  txt(ctx,'r='+r.toFixed(2)+'m',pivx+beamL/2,pivy+36,GRAY,10);
+  txt(ctx,'\u03c4='+tau.toFixed(1)+' N\u00b7m',pivx+beamL*0.4,pivy-30,AMBER,12);
+}
+
+function drawRI(){
+  const m1=parseFloat(document.getElementById('ri-m1').value);
+  const r1=parseFloat(document.getElementById('ri-r1').value);
+  const m2=parseFloat(document.getElementById('ri-m2').value);
+  const r2=parseFloat(document.getElementById('ri-r2').value);
+  const m3=parseFloat(document.getElementById('ri-m3').value);
+  const r3=parseFloat(document.getElementById('ri-r3').value);
+  document.getElementById('ri-m1v').textContent=m1.toFixed(1);
+  document.getElementById('ri-r1v').textContent=r1.toFixed(2);
+  document.getElementById('ri-m2v').textContent=m2.toFixed(1);
+  document.getElementById('ri-r2v').textContent=r2.toFixed(2);
+  document.getElementById('ri-m3v').textContent=m3.toFixed(1);
+  document.getElementById('ri-r3v').textContent=r3.toFixed(2);
+  const I1=m1*r1*r1,I2=m2*r2*r2,I3=m3*r3*r3;
+  const Itot=I1+I2+I3;
+  document.getElementById('ri-itot').textContent=Itot.toFixed(3)+' kg\u00b7m\u00b2';
+  const rc=setupC('ri-canvas',140);if(!rc)return;
+  const{ctx,W,H}=rc;ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H*0.52,maxR=Math.max(r1,r2,r3,0.5),sc=Math.min((W*0.42)/maxR,70);
+  ctx.strokeStyle=AMBER;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(cx,H*0.08);ctx.lineTo(cx,H*0.92);ctx.stroke();
+  txt(ctx,'axis',cx,H*0.06,AMBER,9);
+  const masses=[{m:m1,r:r1,dir:-1,col:BLUE},{m:m2,r:r2,dir:1,col:TEAL},{m:m3,r:r3,dir:-1.4,col:CORAL}];
+  masses.forEach((obj,i)=>{
+    if(obj.m<0.05) return;
+    const mx=cx+obj.dir*obj.r*sc*0.7,my=cy+(i-1)*32;
+    ctx.strokeStyle=GRAY;ctx.lineWidth=0.7;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx,my);ctx.lineTo(mx,my);ctx.stroke();ctx.setLineDash([]);
+    const sz=Math.min(5+obj.m*2,14);
+    ctx.fillStyle=obj.col+'33';ctx.strokeStyle=obj.col;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(mx,my,sz,0,2*Math.PI);ctx.fill();ctx.stroke();
+    txt(ctx,obj.m.toFixed(1)+'kg',mx+(obj.dir>0?sz+4:-(sz+4)),my+4,obj.col,10,obj.dir>0?'left':'right');
+  });
+  const maxIv=Math.max(I1,I2,I3,0.001),bx=W*0.6,barW=W*0.33;
+  [I1,I2,I3].forEach((iv,i)=>{
+    const bw=Math.max((iv/maxIv)*barW,2),by=cy+(i-1)*32-5;
+    const cols=[BLUE,TEAL,CORAL];
+    ctx.fillStyle=cols[i]+'44';ctx.strokeStyle=cols[i];ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(bx,by,bw,10,2);ctx.fill();ctx.stroke();
+    txt(ctx,iv.toFixed(3),bx+bw+4,by+8,cols[i],9,'left');
+  });
+}
+
+function drawEQ(){
+  const ma=parseFloat(document.getElementById('eq-ma').value);
+  const ra=parseFloat(document.getElementById('eq-ra').value);
+  const mb=parseFloat(document.getElementById('eq-mb').value);
+  const rb=parseFloat(document.getElementById('eq-rb').value);
+  document.getElementById('eq-mav').textContent=ma.toFixed(1);
+  document.getElementById('eq-rav').textContent=ra.toFixed(2);
+  document.getElementById('eq-mbv').textContent=mb.toFixed(1);
+  document.getElementById('eq-rbv').textContent=rb.toFixed(2);
+  const tauA=ma*9.8*ra,tauB=mb*9.8*rb,net=tauB-tauA;
+  document.getElementById('eq-ta').textContent=tauA.toFixed(0)+' N\u00b7m';
+  document.getElementById('eq-tb').textContent=tauB.toFixed(0)+' N\u00b7m';
+  const netEl=document.getElementById('eq-net');
+  netEl.textContent=(net>=0?'+':'')+net.toFixed(0)+' N\u00b7m';
+  netEl.parentElement.className='ro '+(Math.abs(net)<1?'r-t':(net>0?'r-b':'r-c'));
+  const rc=setupC('eq-canvas',180);if(!rc)return;
+  const{ctx,W,H}=rc;ctx.clearRect(0,0,W,H);
+  const pivx=W/2,pivy=H*0.55;
+  const tilt=Math.tanh(net/(Math.max(tauA,tauB)+1)*5)*0.18;
+  const maxR=Math.max(ra,rb,1),bsc=Math.min((W*0.42)/maxR,55);
+  ctx.save();ctx.translate(pivx,pivy);ctx.rotate(tilt);
+  ctx.strokeStyle=AMBER;ctx.lineWidth=5;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(-ra*bsc,0);ctx.lineTo(rb*bsc,0);ctx.stroke();
+  const bA=Math.min(10+ma*2,30);
+  ctx.fillStyle=BLUE+'33';ctx.strokeStyle=BLUE;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(-ra*bsc-bA/2,-bA-4,bA,bA,3);ctx.fill();ctx.stroke();
+  txt(ctx,ma.toFixed(0)+'kg',-ra*bsc,-(bA/2)+4,BLUE,10);
+  const bB=Math.min(10+mb*2,30);
+  ctx.fillStyle=TEAL+'33';ctx.strokeStyle=TEAL;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(rb*bsc-bB/2,-bB-4,bB,bB,3);ctx.fill();ctx.stroke();
+  txt(ctx,mb.toFixed(0)+'kg',rb*bsc,-(bB/2)+4,TEAL,10);
+  ctx.restore();
+  ctx.fillStyle=AMBER;
+  ctx.beginPath();ctx.moveTo(pivx-12,pivy+4);ctx.lineTo(pivx+12,pivy+4);ctx.lineTo(pivx,pivy-8);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(pivx-18,pivy+5);ctx.lineTo(pivx+18,pivy+5);ctx.stroke();
+  txt(ctx,'r_A='+ra.toFixed(2)+'m',pivx-ra*bsc*0.5,pivy+26,BLUE,10);
+  txt(ctx,'r_B='+rb.toFixed(2)+'m',pivx+rb*bsc*0.5,pivy+26,TEAL,10);
+  const status=Math.abs(net)<1?'BALANCED \u2713':(net>0?'Tilts right \u2192':'\u2190 Tilts left');
+  const scol=Math.abs(net)<1?TEAL:(net>0?CORAL:BLUE);
+  txt(ctx,status,W/2,H*0.94,scol,12);
+}
+
+function redrawAll(){drawRK();drawTorque();drawRI();drawEQ();}
+['rk-w0','rk-al','rk-r'].forEach(id=>document.getElementById(id).addEventListener('input',drawRK));
+['tor-f','tor-r','tor-ang'].forEach(id=>document.getElementById(id).addEventListener('input',drawTorque));
+['ri-m1','ri-r1','ri-m2','ri-r2','ri-m3','ri-r3'].forEach(id=>document.getElementById(id).addEventListener('input',drawRI));
+['eq-ma','eq-ra','eq-mb','eq-rb'].forEach(id=>document.getElementById(id).addEventListener('input',drawEQ));
+
+const practiceItems=[
+  {
+    q:'A 0.5 m wrench applies a 40 N force perpendicular to the handle. What is the torque on the bolt?',
+    a:'&tau; = rF sin&theta; = (0.5)(40) sin(90&deg;) = <strong>20 N&middot;m</strong>. Force perpendicular to r gives maximum torque.'
+  },
+  {
+    q:'A disk (I = &frac12;MR&sup2;) and a hoop (I = MR&sup2;) of equal M and R roll down an identical ramp from rest. Which reaches the bottom first, and why?',
+    a:'<strong>The disk wins.</strong> Energy conservation: mgh = &frac12;mv&sup2; + &frac12;I&omega;&sup2;. The hoop has twice the rotational inertia, so more energy goes into rotation and less into forward speed. The disk converts more PE into translational KE and arrives faster.'
+  },
+  {
+    q:'A wheel with I = 2 kg&middot;m&sup2; receives a net torque of 6 N&middot;m. Find the angular acceleration.',
+    a:'&tau; = I&alpha; &rarr; &alpha; = &tau;/I = 6/2 = <strong>3 rad/s&sup2;</strong>.'
+  },
+  {
+    q:'A 6 m uniform beam (M = 20 kg) is pivoted at its center. A 30 kg child sits 2 m to the left. Where must a 15 kg child sit on the right to balance?',
+    a:'&Sigma;&tau; = 0 about pivot:<br>&tau;<sub>left</sub> = (30)(9.8)(2) = 588 N&middot;m (CW)<br>&tau;<sub>beam</sub> = 0 (CM at pivot)<br>(15)(9.8)(r) = 588 &rarr; r = 588/147 = <strong>4 m from the pivot</strong>.'
+  },
+  {
+    q:'Two point masses: 3 kg at 1.2 m and 3 kg at 0.6 m from a rotation axis. Find I<sub>total</sub>.',
+    a:'I = mr&sup2; for each:<br>I<sub>1</sub> = (3)(1.2)&sup2; = 4.32 kg&middot;m&sup2;<br>I<sub>2</sub> = (3)(0.6)&sup2; = 1.08 kg&middot;m&sup2;<br>I<sub>total</sub> = <strong>5.40 kg&middot;m&sup2;</strong>. Mass at 1.2 m contributes 4&times; more than equal mass at 0.6 m (r&sup2; dependence).'
+  },
+  {
+    q:'A solid cylinder (M = 3 kg, R = 0.2 m) starts from rest. A net torque of 0.6 N&middot;m acts for 4 s. Find the final angular velocity and the rim speed.',
+    a:'I = &frac12;MR&sup2; = &frac12;(3)(0.04) = 0.06 kg&middot;m&sup2;<br>&alpha; = &tau;/I = 0.6/0.06 = 10 rad/s&sup2;<br>&omega;<sub>f</sub> = 0 + (10)(4) = <strong>40 rad/s</strong><br>v<sub>rim</sub> = R&omega; = (0.2)(40) = <strong>8 m/s</strong>'
+  }
+];
+
+function buildPractice(){
+  const list=document.getElementById('practice-list');
+  practiceItems.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='practice-item';
+    d.innerHTML='<div class="practice-q"><strong>'+(i+1)+'.</strong> '+item.q+'</div><div class="practice-toggle" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'block\'?\'none\':\'block\'">show solution</div><div class="practice-answer">'+item.a+'</div>';
+    list.appendChild(d);
+  });
+}
+
+buildPractice();
+window.addEventListener('load',redrawAll);
+setTimeout(redrawAll,100);
+window.addEventListener('resize',redrawAll);
+</script>
+</body>
+</html>
